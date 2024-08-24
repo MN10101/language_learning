@@ -7,6 +7,7 @@ from .forms import ProfileForm
 from .models import Language
 from .forms import ProfileForm
 from django.shortcuts import render
+from django.contrib import messages
 
 def submit_english_test(request):
     if request.method == 'POST':
@@ -39,8 +40,6 @@ def submit_english_test(request):
         return render(request, 'test_result.html', {'score': score})
 
 
-
-
 @login_required
 def settings(request):
     return render(request, 'learning/settings.html')
@@ -52,21 +51,19 @@ def profile(request):
         form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
-            return redirect('profile')
+            messages.success(request, 'Profile updated successfully!')
+            return redirect('view_profile')  # Redirect to 'My Profile' page after saving
     else:
         form = ProfileForm(instance=profile)
     return render(request, 'learning/profile.html', {'form': form, 'profile': profile})
 
+
+
 @login_required
-def profile_view(request):
-    if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
-        if form.is_valid():
-            form.save()
-            return redirect('profile')  # Redirect to profile page after saving
-    else:
-        form = ProfileForm(instance=request.user.profile)
-    return render(request, 'profile.html', {'form': form})
+def view_profile(request):
+    profile = request.user.profile
+    return render(request, 'learning/view_profile.html', {'profile': profile})
+
 
 @login_required
 def save_profile(request):
@@ -74,11 +71,18 @@ def save_profile(request):
         form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
         if form.is_valid():
             form.save()
-            return redirect('english_test')  # Redirect to the English test page
+            return redirect('welcome')  # Redirect to the Welcome page after saving
     else:
         form = ProfileForm(instance=request.user.profile)
     
-    return render(request, 'profile.html', {'form': form})
+    return render(request, 'learning/profile.html', {'form': form})
+
+@login_required
+def welcome(request):
+    profile = request.user.profile
+    return render(request, 'learning/welcome.html', {'profile': profile})
+
+
 
 def home(request):
     return render(request, 'learning/home.html')
@@ -92,6 +96,12 @@ def register(request):
     else:
         form = UserCreationForm()
     return render(request, 'learning/register.html', {'form': form})
+
+@login_required
+def view_profile(request):
+    profile = request.user.profile
+    return render(request, 'learning/view_profile.html', {'profile': profile})
+
 
 def user_login(request):
     if request.method == 'POST':

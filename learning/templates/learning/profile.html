@@ -144,22 +144,23 @@
  <body>
      <!-- Navbar -->
      <div class="navbar">
-         <div class="profile-info" onclick="toggleDropdown()">
-             {% if profile.profile_picture %}
-                 <img src="{{ profile.profile_picture.url }}" class="profile-picture" alt="Profile Picture">
-             {% else %}
-                 <img src="{% static 'default_profile_picture.jpg' %}" class="profile-picture" alt="Default Profile Picture">
-             {% endif %}
-             <div id="dropdownMenu" class="dropdown-menu">
-                 <a href="{% url 'profile' %}">My Profile</a>
-                 <a href="{% url 'settings' %}">Settings</a>
-                 <form method="post" action="{% url 'logout' %}" style="margin: 0;">
-                     {% csrf_token %}
-                     <button type="submit" style="background:none; border:none; color:#333; cursor:pointer; width:100%; padding:10px 15px; text-align:left;">Logout</button>
-                 </form>
-             </div>
-         </div>
-     </div>
+        <div class="profile-info" onclick="toggleDropdown()">
+            {% if profile.profile_picture %}
+                <img src="{{ profile.profile_picture.url }}" class="profile-picture" alt="Profile Picture">
+            {% else %}
+                <img src="{% static 'default_profile_picture.jpg' %}" class="profile-picture" alt="Default Profile Picture">
+            {% endif %}
+            <div id="dropdownMenu" class="dropdown-menu">
+                <a href="{% url 'view_profile' %}">My Profile</a>
+                <a href="{% url 'settings' %}">Settings</a>
+                <form method="post" action="{% url 'logout' %}" style="margin: 0;">
+                    {% csrf_token %}
+                    <button type="submit" style="background:none; border:none; color:#333; cursor:pointer; width:100%; padding:10px 15px; text-align:left;">Logout</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
  
      <!-- Profile Form -->
      <div class="container">

@@ -2,6 +2,8 @@ from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
 from .views import save_profile, english_test, submit_english_test
+from django.contrib.auth import views as auth_views
+from . import views
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -13,4 +15,7 @@ urlpatterns = [
     path('profile/save/', views.save_profile, name='save_profile'),
     path('english-test/', views.english_test, name='english_test'),
     path('submit-test/', views.submit_english_test, name='submit_english_test'),
+    path('view-profile/', views.view_profile, name='view_profile'),
+    path('welcome/', views.welcome, name='welcome'),
 ]
+
