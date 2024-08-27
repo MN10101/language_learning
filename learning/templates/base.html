@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{% block title %}JE Language Learning{% endblock %}</title>
+    {% load static %}
+    <style>
+        /* General styles to make the footer stick to the bottom */
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: #4b0082;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed; /* Fixed position */
+            top: 0; /* Position at the top */
+            left: 0; /* Align to the left */
+            right: 0; /* Align to the right */
+            z-index: 1000; /* Ensure it stays above other content */
+        }
+        .navbar-left {
+            display: flex;
+            gap: 15px;
+        }
+        .navbar-left a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 10px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .navbar-left a:hover {
+            background-color: #5e2d91;
+            transform: scale(1.2);
+        }
+        .profile-info {
+            position: relative;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .profile-info img.profile-picture {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: white;
+            color: #333;
+            border-radius: 5px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            min-width: 150px;
+            padding: 0;
+        }
+        .dropdown-menu a {
+            color: #333;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+            border-bottom: 1px solid #eee;
+        }
+        .dropdown-menu a:hover {
+            background-color: #f0f0f0;
+        }
+        .dropdown-menu a:last-child {
+            border-bottom: none;
+        }
+        .dropdown-menu.active {
+            display: block;
+        }
+
+        /* Logo Styles */
+        .logo {
+            font-family: Arial, sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .logo:hover {
+            transform: scale(1.5);
+        }
+        .logo span {
+            display: inline-block;
+            transition: color 0.5s;
+        }
+        .logo .j {
+            color: white;
+        }
+        .logo .e {
+            color: white;
+        }
+        .logo-letter:first-child {
+            color: white; 
+            /* Default color for J */
+        }
+
+        .logo-letter:last-child {
+            color: white; /* Default color for E */
+        }
+
+        .logo:hover .logo-letter:first-child {
+            color: yellow; /* Hover color for J */
+        }
+
+        .logo:hover .logo-letter:last-child {
+            color: purple; /* Hover color for E */
+        }
+
+        /* Container Styles */
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        /* Headings */
+        h1 {
+            color: #4b0082;
+            margin-bottom: 25px;
+        }
+
+        /* Form Styles */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        form label {
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: bold;
+            text-align: left;
+        }
+        form input, form select, form textarea {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
+        }
+        form textarea {
+            height: 100px;
+        }
+        button {
+            background-color: #4b0082;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #5e2d91;
+        }
+
+        /* Profile Styles */
+        .profile-detail {
+            margin-bottom: 15px;
+        }
+        .profile-detail label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .profile-detail p {
+            margin: 0;
+            color: #333;
+        }
+        .profile-actions {
+            margin-top: 30px;
+            text-align: center;
+        }
+        .profile-actions a {
+            background-color: #4b0082;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .profile-actions a:hover {
+            background-color: #5e2d91;
+        }
+
+        /* Image Styles */
+        img.profile-picture {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            margin-bottom: 20px;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background-color: #4b0082;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            width: 100%;
+            position: relative;
+            bottom: 0;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-left p {
+            margin: 0;
+        }
+
+        .footer-right a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .footer-right a:hover {
+            color: #f0f0f0;
+        }
+
+        /* Additional Content Styles for fixed navbar */
+        .content {
+            padding-top: 60px; /* Adjust according to the height of your navbar */
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Scroll-to-Top Button Styles */
+        #scrollTopBtn {
+            position: fixed;
+            bottom: 20px; /* Distance from the bottom */
+            right: 20px; /* Distance from the right */
+            background-color: #4b0082; /* Button color */
+            color: white; /* Text color */
+            border: none; /* Remove border */
+            border-radius: 5px; /* Rounded corners */
+            padding: 10px; /* Padding around the text */
+            cursor: pointer; /* Pointer cursor on hover */
+            font-size: 20px; /* Font size for the arrow */
+            display: none; /* Initially hidden */
+            z-index: 1000; /* Ensure it's on top of other content */
+            transition: opacity 0.3s; /* Fade-in effect */
+        }
+
+        #scrollTopBtn:hover {
+            background-color: #5e2d91; /* Darker shade on hover */
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="{% url 'welcome' %}" class="logo">
+            <span class="logo-letter">J</span><span class="logo-letter">E</span>
+        </a>
+        
+        <div class="navbar-left">
+            <a href="{% url 'about_us' %}">About Us</a>
+            <a href="{% url 'upload_file' %}">Upload File</a>
+            <a href="{% url 'list_files' %}">My Files</a>
+            <a href="#">My Classes</a>
+            <a href="#">My Course</a>
+            <a href="#">Prices</a>
+            <a href="#">Contact Us</a>
+        </div>
+        <div class="profile-info" onclick="toggleDropdown()">
+            {% if user.is_authenticated and user.profile.profile_picture %}
+                <img src="{{ user.profile.profile_picture.url }}" class="profile-picture" alt="Profile Picture">
+            {% else %}
+                <img src="{% static 'default_profile_picture.jpg' %}" class="profile-picture" alt="Default Profile Picture">
+            {% endif %}
+            <div id="dropdownMenu" class="dropdown-menu">
+                <a href="{% url 'view_profile' %}">My Profile</a>
+                <a href="{% url 'settings' %}">Settings</a>
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" style="background:none; border:none; color:#333; cursor:pointer; width:100%; padding:10px 15px; text-align:left;">Logout</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Wrapper -->
+    <div class="content-wrapper">
+        <!-- Main Content -->
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+
+    <!-- Scroll-to-Top Button -->
+    <button id="scrollTopBtn" title="Go to top">&#8679;</button>
+
+    <script>
+        function toggleDropdown() {
+            document.getElementById("dropdownMenu").classList.toggle("active");
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.matches('.profile-info img')) {
+                var dropdowns = document.getElementsByClassName("dropdown-menu");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('active')) {
+                        openDropdown.classList.remove('active');
+                    }
+                }
+            }
+        };
+
+        // Scroll-to-Top Button Script
+        var scrollTopBtn = document.getElementById("scrollTopBtn");
+
+        window.onscroll = function() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                scrollTopBtn.style.display = "block";
+            } else {
+                scrollTopBtn.style.display = "none";
+            }
+        };
+
+        scrollTopBtn.onclick = function() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        };
+    </script>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <p>&copy; 2024 My Website. All rights reserved.</p>
+            </div>
+            <div class="footer-right">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

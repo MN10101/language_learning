@@ -1,147 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Profile</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 0;
-        }
-        .navbar {
-            background-color: #4b0082;
-            color: white;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            position: relative;
-        }
-        .profile-info {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-        .profile-info img.profile-picture {
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            margin-left: 10px;
-        }
-        .container {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 600px;
-            margin: 20px auto;
-        }
-        h1 {
-            color: #4b0082;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-        .profile-detail {
-            margin-bottom: 15px;
-        }
-        .profile-detail label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
-        }
-        .profile-detail p {
-            margin: 0;
-            color: #333;
-        }
-        .profile-actions {
-            margin-top: 30px;
-            text-align: center;
-        }
-        .profile-actions a {
-            background-color: #4b0082;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-right: 10px;
-        }
-        .profile-actions a:hover {
-            background-color: #5e2d91;
-        }
-    </style>
-    {% load static %}  <!-- Load static files -->
-</head>
-<body>
-    <!-- Navbar -->
-    <div class="navbar">
-        <div class="profile-info" onclick="toggleDropdown()">
-            {% if profile.profile_picture %}
-                <img src="{{ profile.profile_picture.url }}" class="profile-picture" alt="Profile Picture">
-            {% else %}
-                <img src="{% static 'default_profile_picture.jpg' %}" class="profile-picture" alt="Default Profile Picture">
-            {% endif %}
-        </div>
-    </div>
+{% extends 'base.html' %}
 
-    <!-- Profile Information -->
-    <div class="container">
-        <h1>My Profile</h1>
-        <div class="profile-detail">
-            <label>First Name</label>
-            <p>{{ profile.first_name }}</p>
-        </div>
-        <div class="profile-detail">
-            <label>Last Name</label>
-            <p>{{ profile.last_name }}</p>
-        </div>
-        <div class="profile-detail">
-            <label>Email</label>
-            <p>{{ profile.user.email }}</p>
-        </div>
-        <div class="profile-detail">
-            <label>Age</label>
-            <p>{{ profile.age }}</p>
-        </div>
-        <div class="profile-detail">
-            <label>Address</label>
-            <p>{{ profile.address }}</p>
-        </div>
-        <div class="profile-detail">
-            <label>Postal Code</label>
-            <p>{{ profile.postal_code }}</p>
-        </div>
-        <div class="profile-detail">
-            <label>City</label>
-            <p>{{ profile.city }}</p>
-        </div>
-        <div class="profile-detail">
-            <label>Country</label>
-            <p>{{ profile.country }}</p>
-        </div>
-        <div class="profile-detail">
-            <label>Birth Date</label>
-            <p>{{ profile.birth_date }}</p>
-        </div>
-        <div class="profile-detail">
-            <label>Phone Number</label>
-            <p>{{ profile.phone_number }}</p>
-        </div>
-        <div class="profile-detail">
-            <label>Nationality</label>
-            <p>{{ profile.nationality }}</p>
-        </div>
-        <div class="profile-detail">
-            <label>Bio</label>
-            <p>{{ profile.bio }}</p>
-        </div>
-        <div class="profile-actions">
-            <a href="{% url 'profile' %}">Edit Profile</a>
-            <a href="{% url 'settings' %}">Settings</a>
-        </div>
+{% load static %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>My Profile</h1>
+    <div class="profile-detail">
+        <label>First Name</label>
+        <p>{{ profile.first_name }}</p>
     </div>
-</body>
-</html>
+    <div class="profile-detail">
+        <label>Last Name</label>
+        <p>{{ profile.last_name }}</p>
+    </div>
+    <div class="profile-detail">
+        <label>Email</label>
+        <p>{{ profile.user.email }}</p>
+    </div>
+    <div class="profile-detail">
+        <label>Age</label>
+        <p>{{ profile.age }}</p>
+    </div>
+    <div class="profile-detail">
+        <label>Address</label>
+        <p>{{ profile.address }}</p>
+    </div>
+    <div class="profile-detail">
+        <label>Postal Code</label>
+        <p>{{ profile.postal_code }}</p>
+    </div>
+    <div class="profile-detail">
+        <label>City</label>
+        <p>{{ profile.city }}</p>
+    </div>
+    <div class="profile-detail">
+        <label>Country</label>
+        <p>{{ profile.country }}</p>
+    </div>
+    <div class="profile-detail">
+        <label>Birth Date</label>
+        <p>{{ profile.birth_date }}</p>
+    </div>
+    <div class="profile-detail">
+        <label>Phone Number</label>
+        <p>{{ profile.phone_number }}</p>
+    </div>
+    <div class="profile-detail">
+        <label>Nationality</label>
+        <p>{{ profile.nationality }}</p>
+    </div>
+    <div class="profile-detail">
+        <label>Bio</label>
+        <p>{{ profile.bio }}</p>
+    </div>
+    <div class="profile-actions">
+        <a href="{% url 'profile' %}">Edit Profile</a>
+        <a href="{% url 'settings' %}">Settings</a>
+    </div>
+</div>
+{% endblock %}

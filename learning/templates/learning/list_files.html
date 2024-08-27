@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}My Files{% endblock %}
+
+{% block content %}
+<div class="container mt-5" style="max-width: 800px; margin: 0 auto;">
+    <h1 class="text-center mb-4">My Files</h1>
+    {% if files %}
+        <table border="1" style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr style="background-color: #f2f2f2;">
+                    <th style="padding: 8px;">File Name</th>
+                    <th style="padding: 8px;">Uploaded At</th>
+                    <th style="padding: 8px; text-align: center;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for file in files %}
+                    <tr>
+                        <td style="padding: 8px;">
+                            <a href="{{ file.file.url }}" download>{{ file.file.name }}</a>
+                        </td>
+                        <td style="padding: 8px;">{{ file.uploaded_at }}</td>
+                        <td style="padding: 8px; text-align: center;">
+                            <form method="post" action="{% url 'delete_file' file.id %}">
+                                {% csrf_token %}
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No files have been uploaded yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

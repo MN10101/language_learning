@@ -1,68 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            padding: 20px;
-            text-align: center;
-        }
+{% extends 'base.html' %}
 
-        .container {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            width: 100%;
-        }
+{% load static %}
 
-        h1 {
-            color: #4b0082;
-            margin-bottom: 25px;
-        }
+{% block title %}Welcome{% endblock %}
 
-        img.profile-picture {
-            border-radius: 50%;
-            width: 150px;
-            height: 150px;
-            margin-bottom: 20px;
-        }
-
-        button {
-            background-color: #4b0082;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        button:hover {
-            background-color: #5e2d91;
-        }
-    </style>
-    {% load static %}
-</head>
-<body>
-    <div class="container">
-        {% if profile.profile_picture %}
-            <img src="{{ profile.profile_picture.url }}" class="profile-picture" alt="Profile Picture">
-        {% else %}
-            <img src="{% static 'default_profile_picture.jpg' %}" class="profile-picture" alt="Default Profile Picture">
-        {% endif %}
-        <h1>Welcome, {{ profile.first_name }} {{ profile.last_name }}!</h1>
-        <button onclick="window.location.href='{% url 'english_test' %}'">Take the Test</button>
-    </div>
-</body>
-</html>
+{% block content %}
+<div class="container">
+    {% if profile.profile_picture %}
+        <img src="{{ profile.profile_picture.url }}" class="profile-picture" alt="Profile Picture">
+    {% else %}
+        <img src="{% static 'default_profile_picture.jpg' %}" class="profile-picture" alt="Default Profile Picture">
+    {% endif %}
+    <h1>Welcome, {{ profile.first_name }} {{ profile.last_name }}!</h1>
+    <p>Welcome to our advanced education system designed to enhance your learning experience and help you achieve your academic goals. Our platform offers comprehensive English language assessments tailored to various proficiency levels, ensuring that every learner receives personalized feedback and guidance.</p>
+    <p>Whether you are preparing for an exam, seeking to improve your language skills, or just beginning your learning journey, our system provides valuable insights and resources to support your progress. We are committed to delivering high-quality educational tools and a supportive community to help you succeed.</p>
+    <button onclick="window.location.href='{% url 'english_test' %}'">Take the Test</button>
+</div>
+{% endblock %}

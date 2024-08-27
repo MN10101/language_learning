@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>About Us</h1>
+    <div class="profile-section">
+        <img src="{% static 'images/jonathan_davies.jpg' %}" alt="Jonathan Davies" class="profile-picture">
+        <p>I am Jonathan Davies. A teacher, curriculum developer, educational consultant, and lifelong learner. I have created this web application to help students of all ages master language learning. Whether you are a beginner or advanced, we can tailor your lessons according to your workload or lifestyle.</p>
+    </div>
+    <div class="about-details">
+        <p>Unlike traditional online schools, we teach in an innovative manner through real-life situational contexts. We also focus on learning through gaming and exploration. All our teaching staff are highly qualified and professional. We also offer the ability for a student to upload any assignments so they are checked and improved. We specialize in IELTS, TOEFL, and ALL examination boards. We know the tricks of the trade to ensure our students reach their full potential.</p>
+        <p>Come join us and learn and keep learning!</p>
+    </div>
+</div>
+{% endblock %}
+
+<style>
+/* Container Styles */
+.container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+/* Profile Section */
+.profile-section {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.profile-picture {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin-bottom: 20px;
+}
+
+/* About Details */
+.about-details {
+    text-align: left;
+    margin-top: 20px;
+}
+
+.about-details p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+    color: #333;
+}
+</style>

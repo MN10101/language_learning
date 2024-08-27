@@ -1,124 +1,249 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Settings</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 0;
-        }
-        .navbar {
-            background-color: #4b0082;
-            color: white;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: flex-end; /* Align items to the right */
-            align-items: center;
-            position: relative; /* Ensure dropdown is positioned relative to navbar */
-        }
-        .navbar .profile-info {
-            position: relative;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-        }
-        .navbar img.profile-picture {
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-        }
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%; /* Position directly below the navbar */
-            right: 0;
-            background-color: white;
-            color: #333; /* Ensure text is readable */
-            border-radius: 5px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            z-index: 1000; /* Ensure dropdown is on top */
-            min-width: 150px;
-            padding: 0;
-        }
-        .dropdown-menu a {
-            color: #333;
-            padding: 10px 15px;
-            text-decoration: none;
-            display: block;
-            border-bottom: 1px solid #eee;
-        }
-        .dropdown-menu a:hover {
-            background-color: #f0f0f0;
-        }
-        .dropdown-menu a:last-child {
-            border-bottom: none;
-        }
-        .dropdown-menu.active {
-            display: block;
-        }
-        .container {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 600px;
-            margin: 20px auto;
-            text-align: center;
-        }
-        h1 {
-            color: #4b0082;
-            margin-bottom: 25px;
-        }
-    </style>
-    {% load static %}
-    <script>
-        function toggleDropdown() {
-            document.getElementById("dropdownMenu").classList.toggle("active");
-        }
+{% extends 'base.html' %}
 
-        window.onclick = function(event) {
-            if (!event.target.matches('.profile-info img')) {
-                var dropdowns = document.getElementsByClassName("dropdown-menu");
-                for (var i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('active')) {
-                        openDropdown.classList.remove('active');
-                    }
-                }
-            }
-        }
-    </script>
-</head>
-<body>
-    <!-- Navbar -->
-    <div class="navbar">
-        <div class="profile-info" onclick="toggleDropdown()">
-            {% if request.user.profile.profile_picture %}
-                <img src="{{ request.user.profile.profile_picture.url }}" class="profile-picture" alt="Profile Picture">
-            {% else %}
-                <img src="{% static 'default_profile_picture.jpg' %}" class="profile-picture" alt="Default Profile Picture">
-            {% endif %}
-            <div id="dropdownMenu" class="dropdown-menu">
-                <a href="{% url 'profile' %}">My Profile</a>
-                <a href="{% url 'settings' %}">Settings</a>
-                <form method="post" action="{% url 'logout' %}" style="margin: 0;">
-                    {% csrf_token %}
-                    <button type="submit" style="background:none; border:none; color:#333; cursor:pointer; width:100%; padding:10px 15px; text-align:left;">Logout</button>
-                </form>
+{% load static %}
+
+{% block title %}Settings{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Settings</h1>
+    <p>Here you can manage your settings.</p>
+
+    <!-- Preferences Section -->
+    <h2>Preferences</h2>
+    <form method="post" action="{% url 'settings' %}">
+
+        {% csrf_token %}
+
+        <!-- Password & Social Accounts -->
+        <fieldset>
+            <legend>Password & Social Accounts</legend>
+            <div class="form-group">
+                <label for="current-password">Current Password:</label>
+                <div class="input-group">
+                    <span class="input-group-icon"><i class="fas fa-lock"></i></span>
+                    <input type="password" id="current-password" name="current_password" required>
+                </div>
             </div>
-        </div>
-    </div>
+            <div class="form-group">
+                <label for="new-password">New Password:</label>
+                <div class="input-group">
+                    <span class="input-group-icon"><i class="fas fa-key"></i></span>
+                    <input type="password" id="new-password" name="new_password" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirm New Password:</label>
+                <div class="input-group">
+                    <span class="input-group-icon"><i class="fas fa-key"></i></span>
+                    <input type="password" id="confirm-password" name="confirm_password" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="connect-social">Connect Social Accounts:</label>
+                <div>
+                    <button type="button" onclick="connectSocial('X')" class="social-btn">
+                        <i class="fas fa-globe"></i> Connect X
+                    </button>
+                    <button type="button" onclick="connectSocial('Google')" class="social-btn">
+                        <i class="fab fa-google"></i> Connect Google
+                    </button>
+                    <button type="button" onclick="connectSocial('Apple')" class="social-btn">
+                        <i class="fab fa-apple"></i> Connect Apple
+                    </button>
+                </div>
+            </div>
+        </fieldset>
 
-    <!-- Settings Page Content -->
-    <div class="container">
-        <h1>Settings</h1>
-        <p>Here you can manage your settings.</p>
-        <!-- Add settings form or options here -->
-    </div>
-</body>
-</html>
+        <!-- Time and Language -->
+        <fieldset>
+            <legend>Time and Language</legend>
+            <div class="form-group">
+                <label for="timezone">Timezone:</label>
+                <select id="timezone" name="timezone">
+                    <!-- Timezone options will be populated by JavaScript -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="time-format">Time Format:</label>
+                <select id="time-format" name="time_format">
+                    <option value="12">12-hour</option>
+                    <option value="24">24-hour</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="week-start">Week Start:</label>
+                <select id="week-start" name="week_start">
+                    <option value="0">Sunday</option>
+                    <option value="1">Monday</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="site-language">Site Language:</label>
+                <select id="site-language" name="site_language">
+                    <!-- Language options will be populated by JavaScript -->
+                </select>
+            </div>
+        </fieldset>
+
+        <!-- Notifications -->
+        <fieldset>
+            <legend>Notifications</legend>
+            <div class="form-group">
+                <label><input type="checkbox" name="system_notifications" checked> System Notifications</label>
+            </div>
+            <div class="form-group">
+                <label><input type="checkbox" name="one_click_booking" checked> Booking with One Click</label>
+            </div>
+            <div class="form-group">
+                <label><input type="checkbox" name="next_class_notification" checked> Notification About Next Class</label>
+            </div>
+            <div class="form-group">
+                <label><input type="checkbox" name="email_notifications" checked> E-mail Notifications</label>
+            </div>
+            <div class="form-group">
+                <label><input type="checkbox" name="booked_class_confirmation" checked> Booked Class Confirmation</label>
+            </div>
+            <div class="form-group">
+                <label><input type="checkbox" name="cancelled_class_confirmation" checked> Cancelled Class Confirmation</label>
+            </div>
+            <div class="form-group">
+                <label><input type="checkbox" name="marketing_communications" checked> Marketing Communications</label>
+            </div>
+            <div class="form-group">
+                <label><input type="checkbox" name="class_reminder" checked> Class Reminder</label>
+            </div>
+            <div class="form-group">
+                <label><input type="checkbox" name="weekly_recap" checked> Weekly Recap</label>
+            </div>
+        </fieldset>
+
+        <!-- Calendar Connection -->
+        <fieldset>
+            <legend>Calendar Connection</legend>
+            <div class="form-group">
+                <button type="button" onclick="connectCalendar('Google')" class="calendar-btn">
+                    <i class="fab fa-google"></i> Connect Google Calendar
+                </button>
+            </div>
+            <div class="form-group">
+                <button type="button" onclick="connectCalendar('Office365')" class="calendar-btn">
+                    <i class="fab fa-microsoft"></i> Connect Office 365/Outlook
+                </button>
+            </div>
+        </fieldset>
+
+        <button type="submit">Save Changes</button>
+    </form>
+</div>
+<script>
+    // Populate timezone select with user's current timezone and others
+    function populateTimezones() {
+        const timezoneSelect = document.getElementById('timezone');
+        const timezones = Intl.supportedValuesOf('timeZone');
+        const currentTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+        timezones.forEach(tz => {
+            const option = document.createElement('option');
+            option.value = tz;
+            option.textContent = tz.replace('_', ' ');
+            timezoneSelect.appendChild(option);
+        });
+
+        timezoneSelect.value = currentTimezone; // Automatically select current timezone
+    }
+
+    // Populate language options
+    function populateLanguages() {
+        const languageSelect = document.getElementById('site-language');
+        const languages = [
+            { code: 'en', name: 'English' },
+            { code: 'es', name: 'Spanish' },
+            { code: 'fr', name: 'French' },
+            { code: 'de', name: 'German' },
+            { code: 'zh', name: 'Chinese' },
+            // Add more languages as needed
+        ];
+
+        languages.forEach(lang => {
+            const option = document.createElement('option');
+            option.value = lang.code;
+            option.textContent = lang.name;
+            languageSelect.appendChild(option);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        populateTimezones();
+        populateLanguages();
+    });
+
+    // Function to connect to social platforms
+    function connectSocial(platform) {
+    const redirectURI = encodeURIComponent('https://domain.com'); 
+    const googleClientID = '831072126004-651a06d6bmjd4kemgf7lc17d55fs9gk5.apps.googleusercontent.com'; 
+    const xClientID = 'cm5LMVRoSkc5bG02cWdkZlJFTWM6MTpjaQ'; 
+    const appleClientID = 'your-apple-client-id'; 
+
+    if (platform === 'Google') {
+        window.location.href = `https://accounts.google.com/o/oauth2/auth?client_id=${googleClientID}&redirect_uri=${redirectURI}&response_type=token&scope=profile email`;
+    } else if (platform === 'X') {
+        window.location.href = `https://x.com/oauth/authorize?client_id=${xClientID}&redirect_uri=${redirectURI}&response_type=token`;
+    } else if (platform === 'Apple') {
+        window.location.href = `https://appleid.apple.com/auth/authorize?client_id=${appleClientID}&redirect_uri=${redirectURI}&response_type=code`;
+    }
+
+}
+
+
+    // Function to connect to calendar platforms
+    function connectCalendar(platform) {
+        const redirectURI = encodeURIComponent('https://domain.com'); // Replace with your actual redirect URI
+        const googleClientID = '831072126004-651a06d6bmjd4kemgf7lc17d55fs9gk5.apps.googleusercontent.com'; // Replace with your actual client ID
+        const Office365 = 'c5da48b5-b65c-45c6-9708-db008d9ab160';
+
+        if (platform === 'Google') {
+            window.location.href = `https://accounts.google.com/o/oauth2/auth?client_id=${googleClientID}&redirect_uri=${redirectURI}&response_type=token&scope=profile email`;
+
+        } else if (platform === 'Office365') {
+            window.location.href = `https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=${Office365}&redirect_uri=${redirectURI}&response_type=token&scope=offline_access%20https://outlook.office.com/calendars.readwrite`;
+        }
+    }
+
+    // Displays a loading indicator to the user
+    function showLoadingIndicator() {
+        document.getElementById('loading-indicator').style.display = 'flex';
+    }
+
+    // Hides the loading indicator from the user
+    function hideLoadingIndicator() {
+        document.getElementById('loading-indicator').style.display = 'none';
+    }
+</script>
+
+<style>
+    /* Styling for input groups and buttons */
+    .input-group {
+        display: flex;
+        align-items: center;
+    }
+    .input-group-icon {
+        padding: 0 10px;
+    }
+    .input-group input {
+        flex: 1;
+    }
+    .social-btn, .calendar-btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 5px 10px;
+        margin: 5px 0;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        ;
+    }
+    .social-btn i, .calendar-btn i {
+        margin-right: 5px;
+    }
+</style>
+{% endblock %}

@@ -1,9 +1,8 @@
 from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
-from .views import save_profile, english_test, submit_english_test
-from django.contrib.auth import views as auth_views
-from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -17,5 +16,10 @@ urlpatterns = [
     path('submit-test/', views.submit_english_test, name='submit_english_test'),
     path('view-profile/', views.view_profile, name='view_profile'),
     path('welcome/', views.welcome, name='welcome'),
-]
+    path('settings/', views.settings, name='settings'),
+    path('about-us/', views.about_us, name='about_us'),
+    path('upload-file/', views.upload_file, name='upload_file'),
+    path('my-files/', views.list_files, name='list_files'),
+    path('delete-file/<int:file_id>/', views.delete_file, name='delete_file'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
