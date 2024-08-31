@@ -1,18 +1,22 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .forms import ProfileForm
-from .models import Language
-from .forms import ProfileForm
-from django.shortcuts import render
+from django.conf import settings
 from django.contrib import messages
-from .models import Question, Answer
+from django.core.mail import send_mail
+from django.utils import timezone
+from django.urls import reverse
+import stripe
+import pytz
 import random
-from .forms import FileUploadForm
-from .models import UserFile
-from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+
+from .forms import ProfileForm, FileUploadForm
+from .models import Language, Question, Answer, UserFile, ScheduledClass, Course
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
 
 
 @login_required
@@ -186,6 +190,12 @@ def upload_file(request):
 @login_required
 def list_files(request):
     files = UserFile.objects.filter(user=request.user)
+    
+    # Convert the uploaded_at field to Berlin time for each file
+    berlin_tz = pytz.timezone('Europe/Berlin')
+    for file in files:
+        file.uploaded_at_berlin = timezone.localtime(file.uploaded_at, berlin_tz)
+    
     return render(request, 'learning/list_files.html', {'files': files})
 
 @login_required
@@ -194,3 +204,92 @@ def delete_file(request, file_id):
     if request.method == 'POST':
         file.delete()
         return redirect('list_files')
+    
+@login_required
+def my_classes(request):
+    classes = ScheduledClass.objects.filter(user=request.user).order_by('scheduled_time')
+    return render(request, 'learning/my_classes.html', {'classes': classes})
+
+
+@login_required
+def my_course(request):
+    courses = Course.objects.filter(user=request.user)
+    return render(request, 'learning/my_course.html', {'courses': courses})
+
+
+def contact_us(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+
+        # You can change the email recipient below
+        send_mail(
+            f'Message from {name} via Contact Us',
+            message,
+            email,  # From the user
+            [settings.DEFAULT_FROM_EMAIL],  # To your admin email
+            fail_silently=False,
+        )
+        messages.success(request, 'Your message has been sent successfully!')
+        return redirect('contact_us')  # Redirect back to the contact page
+    return render(request, 'learning/contact_us.html')
+
+
+def book_course(request, level):
+    course_prices = {
+        'A1': 20000,
+        'A2': 25000,
+        'B1': 30000,
+        'B2': 35000,
+        'C1': 40000,
+        'C2': 45000,
+        'Business-Intermediate': 50000,
+        'Business-Advanced': 60000,
+    }
+
+    if request.method == 'POST':
+        session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=[{
+                'price_data': {
+                    'currency': 'eur',
+                    'product_data': {
+                        'name': f'{level} Course',
+                    },
+                    'unit_amount': course_prices[level],
+                },
+                'quantity': 1,
+            }],
+            mode='payment',
+            success_url=request.build_absolute_uri(reverse('success')) + '?session_id={CHECKOUT_SESSION_ID}',
+            cancel_url=request.build_absolute_uri(reverse('cancel')),
+        )
+        return redirect(session.url, code=303)
+
+    return render(request, 'learning/book_course.html', {'level': level})
+
+def prices(request):
+    # Define prices for different levels
+    course_prices = {
+        'A1': 20000,
+        'A2': 25000,
+        'B1': 30000,
+        'B2': 35000,
+        'C1': 40000,
+        'C2': 45000,
+        'Business-Intermediate': 50000,
+        'Business-Advanced': 60000,
+    }
+    
+    context = {
+        'course_prices': course_prices
+    }
+    
+    return render(request, 'learning/prices.html', context)
+
+def payment_success(request):
+    return render(request, 'learning/payment_success.html')
+
+def payment_cancel(request):
+    return render(request, 'learning/payment_cancel.html')

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}My Classes{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">My Scheduled Classes</h1>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            {% if classes %}
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Class</th>
+                            <th scope="col">Scheduled Time</th>
+                            <th scope="col" class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for class in classes %}
+                            <tr>
+                                <td>{{ class.name }}</td>
+                                <td>{{ class.scheduled_time|date:"F j, Y, g:i a" }}</td>
+                                <td class="text-center">
+                                    <!-- Add action buttons if needed -->
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="text-center">
+                    <p class="text-muted">Nothing scheduled yet. Schedule ahead and start speaking!</p>
+                    <a href="{% url 'my_courses' %}" class="btn btn-primary">Explore My Course</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

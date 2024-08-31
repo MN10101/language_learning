@@ -9,5 +9,11 @@
     <h1>Test Result</h1>
     <p>Your score: {{ score }} out of 24</p>
     <p>Your proficiency level: {{ level }}</p>
+
+    <!-- Book Now Button -->
+    <div class="book-now">
+        <p>Would you like to book a course at your level?</p>
+        <a href="{% url 'book_course' level=level %}" class="btn btn-primary">Book Now</a>
+    </div>
 </div>
 {% endblock %}
