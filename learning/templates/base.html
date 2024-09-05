@@ -3,8 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Include FullCalendar CSS and JS -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/main.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/main.min.js"></script>
     
+    <!-- Only one title block is needed -->
     <title>{% block title %}JE Language Learning{% endblock %}</title>
+
     {% load static %}
     <style>
         /* General styles to make the footer stick to the bottom */
@@ -301,11 +306,12 @@
             <a href="{% url 'about_us' %}">About Us</a>
             <a href="{% url 'upload_file' %}">Upload File</a>
             <a href="{% url 'list_files' %}">My Files</a>
-            <a href="#">My Classes</a>
-            <a href="#">My Course</a>
-            <a href="#">Prices</a>
-            <a href="#">Contact Us</a>
+            <a href="{% url 'my_classes' %}">My Classes</a>
+            <a href="{% url 'my_course' %}">My Course</a>
+            <a href="{% url 'prices' %}">Prices</a> 
+            <a href="{% url 'contact_us' %}">Contact Us</a>
         </div>
+        
         <div class="profile-info" onclick="toggleDropdown()">
             {% if user.is_authenticated and user.profile.profile_picture %}
                 <img src="{{ user.profile.profile_picture.url }}" class="profile-picture" alt="Profile Picture">
@@ -366,7 +372,34 @@
         scrollTopBtn.onclick = function() {
             window.scrollTo({top: 0, behavior: 'smooth'});
         };
+
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var events = [
+                {
+                    title: "Sample Class 1",
+                    start: "2024-09-01T10:00:00",
+                    url: '#'
+                },
+                {
+                    title: "Sample Class 2",
+                    start: "2024-09-05T14:00:00",
+                    url: '#'
+                }
+            ];
+    
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: events
+            });
+            calendar.render();
+        });
+    </script>
+
+    
+    
 
     <!-- Footer -->
     <footer class="footer">

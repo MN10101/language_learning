@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}My Course{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">My Courses</h1>
+    
+    {% if courses %}
+        <div class="card shadow-sm">
+            <div class="card-body">
+                {% for course in courses %}
+                    <div class="course-detail mb-4">
+                        <h2>{{ course.name }}</h2>
+                        <p>{{ course.description }}</p>
+                        <p><strong>Start Date:</strong> {{ course.start_date|date:"F j, Y" }}</p>
+                        <p><strong>End Date:</strong> {{ course.end_date|date:"F j, Y" }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <div class="text-center">
+            <p class="text-muted">You are not enrolled in any courses at the moment.</p>
+            <a href="#" class="btn btn-primary">Explore Courses</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

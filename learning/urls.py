@@ -21,5 +21,12 @@ urlpatterns = [
     path('upload-file/', views.upload_file, name='upload_file'),
     path('my-files/', views.list_files, name='list_files'),
     path('delete-file/<int:file_id>/', views.delete_file, name='delete_file'),
+    path('my-classes/', views.my_classes, name='my_classes'),
+    path('my-course/', views.my_course, name='my_course'),
+    path('contact-us/', views.contact_us, name='contact_us'),
+    path('prices/', views.prices, name='prices'),
+    path('book/<str:level>/', views.book_course, name='book_course'),
+    path('success/', views.payment_success, name='success'),
+    path('cancel/', views.payment_cancel, name='cancel'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
