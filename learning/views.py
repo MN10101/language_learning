@@ -11,9 +11,12 @@ import stripe
 import pytz
 import random
 from django.contrib.auth.decorators import login_required
-
+from .models import Teacher
 from .forms import ProfileForm, FileUploadForm
 from .models import Language, Question, Answer, UserFile, ScheduledClass, Course
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+from django.shortcuts import redirect
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -293,3 +296,77 @@ def payment_success(request):
 
 def payment_cancel(request):
     return render(request, 'learning/payment_cancel.html')
+
+def teachers_view(request):
+    teachers = Teacher.objects.all()
+    return render(request, 'learning/teachers.html', {'teachers': teachers})
+
+def save_password_social_accounts(request):
+    if request.method == 'POST':
+        current_password = request.POST.get('current_password')
+        new_password = request.POST.get('new_password')
+        confirm_password = request.POST.get('confirm_password')
+        
+        if new_password == confirm_password:
+            # Assuming you have access to the user object
+            user = request.user
+            if user.check_password(current_password):
+                user.set_password(new_password)
+                user.save()
+                update_session_auth_hash(request, user)  # Important to keep the user logged in
+                messages.success(request, 'Password successfully updated.')
+            else:
+                messages.error(request, 'Current password is incorrect.')
+        else:
+            messages.error(request, 'New passwords do not match.')
+
+    return redirect('settings')
+
+def save_time_language(request):
+    if request.method == 'POST':
+        timezone = request.POST.get('timezone')
+        time_format = request.POST.get('time_format')
+        week_start = request.POST.get('week_start')
+        site_language = request.POST.get('site_language')
+
+        # Assuming you have a profile model related to the user
+        user_profile = request.user.profile
+        user_profile.timezone = timezone
+        user_profile.time_format = time_format
+        user_profile.week_start = week_start
+        user_profile.site_language = site_language
+        user_profile.save()
+
+        messages.success(request, 'Time and language settings saved.')
+    
+    return redirect('settings')
+
+@login_required
+def save_notifications(request):
+    if request.method == 'POST':
+        user_profile = request.user.profile
+        
+        # Update the profile with POST data, setting checkboxes to False if not present
+        user_profile.system_notifications = request.POST.get('system_notifications', False)
+        user_profile.one_click_booking = request.POST.get('one_click_booking', False)
+        user_profile.next_class_notification = request.POST.get('next_class_notification', False)
+        user_profile.email_notifications = request.POST.get('email_notifications', False)
+        user_profile.booked_class_confirmation = request.POST.get('booked_class_confirmation', False)
+        user_profile.cancelled_class_confirmation = request.POST.get('cancelled_class_confirmation', False)
+        user_profile.marketing_communications = request.POST.get('marketing_communications', False)
+        user_profile.class_reminder = request.POST.get('class_reminder', False)
+        user_profile.weekly_recap = request.POST.get('weekly_recap', False)
+
+        user_profile.save()
+        messages.success(request, 'Notification settings saved.')
+    
+    return redirect('settings')
+
+
+def save_calendar_connection(request):
+    if request.method == 'POST':
+        # Handle any settings related to calendar connections
+        # This may involve redirecting the user to an OAuth page for Google or Office365
+        messages.success(request, 'Calendar connection settings saved.')
+    
+    return redirect('settings')

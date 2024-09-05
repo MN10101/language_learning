@@ -74,3 +74,11 @@ class Course(models.Model):
 
     def __str__(self):
         return self.name
+    
+class Teacher(models.Model):
+    name = models.CharField(max_length=100)
+    bio = models.TextField()
+    profile_picture = models.ImageField(upload_to='teacher_pics/', null=True, blank=True)
+
+    def __str__(self):
+        return self.name

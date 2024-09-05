@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Include FullCalendar CSS and JS -->
-    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/main.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/main.min.js"></script>
-    
-    <!-- Only one title block is needed -->
-    <title>{% block title %}JE Language Learning{% endblock %}</title>
 
+    <!-- FullCalendar and Flatpickr stylesheets -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    <!-- FullCalendar and Flatpickr scripts (No jQuery required) -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <title>{% block title %}JE Language Learning{% endblock %}</title>
     {% load static %}
     <style>
         /* General styles to make the footer stick to the bottom */
@@ -155,7 +158,32 @@
             margin-bottom: 25px;
         }
 
-        /* Form Styles */
+        /* Specific centering for targeted forms */
+        .centered-form-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            margin: 40px auto;
+            text-align: center;
+            display: flex;
+            justify-content: center;  /* Center horizontally */
+            align-items: center;      /* Center vertically */
+            flex-direction: column;   /* Ensure the container behaves like a column */
+            height: 50vh;            /* Full viewport height */
+            padding: 20px;
+        }
+
+        /* Adjust the form within the centered container */
+        .centered-form-container form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;  /* Center elements inside the form */
+            width: 100%;
+            max-width: 400px; /* Optional: control the maximum width of forms */
+        }
+
         form {
             display: flex;
             flex-direction: column;
@@ -308,7 +336,8 @@
             <a href="{% url 'list_files' %}">My Files</a>
             <a href="{% url 'my_classes' %}">My Classes</a>
             <a href="{% url 'my_course' %}">My Course</a>
-            <a href="{% url 'prices' %}">Prices</a> 
+            <a href="{% url 'prices' %}">Prices</a>
+            <a href="{% url 'teachers' %}">Teachers</a>
             <a href="{% url 'contact_us' %}">Contact Us</a>
         </div>
         
@@ -374,32 +403,27 @@
         };
 
     </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
-            var events = [
-                {
-                    title: "Sample Class 1",
-                    start: "2024-09-01T10:00:00",
-                    url: '#'
-                },
-                {
-                    title: "Sample Class 2",
-                    start: "2024-09-05T14:00:00",
-                    url: '#'
-                }
-            ];
-    
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                events: events
-            });
-            calendar.render();
+   <!-- Flatpickr Initialization -->
+   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize flatpickr on the date and time input fields
+        flatpickr("#id_scheduled_start_time", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+            altInput: true,
+            altFormat: "F j, Y H:i",
+            time_24hr: true
         });
-    </script>
 
-    
-    
+        flatpickr("#id_scheduled_end_time", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+            altInput: true,
+            altFormat: "F j, Y H:i",
+            time_24hr: true
+        });
+    });
+</script>
 
     <!-- Footer -->
     <footer class="footer">

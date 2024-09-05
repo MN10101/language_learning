@@ -3,6 +3,7 @@ from . import views
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
+from .views import teachers_view
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -28,5 +29,10 @@ urlpatterns = [
     path('book/<str:level>/', views.book_course, name='book_course'),
     path('success/', views.payment_success, name='success'),
     path('cancel/', views.payment_cancel, name='cancel'),
+    path('teachers/', teachers_view, name='teachers'),
+    path('settings/save_password_social_accounts/', views.save_password_social_accounts, name='save_password_social_accounts'),
+    path('settings/save_time_language/', views.save_time_language, name='save_time_language'),
+    path('settings/save_notifications/', views.save_notifications, name='save_notifications'),
+    path('settings/save_calendar_connection/', views.save_calendar_connection, name='save_calendar_connection'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

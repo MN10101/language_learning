@@ -4,9 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment Canceled</title>
+    {% load static %}
+    <style>
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #4b0082;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.2s;
+            margin: 10px 0; /* Add margin if needed */
+        }
+
+        .btn:hover {
+            background-color: #5e2d91;
+            transform: scale(1.05);
+        }
+
+        /* Container Styles */
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            margin: 40px auto;
+            text-align: center;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container centered-form-container">
         <h1>Payment Canceled</h1>
         <p>Your payment was canceled. If this was a mistake, you can try again.</p>
         <a href="{% url 'prices' %}" class="btn">Go Back to Prices</a>

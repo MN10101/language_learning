@@ -2,39 +2,145 @@
 
 {% block title %}My Classes{% endblock %}
 
+{% load static %} 
+
 {% block content %}
-<div class="container mt-5">
-    <h1 class="text-center mb-4">My Scheduled Classes</h1>
-    <div class="card shadow-sm">
-        <div class="card-body">
-            {% if classes %}
-                <table class="table table-hover">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">Class</th>
-                            <th scope="col">Scheduled Time</th>
-                            <th scope="col" class="text-center">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for class in classes %}
-                            <tr>
-                                <td>{{ class.name }}</td>
-                                <td>{{ class.scheduled_time|date:"F j, Y, g:i a" }}</td>
-                                <td class="text-center">
-                                    <!-- Add action buttons if needed -->
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            {% else %}
-                <div class="text-center">
-                    <p class="text-muted">Nothing scheduled yet. Schedule ahead and start speaking!</p>
-                    <a href="{% url 'my_courses' %}" class="btn btn-primary">Explore My Course</a>
-                </div>
-            {% endif %}
-        </div>
+<style>
+    .container-classes {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 40px;
+    }
+
+    .classes-section {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 60%;
+        padding: 30px;
+        text-align: center;
+    }
+
+    .calendar-section {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 35%;
+        padding: 20px;
+    }
+
+    .calendar-container {
+        margin-top: 20px;
+        height: 400px; /* Ensure the calendar has a fixed height */
+        border: 1px solid #ccc;
+    }
+
+    .btn {
+        padding: 12px 20px;
+        font-size: 16px;
+        color: white;
+        background-color: #4b0082;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .btn:hover {
+        background-color: #5e2d91;
+        transform: scale(1.05);
+    }
+
+    .no-classes {
+        text-align: center;
+        padding: 40px;
+    }
+
+    .no-classes img {
+        max-width: 200px;
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="container-classes">
+    <!-- Scheduled Classes Section -->
+    <div class="classes-section">
+        <h1>My Scheduled Classes</h1>
+
+        {% if classes %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Class</th>
+                        <th>Scheduled Time</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for class in classes %}
+                    <tr>
+                        <td>{{ class.name }}</td>
+                        <td>{{ class.scheduled_time|date:"F j, Y, g:i a" }}</td>
+                        <td class="text-center">
+                            <!-- Add action buttons if needed -->
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="no-classes">
+                <img src="{% static 'images/9375716.jpg' %}" alt="No Classes Scheduled">
+                <p>Nothing scheduled yet. Schedule ahead and start speaking!</p><br>
+                <a href="{% url 'my_course' %}" class="btn">Explore My Course</a>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Calendar Section -->
+    <div class="calendar-section">
+        <h2>September 2024</h2>
+        <div id="calendar" class="calendar-container"></div>
     </div>
 </div>
+
+<!-- Use FullCalendar 5.x CDN (No jQuery required) -->
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // FullCalendar Initialization
+        var calendarEl = document.getElementById('calendar');
+
+        if (calendarEl) {
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: [
+                    {
+                        title: "Class 1",
+                        start: "2024-09-01T10:00:00"
+                    },
+                    {
+                        title: "Class 2",
+                        start: "2024-09-05T14:00:00"
+                    }
+                ]
+            });
+            calendar.render();
+        }
+
+        // Check for message container (Django messages)
+        var messageContainer = document.getElementById('messages');
+        if (messageContainer) {
+            var messageElements = messageContainer.getElementsByClassName('message');
+
+            Array.prototype.forEach.call(messageElements, function(element) {
+                var message = element.textContent;
+                alert(message);
+            });
+        }
+    });
+</script>
+
 {% endblock %}

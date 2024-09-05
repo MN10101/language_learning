@@ -3,6 +3,43 @@
 {% block title %}My Course{% endblock %}
 
 {% block content %}
+<style>
+    /* Button Styles */
+    .btn {
+        display: inline-block;
+        padding: 12px 20px;
+        font-size: 16px;
+        color: white;
+        background-color: #4b0082;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s, transform 0.2s;
+        margin: 10px 0; /* Add margin if needed */
+    }
+
+    .btn:hover {
+        background-color: #5e2d91;
+        transform: scale(1.05);
+    }
+
+    /* Container styles if not already defined */
+    .container {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 800px;
+        margin: 40px auto;
+        text-align: center;
+        display: flex;
+        justify-content: center;  /* Center horizontally */
+        align-items: center;      /* Center vertically */
+        flex-direction: column;   /* Ensure the container behaves like a column */
+        height: 50vh;            /* Full viewport height */
+        padding: 20px;
+    }
+
+</style>
 <div class="container mt-5">
     <h1 class="text-center mb-4">My Courses</h1>
     
@@ -26,4 +63,5 @@
         </div>
     {% endif %}
 </div>
+
 {% endblock %}

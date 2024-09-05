@@ -5,15 +5,205 @@
 {% block title %}Welcome{% endblock %}
 
 {% block content %}
-<div class="container">
-    {% if profile.profile_picture %}
-        <img src="{{ profile.profile_picture.url }}" class="profile-picture" alt="Profile Picture">
-    {% else %}
-        <img src="{% static 'default_profile_picture.jpg' %}" class="profile-picture" alt="Default Profile Picture">
-    {% endif %}
-    <h1>Welcome, {{ profile.first_name }} {{ profile.last_name }}!</h1>
-    <p>Welcome to our advanced education system designed to enhance your learning experience and help you achieve your academic goals. Our platform offers comprehensive English language assessments tailored to various proficiency levels, ensuring that every learner receives personalized feedback and guidance.</p>
-    <p>Whether you are preparing for an exam, seeking to improve your language skills, or just beginning your learning journey, our system provides valuable insights and resources to support your progress. We are committed to delivering high-quality educational tools and a supportive community to help you succeed.</p>
-    <button onclick="window.location.href='{% url 'english_test' %}'">Take the Test</button>
+<div class="welcome-container">
+    <!-- Profile section -->
+    <div class="profile-section animated fade-in-center">
+        {% if profile.profile_picture %}
+            <img src="{{ profile.profile_picture.url }}" class="profile-picture" alt="Profile Picture">
+        {% else %}
+            <img src="{% static 'default_profile_picture.jpg' %}" class="profile-picture" alt="Default Profile Picture">
+        {% endif %}
+        <h1>Welcome, {{ profile.first_name }} {{ profile.last_name }}!</h1>
+    </div>
+
+    <!-- Introduction section -->
+    <div class="info-section animated fade-in-center">
+        <p>We are thrilled to welcome you to our advanced education platform, where you can accelerate your learning journey and achieve new heights. Our system is meticulously crafted to offer a comprehensive learning experience, personalized to your needs, whether you're enhancing your English language skills or preparing for important exams.</p>
+        <p>We believe that learning should be engaging, efficient, and effective. That’s why our platform offers tailored assessments that cater to a wide range of proficiency levels. You’ll receive personalized feedback, helping you focus on areas that need improvement while celebrating your strengths.</p>
+        <p>Explore our interactive learning tools, participate in discussions with fellow learners, and track your progress as you work towards your goals. We are here to support you every step of the way!</p>
+        <button onclick="window.location.href='{% url 'english_test' %}'" class="btn">Take the Test</button>
+
+        <!-- Animated down arrow -->
+        <div class="arrow-container">
+            <div class="arrow"></div>
+        </div>
+    </div>
+
+    <!-- Image section with custom images and animation -->
+    <div class="image-section">
+        <div class="image-text-pair">
+            <div class="image-container animated slide-in-left">
+                <img src="{% static 'images/1.jpg' %}" alt="Learning Image 1" class="info-image">
+            </div>
+            <div class="text-container animated slide-in-right">
+                <p>Interactive and adaptive lessons designed to align with your learning preferences. Engage with immersive content that adapts to your learning style, ensuring that each lesson is impactful and enjoyable.</p>
+            </div>
+        </div>
+        <div class="image-text-pair">
+            <div class="image-container animated slide-in-left">
+                <img src="{% static 'images/2.jpg' %}" alt="Learning Image 2" class="info-image">
+            </div>
+            <div class="text-container animated slide-in-right">
+                <p>Track your progress with detailed insights and personalized feedback. Our system continuously evaluates your learning curve, offering suggestions for improvement while recognizing your achievements.</p>
+            </div>
+        </div>
+        <div class="image-text-pair">
+            <div class="image-container animated slide-in-left">
+                <img src="{% static 'images/3.jpg' %}" alt="Learning Image 3" class="info-image">
+            </div>
+            <div class="text-container animated slide-in-right">
+                <p>Become part of a thriving community of learners. Share your experiences, collaborate with peers, and grow together in a supportive environment designed for collective success.</p>
+            </div>
+        </div>
+    </div>
 </div>
+
+<!-- Add the custom CSS for animations and hover effects -->
+<style>
+    .welcome-container {
+        padding: 50px 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+        font-family: Arial, sans-serif;
+    }
+
+    .profile-section {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .profile-picture {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        transition: transform 0.3s, filter 0.3s;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-picture:hover {
+        filter: grayscale(100%) sepia(100%) hue-rotate(270deg);
+        transform: scale(1.1);
+    }
+
+    .info-section {
+        margin-bottom: 50px;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+    }
+
+    .btn {
+        padding: 12px 20px;
+        background-color: #4b0082;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .btn:hover {
+        background-color: #5e2d91;
+        transform: scale(1.05);
+    }
+
+    /* Arrow styling */
+    .arrow-container {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .arrow {
+        width: 30px;
+        height: 30px;
+        border-right: 5px solid #4b0082;
+        border-bottom: 5px solid #4b0082;
+        transform: rotate(45deg);
+        animation: bounce 1.5s infinite;
+        margin: 0 auto;
+    }
+
+    @keyframes bounce {
+        0%, 100% {
+            transform: translateY(0) rotate(45deg);
+        }
+        50% {
+            transform: translateY(10px) rotate(45deg);
+        }
+    }
+
+    .image-section {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .image-text-pair {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .image-container, .text-container {
+        width: 45%;
+    }
+
+    .info-image {
+        width: 100%;
+        max-width: 300px;
+        transition: transform 0.3s, filter 0.3s;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .info-image:hover {
+        filter: grayscale(100%) sepia(100%) hue-rotate(270deg);
+        transform: scale(1.1);
+    }
+
+    .animated {
+        opacity: 0;
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .fade-in-center {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    .slide-in-left {
+        transform: translateX(-100px);
+    }
+
+    .slide-in-right {
+        transform: translateX(100px);
+    }
+
+    .animated.show {
+        opacity: 1;
+        transform: translateX(0) translateY(0);
+    }
+</style>
+
+<!-- JavaScript to trigger animations on scroll -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const animatedElements = document.querySelectorAll('.animated');
+
+        function checkScroll() {
+            animatedElements.forEach(element => {
+                const position = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+
+                if (position < screenPosition) {
+                    element.classList.add('show');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkScroll);
+        checkScroll(); // Run on page load
+    });
+</script>
 {% endblock %}
