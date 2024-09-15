@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Quiz Game</title>
+    <link rel="stylesheet" href="{% static 'css/game.css' %}">
+</head>
+<body>
+
+    <!-- Game Grid -->
+    <div class="grid">
+        {% for question in questions %}
+            <div class="square">
+                <a href="{% url 'question' question.id %}" onclick="stopOpenSound(); playClickSound();">{{ question.id }}</a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Back to Home Button -->
+    <div class="back-home">
+        <button onclick="goBackHome()">Back to Home</button>
+    </div>
+
+    <!-- Audio files -->
+    <audio id="clickSound" src="{% static 'sounds/click.wav' %}" preload="auto"></audio>
+    <audio id="openSound" src="{% static 'sounds/question_open.wav' %}" preload="auto" loop></audio>
+
+    <script>
+        // Play the click sound when clicking on any question square
+        function playClickSound() {
+            const clickSound = document.getElementById('clickSound');
+            clickSound.play();
+        }
+
+        // Stop the opening sound when a question is clicked
+        function stopOpenSound() {
+            const openSound = document.getElementById('openSound');
+            openSound.pause();
+        }
+
+        // Ensure the opening sound plays when the app starts
+        document.addEventListener('DOMContentLoaded', function () {
+            const openSound = document.getElementById('openSound');
+            openSound.play();
+        });
+
+        // JavaScript for animating the colors of the squares dynamically
+        const squares = document.querySelectorAll('.square');
+        const colors = ['#FF5733', '#33FF57', '#33A1FF', '#FF33F6', '#FFC300', '#581845', '#DAF7A6'];
+
+        function animateColors() {
+            squares.forEach((square, index) => {
+                setTimeout(() => {
+                    square.style.backgroundColor = colors[index % colors.length];
+                    square.addEventListener('mouseover', () => {
+                        square.style.backgroundColor = colors[(index + 1) % colors.length];
+                    });
+                }, index * 300); // Delaying each square's color change for a nice effect
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', animateColors);
+
+        // Function to go back home with a sound
+        function goBackHome() {
+            playClickSound();  // Play the click sound
+            setTimeout(function() {
+                window.location.href = "{% url 'welcome' %}";  // Redirect to 'welcome' after delay
+            }, 500);  // Delay for 500ms to allow the sound to play
+        }
+
+    </script>
+
+
+</body>
+</html>

@@ -14,6 +14,7 @@
 
     <title>{% block title %}JE Language Learning{% endblock %}</title>
     {% load static %}
+    {% load user_tags %}
     <style>
         /* General styles to make the footer stick to the bottom */
         html, body {
@@ -323,40 +324,50 @@
     </style>
 </head>
 <body>
+    
     <!-- Navbar -->
-    <div class="navbar">
-        <a href="{% url 'welcome' %}" class="logo">
-            <span class="logo-letter">J</span><span class="logo-letter">E</span>
-        </a>
-        
-        <div class="navbar-left">
-            <a href="{% url 'welcome' %}">Home</a>
-            <a href="{% url 'about_us' %}">About Us</a>
-            <a href="{% url 'upload_file' %}">Upload File</a>
-            <a href="{% url 'list_files' %}">My Files</a>
-            <a href="{% url 'my_classes' %}">My Classes</a>
-            <a href="{% url 'my_course' %}">My Course</a>
-            <a href="{% url 'prices' %}">Prices</a>
-            <a href="{% url 'teachers' %}">Teachers</a>
-            <a href="{% url 'contact_us' %}">Contact Us</a>
-        </div>
-        
-        <div class="profile-info" onclick="toggleDropdown()">
-            {% if user.is_authenticated and user.profile.profile_picture %}
-                <img src="{{ user.profile.profile_picture.url }}" class="profile-picture" alt="Profile Picture">
-            {% else %}
-                <img src="{% static 'default_profile_picture.jpg' %}" class="profile-picture" alt="Default Profile Picture">
-            {% endif %}
-            <div id="dropdownMenu" class="dropdown-menu">
-                <a href="{% url 'view_profile' %}">My Profile</a>
-                <a href="{% url 'settings' %}">Settings</a>
-                <form method="post" action="{% url 'logout' %}">
-                    {% csrf_token %}
-                    <button type="submit" style="background:none; border:none; color:#333; cursor:pointer; width:100%; padding:10px 15px; text-align:left;">Logout</button>
-                </form>
-            </div>
+<div class="navbar">
+    <a href="{% url 'welcome' %}" class="logo">
+        <span class="logo-letter">J</span><span class="logo-letter">E</span>
+    </a>
+
+    <div class="navbar-left">
+        <a href="{% url 'welcome' %}">Home</a>
+        <a href="{% url 'about_us' %}">About Us</a>
+        <a href="{% url 'upload_file' %}">Upload File</a>
+        <a href="{% url 'list_files' %}">My Files</a>
+        <a href="{% url 'my_classes' %}">My Classes</a>
+        <a href="{% url 'my_course' %}">My Course</a>
+        <a href="{% url 'prices' %}">Prices</a>
+        <a href="{% url 'teachers' %}">Teachers</a>
+        <a href="{% url 'contact_us' %}">Contact Us</a>
+
+        {% if user.is_authenticated and user|is_teacher %}
+            <a href="{% url 'game' %}">Game</a>
+            <a href="{% url 'game2' %}">Picture Quiz</a>
+            <a href="{% url 'students' %}">Students</a> <!-- New Students link -->
+        {% endif %}
+    </div>
+
+    <!-- Profile Dropdown -->
+    <div class="profile-info" onclick="toggleDropdown()">
+        {% if user.is_authenticated and user.profile.profile_picture %}
+            <img src="{{ user.profile.profile_picture.url }}" class="profile-picture" alt="Profile Picture">
+        {% else %}
+            <img src="{% static 'default_profile_picture.jpg' %}" class="profile-picture" alt="Default Profile Picture">
+        {% endif %}
+        <div id="dropdownMenu" class="dropdown-menu">
+            <a href="{% url 'view_profile' %}">My Profile</a>
+            <a href="{% url 'settings' %}">Settings</a>
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" style="background:none; border:none; color:#333; cursor:pointer; width:100%; padding:10px 15px; text-align:left;">Logout</button>
+            </form>
         </div>
     </div>
+</div>
+
+    
 
     <!-- Main Content Wrapper -->
     <div class="content-wrapper">

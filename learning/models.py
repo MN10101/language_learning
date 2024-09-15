@@ -76,9 +76,8 @@ class Course(models.Model):
         return self.name
     
 class Teacher(models.Model):
-    name = models.CharField(max_length=100)
-    bio = models.TextField()
-    profile_picture = models.ImageField(upload_to='teacher_pics/', null=True, blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    subject = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return self.user.username

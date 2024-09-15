@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ question.text }}</title>
+    <link rel="stylesheet" href="{% static 'css/question.css' %}">
+</head>
+<body>
+    <div class="question-container">
+        <h1>{{ question.text }}</h1>
+        <div class="answers">
+            {% for answer in answers %}
+                <div class="answer">
+                    <button onclick="checkAnswer({{ answer.is_correct|yesno:'true,false' }}, this)">
+                        {{ answer.text }}
+                    </button>
+                </div>
+            {% endfor %}
+        </div>
+        <!-- Timer countdown -->
+        <div class="timer" id="timer">15</div>
+    </div>
+
+    <!-- Messages for feedback -->
+    <div class="correct-message" id="correctMessage">Congrats! Correct! ✔️</div>
+    <div class="wrong-message" id="wrongMessage">Wrong, try again. ❌</div>
+    <div class="lost-message" id="lostMessage">No answer! ⛔</div>
+
+    <!-- Sound Effects -->
+    <audio id="clickSound" src="{% static 'sounds/click.wav' %}" preload="auto"></audio>
+    <audio id="correctSound" src="{% static 'sounds/correct.mp3' %}" preload="auto"></audio>
+    <audio id="wrongSound" src="{% static 'sounds/wrong.wav' %}" preload="auto"></audio>
+    <audio id="timeoutSound" src="{% static 'sounds/timeout.wav' %}" preload="auto"></audio>
+
+    <script>
+        let timer;
+        let timeRemaining = 15;
+        let timeoutEvent;
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const timeoutSound = document.getElementById('timeoutSound');
+            timeoutSound.play();  // Play timeout sound
+            timer = setInterval(updateTimer, 1000);  // Start 15-second countdown
+
+            // Timeout after 15 seconds if no answer is selected
+            timeoutEvent = setTimeout(function () {
+                showTimeout();
+            }, 15000);
+        });
+
+        function updateTimer() {
+            const timerElement = document.getElementById('timer');
+            if (timeRemaining > 0) {
+                timeRemaining--;
+                timerElement.textContent = timeRemaining;
+            } else {
+                clearInterval(timer);
+            }
+        }
+
+        function showTimeout() {
+            const timeoutSound = document.getElementById('timeoutSound');
+            timeoutSound.pause();
+            showMessage('lostMessage');
+            setTimeout(function () {
+                window.location.href = '{% url "game" %}';  // Redirect to the main game page
+            }, 2000);  // Redirect after 2 seconds
+        }
+
+        function checkAnswer(isCorrect, button) {
+            clearTimeout(timeoutEvent);  // Stop the timeout
+            clearInterval(timer);  // Stop the countdown
+
+            const clickSound = document.getElementById('clickSound');
+            clickSound.play();
+
+            if (isCorrect) {
+                showMessage('correctMessage');
+                document.getElementById('correctSound').play();
+                setTimeout(function () {
+                    window.location.href = '{% url "game" %}';  // Redirect to the main game page after 2 seconds
+                }, 2000);
+            } else {
+                showMessage('wrongMessage');
+                document.getElementById('wrongSound').play();
+            }
+        }
+
+        function showMessage(messageId) {
+            const messageElement = document.getElementById(messageId);
+            messageElement.classList.add('show');
+            setTimeout(function () {
+                messageElement.classList.remove('show');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

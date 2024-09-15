@@ -17,6 +17,13 @@ from .models import Language, Question, Answer, UserFile, ScheduledClass, Course
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import redirect
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required, user_passes_test
+from .models import Question
+from django.shortcuts import render, get_object_or_404
+from .models import Question, Answer
+from django.contrib.auth.models import User
+from django.contrib.auth.models import Group
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -143,7 +150,12 @@ def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+
+            # Automatically add the new user to the 'Students' group
+            students_group, created = Group.objects.get_or_create(name='Students')
+            user.groups.add(students_group)
+
             return redirect('login')
     else:
         form = UserCreationForm()
@@ -152,7 +164,16 @@ def register(request):
 @login_required
 def view_profile(request):
     profile = request.user.profile
-    return render(request, 'learning/view_profile.html', {'profile': profile})
+    is_teacher = request.user.groups.filter(name='Teachers').exists()  # Check if the user is in the "Teachers" group
+    
+    print(f"Is Teacher: {is_teacher}")  # Debugging to check if user is a teacher
+    
+    return render(request, 'learning/view_profile.html', {
+        'profile': profile,
+        'is_teacher': is_teacher  # Pass the result to the template
+    })
+    print(request.user.groups.all())
+
 
 
 def user_login(request):
@@ -370,3 +391,64 @@ def save_calendar_connection(request):
         messages.success(request, 'Calendar connection settings saved.')
     
     return redirect('settings')
+
+
+# Check if the user is in the 'Teachers' group
+def is_teacher(user):
+    return user.groups.filter(name='Teachers').exists()
+
+@login_required
+@user_passes_test(is_teacher)
+def game(request):
+    questions = Question.objects.all()  # Retrieve all questions
+    return render(request, 'game.html', {'questions': questions})
+
+
+
+@login_required
+@user_passes_test(is_teacher)
+def game2(request):
+    return render(request, 'game2.html')
+
+
+# Check if the user is in the 'Teachers' group
+def is_teacher(user):
+    return user.groups.filter(name='Teachers').exists()
+
+
+@login_required
+@user_passes_test(is_teacher)
+def question(request, question_id):
+    question = get_object_or_404(Question, id=question_id)
+    answers = Answer.objects.filter(question=question)  # Fetch all answers related to the question
+    
+    context = {
+        'question': question,
+        'answers': answers,
+    }
+    return render(request, 'question.html', context)
+
+
+def get_questions():
+    return Question.objects.all()
+
+@login_required
+@user_passes_test(is_teacher)
+def students_view(request):
+    # Retrieve students who are not staff (i.e., not admin) and have booked classes
+    students = User.objects.filter(groups__name='Students').exclude(is_staff=True).distinct()
+    
+    # Only include students who have booked classes
+    booked_classes = ScheduledClass.objects.filter(user__in=students).distinct()
+
+    # Debugging - Print out the students and their classes
+    print("Students:", students)
+    print("Booked Classes:", booked_classes)
+
+    context = {
+        'students': students,
+        'booked_classes': booked_classes,
+    }
+
+    return render(request, 'learning/students.html', context)
+
