@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Students{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Students</h1>
+    
+    {% if students %}
+        <h2>List of Students</h2>
+        <ul>
+            {% for student in students %}
+                <li>
+                    <strong>{{ student.username }}</strong> - {{ student.email }}
+                    <ul>
+                        {% for scheduled_class in booked_classes %}
+                            {% if scheduled_class.user == student %}
+                                <li>{{ scheduled_class.name }} - {{ scheduled_class.scheduled_time }}</li>
+                            {% endif %}
+                        {% empty %}
+                            <li>No booked classes</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No students found.</p>
+    {% endif %}
+</div>
+{% endblock %}

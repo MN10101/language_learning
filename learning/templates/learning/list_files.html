@@ -3,7 +3,44 @@
 {% block title %}My Files{% endblock %}
 
 {% block content %}
-<div class="container mt-5" style="max-width: 800px; margin: 0 auto;">
+<style>
+    /* Button Styles */
+    .btn {
+        display: inline-block;
+        padding: 12px 20px;
+        font-size: 16px;
+        color: white;
+        background-color: #4b0082;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s, transform 0.2s;
+        margin: 10px 0; /* Add margin if needed */
+    }
+
+    .btn:hover {
+        background-color: #5e2d91;
+        transform: scale(1.05);
+    }
+
+    /* Container styles if not already defined */
+    .container {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 800px;
+        margin: 40px auto;
+        text-align: center;
+        display: flex;
+        justify-content: center;  /* Center horizontally */
+        align-items: center;      /* Center vertically */
+        flex-direction: column;   /* Ensure the container behaves like a column */
+        height: 50vh;            /* Full viewport height */
+        padding: 20px;
+    }
+
+</style>
+<div class="container mt-5">
     <h1 class="text-center mb-4">My Files</h1>
     {% if files %}
         <table border="1" style="width: 100%; border-collapse: collapse;">
@@ -20,7 +57,7 @@
                         <td style="padding: 8px;">
                             <a href="{{ file.file.url }}" download>{{ file.file.name }}</a>
                         </td>
-                        <td style="padding: 8px;">{{ file.uploaded_at }}</td>
+                        <td style="padding: 8px;">{{ file.uploaded_at_berlin|date:"D d M Y H:i:s" }}</td>
                         <td style="padding: 8px; text-align: center;">
                             <form method="post" action="{% url 'delete_file' file.id %}">
                                 {% csrf_token %}

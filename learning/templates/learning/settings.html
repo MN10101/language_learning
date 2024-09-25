@@ -15,125 +15,139 @@
 
         {% csrf_token %}
 
-        <!-- Password & Social Accounts -->
-        <fieldset>
-            <legend>Password & Social Accounts</legend>
-            <div class="form-group">
-                <label for="current-password">Current Password:</label>
-                <div class="input-group">
-                    <span class="input-group-icon"><i class="fas fa-lock"></i></span>
-                    <input type="password" id="current-password" name="current_password" required>
-                </div>
+       <!-- Password & Social Accounts -->
+<fieldset>
+    <legend>Password & Social Accounts</legend>
+    <form method="post" action="{% url 'save_password_social_accounts' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="current-password">Current Password:</label>
+            <div class="input-group">
+                <span class="input-group-icon"><i class="fas fa-lock"></i></span>
+                <input type="password" id="current-password" name="current_password" required>
             </div>
-            <div class="form-group">
-                <label for="new-password">New Password:</label>
-                <div class="input-group">
-                    <span class="input-group-icon"><i class="fas fa-key"></i></span>
-                    <input type="password" id="new-password" name="new_password" required>
-                </div>
+        </div>
+        <div class="form-group">
+            <label for="new-password">New Password:</label>
+            <div class="input-group">
+                <span class="input-group-icon"><i class="fas fa-key"></i></span>
+                <input type="password" id="new-password" name="new_password" required>
             </div>
-            <div class="form-group">
-                <label for="confirm-password">Confirm New Password:</label>
-                <div class="input-group">
-                    <span class="input-group-icon"><i class="fas fa-key"></i></span>
-                    <input type="password" id="confirm-password" name="confirm_password" required>
-                </div>
+        </div>
+        <div class="form-group">
+            <label for="confirm-password">Confirm New Password:</label>
+            <div class="input-group">
+                <span class="input-group-icon"><i class="fas fa-key"></i></span>
+                <input type="password" id="confirm-password" name="confirm_password" required>
             </div>
-            <div class="form-group">
-                <label for="connect-social">Connect Social Accounts:</label>
-                <div>
-                    <button type="button" onclick="connectSocial('X')" class="social-btn">
-                        <i class="fas fa-globe"></i> Connect X
-                    </button>
-                    <button type="button" onclick="connectSocial('Google')" class="social-btn">
-                        <i class="fab fa-google"></i> Connect Google
-                    </button>
-                    <button type="button" onclick="connectSocial('Apple')" class="social-btn">
-                        <i class="fab fa-apple"></i> Connect Apple
-                    </button>
-                </div>
-            </div>
-        </fieldset>
-
-        <!-- Time and Language -->
-        <fieldset>
-            <legend>Time and Language</legend>
-            <div class="form-group">
-                <label for="timezone">Timezone:</label>
-                <select id="timezone" name="timezone">
-                    <!-- Timezone options will be populated by JavaScript -->
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="time-format">Time Format:</label>
-                <select id="time-format" name="time_format">
-                    <option value="12">12-hour</option>
-                    <option value="24">24-hour</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="week-start">Week Start:</label>
-                <select id="week-start" name="week_start">
-                    <option value="0">Sunday</option>
-                    <option value="1">Monday</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="site-language">Site Language:</label>
-                <select id="site-language" name="site_language">
-                    <!-- Language options will be populated by JavaScript -->
-                </select>
-            </div>
-        </fieldset>
-
-        <!-- Notifications -->
-        <fieldset>
-            <legend>Notifications</legend>
-            <div class="form-group">
-                <label><input type="checkbox" name="system_notifications" checked> System Notifications</label>
-            </div>
-            <div class="form-group">
-                <label><input type="checkbox" name="one_click_booking" checked> Booking with One Click</label>
-            </div>
-            <div class="form-group">
-                <label><input type="checkbox" name="next_class_notification" checked> Notification About Next Class</label>
-            </div>
-            <div class="form-group">
-                <label><input type="checkbox" name="email_notifications" checked> E-mail Notifications</label>
-            </div>
-            <div class="form-group">
-                <label><input type="checkbox" name="booked_class_confirmation" checked> Booked Class Confirmation</label>
-            </div>
-            <div class="form-group">
-                <label><input type="checkbox" name="cancelled_class_confirmation" checked> Cancelled Class Confirmation</label>
-            </div>
-            <div class="form-group">
-                <label><input type="checkbox" name="marketing_communications" checked> Marketing Communications</label>
-            </div>
-            <div class="form-group">
-                <label><input type="checkbox" name="class_reminder" checked> Class Reminder</label>
-            </div>
-            <div class="form-group">
-                <label><input type="checkbox" name="weekly_recap" checked> Weekly Recap</label>
-            </div>
-        </fieldset>
-
-        <!-- Calendar Connection -->
-        <fieldset>
-            <legend>Calendar Connection</legend>
-            <div class="form-group">
-                <button type="button" onclick="connectCalendar('Google')" class="calendar-btn">
-                    <i class="fab fa-google"></i> Connect Google Calendar
+        </div>
+        <div class="form-group">
+            <label for="connect-social">Connect Social Accounts:</label>
+            <div>
+                <button type="button" onclick="connectSocial('X')" class="social-btn">
+                    <i class="fas fa-globe"></i> Connect X
+                </button>
+                <button type="button" onclick="connectSocial('Google')" class="social-btn">
+                    <i class="fab fa-google"></i> Connect Google
+                </button>
+                <button type="button" onclick="connectSocial('Apple')" class="social-btn">
+                    <i class="fab fa-apple"></i> Connect Apple
                 </button>
             </div>
-            <div class="form-group">
-                <button type="button" onclick="connectCalendar('Office365')" class="calendar-btn">
-                    <i class="fab fa-microsoft"></i> Connect Office 365/Outlook
-                </button>
-            </div>
-        </fieldset>
-
+        </div>
         <button type="submit">Save Changes</button>
+    </form>
+</fieldset>
+
+<!-- Time and Language -->
+<fieldset>
+    <legend>Time and Language</legend>
+    <form method="post" action="{% url 'save_time_language' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="timezone">Timezone:</label>
+            <select id="timezone" name="timezone">
+                <!-- Timezone options will be populated by JavaScript -->
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="time-format">Time Format:</label>
+            <select id="time-format" name="time_format">
+                <option value="12">12-hour</option>
+                <option value="24">24-hour</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="week-start">Week Start:</label>
+            <select id="week-start" name="week_start">
+                <option value="0">Sunday</option>
+                <option value="1">Monday</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="site-language">Site Language:</label>
+            <select id="site-language" name="site_language">
+                <!-- Language options will be populated by JavaScript -->
+            </select>
+        </div>
+        <button type="submit">Save Changes</button>
+    </form>
+</fieldset>
+
+<!-- Notifications -->
+<fieldset>
+    <legend>Notifications</legend>
+    <form method="post" action="{% url 'save_notifications' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label><input type="checkbox" name="system_notifications" checked> System Notifications</label>
+        </div>
+        <div class="form-group">
+            <label><input type="checkbox" name="one_click_booking" checked> Booking with One Click</label>
+        </div>
+        <div class="form-group">
+            <label><input type="checkbox" name="next_class_notification" checked> Notification About Next Class</label>
+        </div>
+        <div class="form-group">
+            <label><input type="checkbox" name="email_notifications" checked> E-mail Notifications</label>
+        </div>
+        <div class="form-group">
+            <label><input type="checkbox" name="booked_class_confirmation" checked> Booked Class Confirmation</label>
+        </div>
+        <div class="form-group">
+            <label><input type="checkbox" name="cancelled_class_confirmation" checked> Cancelled Class Confirmation</label>
+        </div>
+        <div class="form-group">
+            <label><input type="checkbox" name="marketing_communications" checked> Marketing Communications</label>
+        </div>
+        <div class="form-group">
+            <label><input type="checkbox" name="class_reminder" checked> Class Reminder</label>
+        </div>
+        <div class="form-group">
+            <label><input type="checkbox" name="weekly_recap" checked> Weekly Recap</label>
+        </div>
+        <button type="submit">Save Changes</button>
+    </form>
+</fieldset>
+
+<!-- Calendar Connection -->
+<fieldset>
+    <legend>Calendar Connection</legend>
+    <form method="post" action="{% url 'save_calendar_connection' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <button type="button" onclick="connectCalendar('Google')" class="calendar-btn">
+                <i class="fab fa-google"></i> Connect Google Calendar
+            </button>
+        </div>
+        <div class="form-group">
+            <button type="button" onclick="connectCalendar('Office365')" class="calendar-btn">
+                <i class="fab fa-microsoft"></i> Connect Office 365/Outlook
+            </button>
+        </div>
+        <button type="submit">Save Changes</button>
+    </form>
+</fieldset>
     </form>
 </div>
 <script>

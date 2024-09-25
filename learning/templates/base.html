@@ -3,9 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
+    <!-- FullCalendar and Flatpickr stylesheets -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    <!-- FullCalendar and Flatpickr scripts (No jQuery required) -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
     <title>{% block title %}JE Language Learning{% endblock %}</title>
     {% load static %}
+    {% load user_tags %}
     <style>
         /* General styles to make the footer stick to the bottom */
         html, body {
@@ -150,7 +159,32 @@
             margin-bottom: 25px;
         }
 
-        /* Form Styles */
+        /* Specific centering for targeted forms */
+        .centered-form-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            margin: 40px auto;
+            text-align: center;
+            display: flex;
+            justify-content: center;  /* Center horizontally */
+            align-items: center;      /* Center vertically */
+            flex-direction: column;   /* Ensure the container behaves like a column */
+            height: 50vh;            /* Full viewport height */
+            padding: 20px;
+        }
+
+        /* Adjust the form within the centered container */
+        .centered-form-container form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;  /* Center elements inside the form */
+            width: 100%;
+            max-width: 400px; /* Optional: control the maximum width of forms */
+        }
+
         form {
             display: flex;
             flex-direction: column;
@@ -290,38 +324,50 @@
     </style>
 </head>
 <body>
+    
     <!-- Navbar -->
-    <div class="navbar">
-        <a href="{% url 'welcome' %}" class="logo">
-            <span class="logo-letter">J</span><span class="logo-letter">E</span>
-        </a>
-        
-        <div class="navbar-left">
-            <a href="{% url 'welcome' %}">Home</a>
-            <a href="{% url 'about_us' %}">About Us</a>
-            <a href="{% url 'upload_file' %}">Upload File</a>
-            <a href="{% url 'list_files' %}">My Files</a>
-            <a href="#">My Classes</a>
-            <a href="#">My Course</a>
-            <a href="#">Prices</a>
-            <a href="#">Contact Us</a>
-        </div>
-        <div class="profile-info" onclick="toggleDropdown()">
-            {% if user.is_authenticated and user.profile.profile_picture %}
-                <img src="{{ user.profile.profile_picture.url }}" class="profile-picture" alt="Profile Picture">
-            {% else %}
-                <img src="{% static 'default_profile_picture.jpg' %}" class="profile-picture" alt="Default Profile Picture">
-            {% endif %}
-            <div id="dropdownMenu" class="dropdown-menu">
-                <a href="{% url 'view_profile' %}">My Profile</a>
-                <a href="{% url 'settings' %}">Settings</a>
-                <form method="post" action="{% url 'logout' %}">
-                    {% csrf_token %}
-                    <button type="submit" style="background:none; border:none; color:#333; cursor:pointer; width:100%; padding:10px 15px; text-align:left;">Logout</button>
-                </form>
-            </div>
+<div class="navbar">
+    <a href="{% url 'welcome' %}" class="logo">
+        <span class="logo-letter">J</span><span class="logo-letter">E</span>
+    </a>
+
+    <div class="navbar-left">
+        <a href="{% url 'welcome' %}">Home</a>
+        <a href="{% url 'about_us' %}">About Us</a>
+        <a href="{% url 'upload_file' %}">Upload File</a>
+        <a href="{% url 'list_files' %}">My Files</a>
+        <a href="{% url 'my_classes' %}">My Classes</a>
+        <a href="{% url 'my_course' %}">My Course</a>
+        <a href="{% url 'prices' %}">Prices</a>
+        <a href="{% url 'teachers' %}">Teachers</a>
+        <a href="{% url 'contact_us' %}">Contact Us</a>
+
+        {% if user.is_authenticated and user|is_teacher %}
+            <a href="{% url 'game' %}">Game</a>
+            <a href="{% url 'game2' %}">Picture Quiz</a>
+            <a href="{% url 'students' %}">Students</a> <!-- New Students link -->
+        {% endif %}
+    </div>
+
+    <!-- Profile Dropdown -->
+    <div class="profile-info" onclick="toggleDropdown()">
+        {% if user.is_authenticated and user.profile.profile_picture %}
+            <img src="{{ user.profile.profile_picture.url }}" class="profile-picture" alt="Profile Picture">
+        {% else %}
+            <img src="{% static 'default_profile_picture.jpg' %}" class="profile-picture" alt="Default Profile Picture">
+        {% endif %}
+        <div id="dropdownMenu" class="dropdown-menu">
+            <a href="{% url 'view_profile' %}">My Profile</a>
+            <a href="{% url 'settings' %}">Settings</a>
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" style="background:none; border:none; color:#333; cursor:pointer; width:100%; padding:10px 15px; text-align:left;">Logout</button>
+            </form>
         </div>
     </div>
+</div>
+
+    
 
     <!-- Main Content Wrapper -->
     <div class="content-wrapper">
@@ -366,7 +412,29 @@
         scrollTopBtn.onclick = function() {
             window.scrollTo({top: 0, behavior: 'smooth'});
         };
+
     </script>
+   <!-- Flatpickr Initialization -->
+   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize flatpickr on the date and time input fields
+        flatpickr("#id_scheduled_start_time", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+            altInput: true,
+            altFormat: "F j, Y H:i",
+            time_24hr: true
+        });
+
+        flatpickr("#id_scheduled_end_time", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+            altInput: true,
+            altFormat: "F j, Y H:i",
+            time_24hr: true
+        });
+    });
+</script>
 
     <!-- Footer -->
     <footer class="footer">

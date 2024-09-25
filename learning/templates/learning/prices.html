@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Prices{% endblock %}</title>
+
+    {% load static %}
+    <style>
+        /* General styles similar to other sections */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            margin: 40px auto;
+            text-align: center;
+        }
+
+        h1 {
+            color: #4b0082;
+            margin-bottom: 25px;
+        }
+
+        .price-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .price-table th, .price-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .price-table th {
+            background-color: #4b0082;
+            color: white;
+        }
+
+        .price-table td {
+            background-color: #f9f9f9;
+        }
+
+        .price-table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            margin: 10px;
+            font-size: 16px;
+            color: white;
+            background-color: #4b0082;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #5e2d91;
+        }
+
+        .back-home {
+            margin-top: 20px;
+        }
+
+        /* Scroll-to-Top Button Styles */
+        #scrollTopBtn {
+            position: fixed;
+            bottom: 20px; /* Distance from the bottom */
+            right: 20px; /* Distance from the right */
+            background-color: #4b0082; /* Button color */
+            color: white; /* Text color */
+            border: none; /* Remove border */
+            border-radius: 5px; /* Rounded corners */
+            padding: 10px; /* Padding around the text */
+            cursor: pointer; /* Pointer cursor on hover */
+            font-size: 20px; /* Font size for the arrow */
+            display: none; /* Initially hidden */
+            z-index: 1000; /* Ensure it's on top of other content */
+            transition: opacity 0.3s; /* Fade-in effect */
+        }
+
+        #scrollTopBtn:hover {
+            background-color: #5e2d91; /* Darker shade on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container centered-form-container">
+        <h1>Prices</h1>
+        <table class="price-table">
+            <thead>
+                <tr>
+                    <th>Level</th>
+                    <th>Price (€)</th>
+                    <th>Book Now</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>A1 - Beginner</td>
+                    <td>200 €</td>
+                    <td><a href="{% url 'book_course' level='A1' %}" class="btn">Book Now</a></td>
+                </tr>
+                <tr>
+                    <td>A2 - Elementary</td>
+                    <td>250 €</td>
+                    <td><a href="{% url 'book_course' level='A2' %}" class="btn">Book Now</a></td>
+                </tr>
+                <tr>
+                    <td>B1 - Intermediate</td>
+                    <td>300 €</td>
+                    <td><a href="{% url 'book_course' level='B1' %}" class="btn">Book Now</a></td>
+                </tr>
+                <tr>
+                    <td>B2 - Upper Intermediate</td>
+                    <td>350 €</td>
+                    <td><a href="{% url 'book_course' level='B2' %}" class="btn">Book Now</a></td>
+                </tr>
+                <tr>
+                    <td>C1 - Advanced</td>
+                    <td>400 €</td>
+                    <td><a href="{% url 'book_course' level='C1' %}" class="btn">Book Now</a></td>
+                </tr>
+                <tr>
+                    <td>C2 - Proficient</td>
+                    <td>450 €</td>
+                    <td><a href="{% url 'book_course' level='C2' %}" class="btn">Book Now</a></td>
+                </tr>
+                <tr>
+                    <td>Business English - Intermediate</td>
+                    <td>500 €</td>
+                    <td><a href="{% url 'book_course' level='Business-Intermediate' %}" class="btn">Book Now</a></td>
+                </tr>
+                <tr>
+                    <td>Business English - Advanced</td>
+                    <td>600 €</td>
+                    <td><a href="{% url 'book_course' level='Business-Advanced' %}" class="btn">Book Now</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Back Home Button -->
+        <div class="back-home">
+            <a href="{% url 'welcome' %}" class="btn">Back Home</a>
+        </div>
+    </div>
+
+    <!-- Scroll-to-Top Button -->
+    <button id="scrollTopBtn" title="Go to top">&#8679;</button>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        // Scroll-to-Top Button Script
+        var scrollTopBtn = document.getElementById("scrollTopBtn");
+
+        window.onscroll = function() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                scrollTopBtn.style.display = "block";
+            } else {
+                scrollTopBtn.style.display = "none";
+            }
+        };
+
+        scrollTopBtn.onclick = function() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        };
+    </script>
+</body>
+</html>

@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
 
+
 class Question(models.Model):
     text = models.CharField(max_length=255)
     level = models.CharField(max_length=2, choices=[
@@ -51,3 +52,32 @@ class UserFile(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.file.name}"
+    
+class MyFile(models.Model):
+    file = models.FileField(upload_to='uploads/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+class ScheduledClass(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    scheduled_time = models.DateTimeField()
+
+    def __str__(self):
+        return f"{self.name} scheduled for {self.scheduled_time}"
+    
+class Course(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    start_date = models.DateField()
+    end_date = models.DateField()
+
+    def __str__(self):
+        return self.name
+    
+class Teacher(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    subject = models.CharField(max_length=100, null=True, blank=True)
+
+    def __str__(self):
+        return self.user.username

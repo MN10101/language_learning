@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Picture Quiz Game</title>
+    <link rel="stylesheet" href="{% static 'css/game2.css' %}">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f9fc;
+            display: flex;
+            flex-direction: column; /* Stack items vertically */
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .game-container {
+            text-align: center;
+            margin-bottom: 20px; /* Ensure space between game and the button */
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Flip card container */
+        .flip-card {
+            background-color: transparent;
+            width: 400px;  /* Slightly larger */
+            height: 375px;  /* Slightly larger */
+            perspective: 1000px; /* Enable 3D space for the flip animation */
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;  /* Faster flip transition */
+            transform-style: preserve-3d;
+        }
+
+        .flipped {
+            transform: rotateY(180deg); /* Flip the card */
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden; /* Hide the back when the card is not flipped */
+            border-radius: 10px;
+        }
+
+        /* Front side of the card */
+        .flip-card-front {
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .flip-card-front img {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+
+        /* Back side of the card */
+        .flip-card-back {
+            background-color: #333;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: rotateY(180deg); /* Back of the card starts flipped */
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-name {
+            font-size: 1.5em;
+        }
+
+        /* Back to Home Button */
+        .back-home {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-home button {
+            background-color: #4b0082;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .back-home button:hover {
+            background-color: #5e2d91;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="game-container">
+        <h1>Guess the Picture</h1>
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <!-- Image: Correctly reference the guess image -->
+                    <img id="quizImage" src="{% static 'images/Guess.png' %}" alt="Guess the image">
+                </div>
+                <div class="flip-card-back" id="flipCardBack">
+                    <div id="imageName" class="image-name">Object Name</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Home Button -->
+    <div class="back-home">
+        <button onclick="goBackHome()">Back to Home</button>
+    </div>
+    
+
+    <!-- Click sound -->
+    <audio id="clickSound" src="{% static 'sounds/click.wav' %}" preload="auto"></audio>
+
+    <script>
+        const pictures = [
+            { src: '{% static "images/Apple.jpg" %}', name: 'Apple', color: '#FF5733' },
+            { src: '{% static "images/Swimming.jpg" %}', name: 'Swimming', color: '#33FF57' },
+            { src: '{% static "images/Dog.jpg" %}', name: 'Dog', color: '#3357FF' },
+            { src: '{% static "images/Maze.jpg" %}', name: 'Maze', color: '#FF33A1' },
+            { src: '{% static "images/Car.jpg" %}', name: 'Car', color: '#FFC300' },
+            { src: '{% static "images/House.jpeg" %}', name: 'House', color: '#581845' },
+            { src: '{% static "images/Diving.jpg" %}', name: 'Diving', color: '#DAF7A6' },
+            { src: '{% static "images/Tree.jpg" %}', name: 'Tree', color: '#FF6F61' },
+            { src: '{% static "images/Chair.jpg" %}', name: 'Chair', color: '#28B463' },
+            { src: '{% static "images/Cup.jpg" %}', name: 'Cup', color: '#5DADE2' },
+            { src: '{% static "images/Mountain.jpg" %}', name: 'Mountain', color: '#AF7AC5' },
+            { src: '{% static "images/Crochet.jpg" %}', name: 'Crochet', color: '#F4D03F' },
+            { src: '{% static "images/Soccer.jpg" %}', name: 'Soccer', color: '#48C9B0' },
+            { src: '{% static "images/Sunset.jpg" %}', name: 'Sunset', color: '#E74C3C' },
+            { src: '{% static "images/Waterfall.jpg" %}', name: 'Waterfall', color: '#3498DB' }
+        ];
+
+        let currentQuestion = 0;
+        const quizImage = document.getElementById('quizImage');
+        const imageName = document.getElementById('imageName');
+        const clickSound = document.getElementById('clickSound');
+        const flipCardBack = document.getElementById('flipCardBack');
+
+        // Show the next question
+        function showNextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < pictures.length) {
+                document.querySelector(".flip-card-inner").classList.remove("flipped"); // Reset flip
+                setTimeout(() => {
+                    quizImage.src = pictures[currentQuestion].src;
+                    imageName.textContent = pictures[currentQuestion].name;
+                    flipCardBack.style.backgroundColor = pictures[currentQuestion].color; // Change background color
+                }, 300); // Small delay between transitions
+            } else {
+                alert("You've completed the quiz!");
+                window.location.reload(); // Optionally reload the page to start over
+            }
+        }
+
+        // Handle the image click event
+        document.querySelector('.flip-card').addEventListener('click', function () {
+            clickSound.play(); // Play the click sound
+            document.querySelector(".flip-card-inner").classList.add("flipped"); // Trigger the flip
+            setTimeout(showNextQuestion, 2000); // Automatically go to the next question after 2 seconds
+        });
+
+        // Set initial background color
+        flipCardBack.style.backgroundColor = pictures[currentQuestion].color;
+
+        // Function to go back home with a sound
+        function goBackHome() {
+            clickSound.play();  // Play the click sound
+            setTimeout(function() {
+                window.location.href = "{% url 'welcome' %}";  // Redirect to 'welcome' after delay
+            }, 500);  // Delay for 500ms to allow the sound to play
+        }
+    </script>
+
+</body>
+</html>
