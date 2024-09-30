@@ -419,7 +419,7 @@ def is_teacher(user):
 @user_passes_test(is_teacher)
 def game(request):
     questions = Question.objects.all()  # Retrieve all questions
-    print(questions)  # Debugging output
+    print(questions)  # Check if this outputs questions in the console
     return render(request, 'game.html', {'questions': questions})
 
 
