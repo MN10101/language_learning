@@ -25,7 +25,7 @@ urlpatterns = [
     path('prices/', views.prices, name='prices'),
     path('book/<str:level>/', views.book_course, name='book_course'),
     path('success/', views.payment_success, name='success'),
-    path('cancel/', views.payment_cancel, name='payment_cancel'),
+    path('cancel/', views.payment_cancel, name='cancel'),
     path('teachers/', views.teachers_view, name='teachers'),
     path('save-password-social-accounts/', views.save_password_social_accounts, name='save_password_social_accounts'),
     path('save-time-language/', views.save_time_language, name='save_time_language'),
@@ -36,5 +36,6 @@ urlpatterns = [
     # Game-related URLs for teachers
     path('game/', views.game, name='game'),
     path('game2/', views.game2, name='game2'),
+    path('game3/', views.game3, name='game3'),
     path('question/<int:question_id>/', views.question, name='question'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -80,4 +80,4 @@ class Teacher(models.Model):
     subject = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
-        return self.user.username
+        return self.user.get_full_name() 
