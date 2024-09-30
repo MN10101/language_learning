@@ -118,6 +118,7 @@ def profile(request):
 
 
 
+
 @login_required
 def view_profile(request):
     profile = request.user.profile
@@ -319,8 +320,15 @@ def payment_cancel(request):
     return render(request, 'learning/payment_cancel.html')
 
 def teachers_view(request):
-    teachers = Teacher.objects.all()
+    # Fetch all teachers who have been added by admin
+    teachers = Teacher.objects.select_related('user').all()
+    
+    # Debugging output to check if teachers are being fetched
+    print(teachers)  # This will output to your terminal or server log
+    
     return render(request, 'learning/teachers.html', {'teachers': teachers})
+
+
 
 def save_password_social_accounts(request):
     if request.method == 'POST':
@@ -410,10 +418,16 @@ def game(request):
 def game2(request):
     return render(request, 'game2.html')
 
+@login_required
+@user_passes_test(is_teacher)
+def game3(request):
+    return render(request, 'game3.html')
+
 
 # Check if the user is in the 'Teachers' group
 def is_teacher(user):
     return user.groups.filter(name='Teachers').exists()
+
 
 
 @login_required
@@ -437,18 +451,22 @@ def get_questions():
 def students_view(request):
     # Retrieve students who are not staff (i.e., not admin) and have booked classes
     students = User.objects.filter(groups__name='Students').exclude(is_staff=True).distinct()
-    
-    # Only include students who have booked classes
-    booked_classes = ScheduledClass.objects.filter(user__in=students).distinct()
 
-    # Debugging - Print out the students and their classes
-    print("Students:", students)
-    print("Booked Classes:", booked_classes)
+    # Get profile information and booked classes for each student
+    student_profiles = []
+    for student in students:
+        profile = student.profile  # Assuming each user has a related Profile model
+        booked_classes = ScheduledClass.objects.filter(user=student).distinct()
+        student_profiles.append({
+            'student': student,
+            'profile': profile,
+            'booked_classes': booked_classes
+        })
 
     context = {
-        'students': students,
-        'booked_classes': booked_classes,
+        'student_profiles': student_profiles,
     }
 
     return render(request, 'learning/students.html', context)
+
 

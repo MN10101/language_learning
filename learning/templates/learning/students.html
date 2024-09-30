@@ -1,29 +1,97 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block title %}Students{% endblock %}
 
 {% block content %}
+    <style>
+        .students-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-around;
+        }
+
+        .student-card {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        .student-picture img.profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .student-details {
+            font-size: 16px;
+        }
+
+        .student-classes ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 10px 0 0;
+        }
+
+        .student-classes li {
+            background-color: #e0e0e0;
+            padding: 5px 10px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+
+        h4 {
+            margin-top: 20px;
+            color: #4b0082;
+        }
+    </style>
+
 <div class="container">
     <h1>Students</h1>
-    
-    {% if students %}
+
+    {% if student_profiles %}
         <h2>List of Students</h2>
-        <ul>
-            {% for student in students %}
-                <li>
-                    <strong>{{ student.username }}</strong> - {{ student.email }}
-                    <ul>
-                        {% for scheduled_class in booked_classes %}
-                            {% if scheduled_class.user == student %}
-                                <li>{{ scheduled_class.name }} - {{ scheduled_class.scheduled_time }}</li>
-                            {% endif %}
-                        {% empty %}
-                            <li>No booked classes</li>
-                        {% endfor %}
-                    </ul>
-                </li>
+        <div class="students-list">
+            {% for entry in student_profiles %}
+                <div class="student-card">
+                    <!-- Student's Profile Picture -->
+                    <div class="student-picture">
+                        {% if entry.profile.profile_picture %}
+                            <img src="{{ entry.profile.profile_picture.url }}" alt="Profile Picture" class="profile-pic">
+                        {% else %}
+                            <img src="{% static 'default_profile_picture.jpg' %}" alt="Default Picture" class="profile-pic">
+                        {% endif %}
+                    </div>
+
+                    <!-- Student's Full Name -->
+                    <div class="student-details">
+                        <strong>{{ entry.profile.first_name }} {{ entry.profile.last_name }}</strong>
+                        <p>Email: {{ entry.student.email }}</p>
+
+                        <!-- Booked Classes -->
+                        <div class="student-classes">
+                            <h4>Booked Classes</h4>
+                            <ul>
+                                {% if entry.booked_classes %}
+                                    {% for scheduled_class in entry.booked_classes %}
+                                        <li>{{ scheduled_class.name }} - {{ scheduled_class.scheduled_time }}</li>
+                                    {% endfor %}
+                                {% else %}
+                                    <li>No booked classes</li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             {% endfor %}
-        </ul>
+        </div>
     {% else %}
         <p>No students found.</p>
     {% endif %}

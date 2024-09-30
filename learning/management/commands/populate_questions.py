@@ -1,4 +1,3 @@
-# game/management/commands/populate_questions.py
 from django.core.management.base import BaseCommand
 from learning.models import Question, Answer
 

@@ -1,0 +1,121 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcard Game</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        /* Button styles consistent with your app */
+        .button {
+            background-color: #4b0082;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #5e2d91;
+        }
+
+        /* Layout styles for the flashcard container */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .card {
+            width: 500px;  /* Card width */
+            height: 400px;  /* Card height */
+            margin: 20px auto;  /* Center the card */
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: white;
+        }
+
+        /* Make the question text larger and bold */
+        .card p {
+            font-size: 22px;   /* Larger font size */
+            font-weight: bold;  /* Bold font */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Larger image size for better visibility */
+        .card img {
+            width: 250px;  /* Larger image width */
+            height: 250px; /* Larger image height */
+            object-fit: contain;  /* Maintain aspect ratio */
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Button container under the game with two buttons aligned */
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            width: 520px;  /* Slightly wider to match the game card */
+            margin-top: 20px;
+        }
+
+        .button-container a, .button-container button {
+            width: 48%;  /* Make both buttons take almost half the width of the container */
+        }
+
+        /* Back to Home button styling */
+        .back-button {
+            background-color: #4b0082;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .back-button:hover {
+            background-color: #5e2d91;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Flashcard Game</h1>
+        <div class="flashcards" id="flashcards-container"></div>
+
+        <!-- Button container for Next Question and Back to Home -->
+        <div class="button-container">
+            <button class="button" id="next-question" onclick="nextCard()">Next Question</button>
+            <a href="{% url 'welcome' %}" class="back-button">Back to Home</a>
+        </div>
+    </div>
+
+    <!-- Sound effect for clicks -->
+    <audio id="click-sound" src="{% static 'sounds/click.wav' %}"></audio>
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
