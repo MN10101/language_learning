@@ -393,17 +393,20 @@
     <a href="{% url 'teachers' %}">Teachers</a>
     <a href="{% url 'contact_us' %}">Contact Us</a>
 
-    {% if user.is_authenticated and user|is_teacher %}
-    <div class="games-dropdown">
-        <a href="#" class="games-dropdown-toggle">Games</a>
-        <div class="games-dropdown-menu">
-            <a href="{% url 'game' %}">Game</a>
-            <a href="{% url 'game2' %}">Picture Quiz</a>
-            <a href="{% url 'game3' %}">Flashcard Game</a>
+    {% load custom_tags %}  <!-- Load your custom template filter here -->
+
+    {% if user|is_teacher %}
+        <div class="games-dropdown">
+            <a href="#" class="games-dropdown-toggle">Games</a>
+            <div class="games-dropdown-menu">
+                <a href="{% url 'game' %}">Game</a>
+                <a href="{% url 'game2' %}">Picture Quiz</a>
+                <a href="{% url 'game3' %}">Flashcard Game</a>
+            </div>
         </div>
-    </div>
-    <a href="{% url 'students' %}">Students</a> <!-- New Students link -->
+        <a href="{% url 'students' %}">Students</a>
     {% endif %}
+
     </div>
 
     <!-- Profile Dropdown -->

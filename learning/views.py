@@ -153,14 +153,23 @@ def register(request):
         if form.is_valid():
             user = form.save()
 
-            # Automatically add the new user to the 'Students' group
-            students_group, created = Group.objects.get_or_create(name='Students')
-            user.groups.add(students_group)
+            # Check if the registration is for a teacher (you could add a condition here)
+            if request.POST.get('is_teacher'):  # Assuming you pass this from a form field
+                teachers_group, created = Group.objects.get_or_create(name='Teachers')
+                user.groups.add(teachers_group)
+
+                # Optionally, create the Teacher profile
+                Teacher.objects.create(user=user)
+            else:
+                # Automatically add the new user to the 'Students' group
+                students_group, created = Group.objects.get_or_create(name='Students')
+                user.groups.add(students_group)
 
             return redirect('login')
     else:
         form = UserCreationForm()
     return render(request, 'learning/register.html', {'form': form})
+
 
 @login_required
 def view_profile(request):
@@ -173,6 +182,7 @@ def view_profile(request):
         'profile': profile,
         'is_teacher': is_teacher  # Pass the result to the template
     })
+
     print(request.user.groups.all())
 
 
@@ -409,6 +419,7 @@ def is_teacher(user):
 @user_passes_test(is_teacher)
 def game(request):
     questions = Question.objects.all()  # Retrieve all questions
+    print(questions)  # Check if this outputs questions in the console
     return render(request, 'game.html', {'questions': questions})
 
 

@@ -8,6 +8,7 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         self.create_questions()
         self.stdout.write(self.style.SUCCESS('Successfully populated the questions and answers'))
+        
 
     def create_questions(self):
         # Question 1

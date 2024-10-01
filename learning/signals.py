@@ -9,6 +9,7 @@ def create_teacher_profile(sender, instance, created, **kwargs):
         if instance.groups.filter(name='Teachers').exists():
             Teacher.objects.create(user=instance)
 
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:

@@ -31,9 +31,10 @@ urlpatterns = [
     path('save-time-language/', views.save_time_language, name='save_time_language'),
     path('save-notifications/', views.save_notifications, name='save_notifications'),
     path('save-calendar-connection/', views.save_calendar_connection, name='save_calendar_connection'),
-    path('students/', views.students_view, name='students'),
+    
 
     # Game-related URLs for teachers
+    path('students/', views.students_view, name='students'),
     path('game/', views.game, name='game'),
     path('game2/', views.game2, name='game2'),
     path('game3/', views.game3, name='game3'),
