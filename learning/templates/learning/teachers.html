@@ -49,13 +49,13 @@
         <div class="teacher-card">
             <!-- Ensure the user and profile are accessed correctly -->
             {% if teacher.user.profile.profile_picture %}
-            <img src="{{ teacher.user.profile.profile_picture.url }}" alt="{{ teacher.user.first_name }} {{ teacher.user.last_name }}" class="teacher-pic">
+            <img src="{{ teacher.user.profile.profile_picture.url }}" alt="{{ teacher.user.get_full_name }}" class="teacher-pic">
             {% else %}
             <img src="{% static 'default_profile_picture.jpg' %}" alt="Default profile picture" class="teacher-pic">
             {% endif %}
 
             <!-- Display teacher's full name -->
-            <h2>{{ teacher.user.first_name }} {{ teacher.user.last_name }}</h2>
+            <h2>{{ teacher.user.get_full_name }}</h2>
 
             <!-- Display teacher's bio -->
             <p>{{ teacher.user.profile.bio }}</p>
@@ -65,6 +65,7 @@
         {% endfor %}
     </div>
 </div>
+
 
 
 {% endblock %}
