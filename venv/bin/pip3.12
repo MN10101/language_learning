@@ -1,4 +1,6 @@
-#!/Users/jonathanerasmusdavies/Desktop/learning_site_01/language_learning_01/venv/bin/python3.12
+#!/bin/sh
+'''exec' "/Users/jonathanerasmusdavies/Desktop/Education /language_learning_01/venv/bin/python" "$0" "$@"
+' '''
 # -*- coding: utf-8 -*-
 import re
 import sys
