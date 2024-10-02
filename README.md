@@ -12,5 +12,6 @@
 - CREATE DATABASE language_learning_db;
 - python manage.py migrate
 - python manage.py createsuperuser
+- mkdir D:\language_learning\static
 - python manage.py populate_questions
 - python manage.py populate_game_questions
