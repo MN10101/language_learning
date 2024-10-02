@@ -1,0 +1,16 @@
+## Commends
+- python -m venv venv
+- venv\Scripts\activate
+- pip install -r requirements.txt
+- pip install psycopg2
+- pip install psycopg
+- pip show psycopg2
+- pip show psycopg
+- $env:Path
+- $env:Path += ";C:\Program Files\PostgreSQL\16\bin"
+- psql -U postgres
+- CREATE DATABASE language_learning_db;
+- python manage.py migrate
+- python manage.py createsuperuser
+- python manage.py populate_questions
+- python manage.py populate_game_questions
