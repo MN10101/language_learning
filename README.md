@@ -19,4 +19,17 @@
 - python manage.py runserver
 
 ## Commands MacOS
-- 
+- python -m venv venv
+- source venv/bin/activate
+- pip install psycopg2
+- pip install postgres
+- psql -U postgres
+- CREATE DATABASE language_learning_db;
+- python manage.py makemigrations
+- python manage.py migrate
+- mkdir -p /Users/jonathanerasmusdavies/Desktop/edu_02/language_learning_01/static
+- In the settings file: STATICFILES_DIRS = [
+    "/Users/jonathanerasmusdavies/Desktop/edu_02/language_learning_01/static",]
+-  python manage.py populate_questions
+-  python manage.py game_questions
+-  python manage.py runserver
