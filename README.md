@@ -15,4 +15,5 @@
 - python manage.py createsuperuser
 - mkdir D:\language_learning\static
 - python manage.py populate_questions
-- python manage.py populate_game_questions
+- python manage.py game_questions
+- python manage.py runserver
