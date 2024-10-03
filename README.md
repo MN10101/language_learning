@@ -1,4 +1,4 @@
-## Commands
+## Commands Windows
 - python -m venv venv
 - venv\Scripts\activate
 - pip install -r requirements.txt
@@ -17,3 +17,6 @@
 - python manage.py populate_questions
 - python manage.py game_questions
 - python manage.py runserver
+
+## Commands MacOS
+- 
