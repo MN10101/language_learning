@@ -61,20 +61,30 @@ def submit_english_test(request):
 
 
 
-
 @login_required
 def english_test(request):
-    if 'question_index' not in request.session:
+    # Ensure test questions are filtered properly
+    test_questions = Question.objects.filter(category='test') 
+
+    if 'question_index' not in request.session or 'questions' not in request.session:
         # Initialize the session to track progress and randomize questions
-        questions = list(Question.objects.all())
+        questions = list(test_questions)  # Use filtered questions instead of all questions
         random.shuffle(questions)
         request.session['questions'] = [q.id for q in questions]
         request.session['question_index'] = 0
         request.session['answers'] = {}
 
-    question_index = request.session['question_index']
-    question_id = request.session['questions'][question_index]
-    question = Question.objects.get(id=question_id)
+    # Retrieve the current question index
+    question_index = request.session.get('question_index', 0)  # Default to 0 if not set
+    questions = request.session.get('questions', [])  # Get questions from session
+
+    # Check if there are questions available
+    if not questions or question_index >= len(questions):
+        # Redirect to the test result page if there are no more questions
+        return redirect('submit_english_test')
+
+    question_id = questions[question_index]
+    question = get_object_or_404(Question, id=question_id)  # Use get_object_or_404 for safety
     answers = Answer.objects.filter(question=question)
 
     if request.method == 'POST':
@@ -84,7 +94,8 @@ def english_test(request):
             request.session['answers'][question_id] = selected_answer
             request.session['question_index'] += 1
 
-            if request.session['question_index'] >= len(request.session['questions']):
+            # Check if we've reached the end of the questions
+            if request.session['question_index'] >= len(questions):
                 return redirect('submit_english_test')
 
             return redirect('english_test')
@@ -93,9 +104,10 @@ def english_test(request):
         'question': question,
         'answers': answers,
         'current_number': question_index + 1,
-        'total_number': len(request.session['questions']),
+        'total_number': len(questions),
     }
     return render(request, 'english_test.html', context)
+
 
 
 
@@ -283,6 +295,9 @@ def book_course(request, level):
         'Business-Advanced': 60000,
     }
 
+    # Get the price in cents and convert it to euros
+    price = course_prices.get(level, 0) / 100  # Convert to euros
+
     if request.method == 'POST':
         session = stripe.checkout.Session.create(
             payment_method_types=['card'],
@@ -302,7 +317,8 @@ def book_course(request, level):
         )
         return redirect(session.url, code=303)
 
-    return render(request, 'learning/book_course.html', {'level': level})
+    return render(request, 'learning/book_course.html', {'level': level, 'price': price})
+
 
 def prices(request):
     # Define prices for different levels
@@ -418,9 +434,9 @@ def is_teacher(user):
 @login_required
 @user_passes_test(is_teacher)
 def game(request):
-    questions = Question.objects.all()  # Retrieve all questions
-    print(questions)  # Check if this outputs questions in the console
-    return render(request, 'game.html', {'questions': questions})
+    game_questions = Question.objects.filter(category='game') 
+    print(game_questions) 
+    return render(request, 'game.html', {'questions': game_questions})
 
 
 

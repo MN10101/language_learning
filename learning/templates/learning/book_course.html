@@ -57,7 +57,7 @@
 <body>
     <div class="container">
         <h1>Book {{ level }} Course</h1>
-        <p>You are about to book the {{ level }} course for {{ price }} €.</p>
+        <p>You are about to book the {{ level }} course for €{{ price|floatformat:2 }}.</p> 
         <form method="POST">
             {% csrf_token %}
             <button type="submit" class="btn">Proceed to Payment</button>

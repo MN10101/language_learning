@@ -2,15 +2,21 @@ from django.db import models
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
 
-
 class Question(models.Model):
+    CATEGORY_CHOICES = [
+        ('game', 'Game'),
+        ('test', 'Test'),
+    ]
+
     text = models.CharField(max_length=255)
     level = models.CharField(max_length=2, choices=[
         ('A1', 'A1'), ('A2', 'A2'), ('B1', 'B1'), ('B2', 'B2'), ('C1', 'C1'), ('C2', 'C2')
     ])
+    category = models.CharField(max_length=10, choices=CATEGORY_CHOICES, default='test')  # New field
 
     def __str__(self):
         return self.text
+
 
 class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)

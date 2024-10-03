@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>English Quiz Game</title>
     <link rel="stylesheet" href="{% static 'css/game.css' %}">
-    
-
 </head>
 <body>
 
@@ -15,7 +13,7 @@
     <div class="grid">
         {% for question in questions %}
             <div class="square">
-                <a href="{% url 'question' question.id %}" onclick="stopOpenSound(); playClickSound();">{{ question.id }}</a>
+                <a href="{% url 'question' question.id %}" onclick="stopOpenSound(); playClickSound();">{{ forloop.counter }}</a>
             </div>
         {% endfor %}
     </div>
@@ -74,7 +72,6 @@
         }
 
     </script>
-
 
 </body>
 </html>

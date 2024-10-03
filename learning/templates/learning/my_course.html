@@ -59,7 +59,7 @@
     {% else %}
         <div class="text-center">
             <p class="text-muted">You are not enrolled in any courses at the moment.</p>
-            <a href="#" class="btn btn-primary">Explore Courses</a>
+            <a href="{% url 'welcome' %}" class="btn">Back Home</a>
         </div>
     {% endif %}
 </div>

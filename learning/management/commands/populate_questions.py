@@ -1,102 +1,201 @@
 from django.core.management.base import BaseCommand
 from learning.models import Question, Answer
 
+# Sample questions and answers from A1 to C2 levels
+questions_data = [
+    # A1 Level Questions
+    {
+        'text': "What is the past tense of 'go'?",
+        'level': 'A1',
+        'answers': [
+            {'text': 'go', 'is_correct': False},
+            {'text': 'went', 'is_correct': True},
+            {'text': 'gone', 'is_correct': False},
+        ]
+    },
+    {
+        'text': "Choose the correct sentence.",
+        'level': 'A1',
+        'answers': [
+            {'text': 'He go to school.', 'is_correct': False},
+            {'text': 'He goes to school.', 'is_correct': True},
+            {'text': 'He going to school.', 'is_correct': False},
+        ]
+    },
+    {
+        'text': "What is the plural of 'mouse'?",
+        'level': 'A1',
+        'answers': [
+            {'text': 'Mouses', 'is_correct': False},
+            {'text': 'Mice', 'is_correct': True},
+            {'text': 'Mouse', 'is_correct': False},
+        ]
+    },
+    {
+        'text': "Fill in the blank: 'She is ____ teacher.'",
+        'level': 'A1',
+        'answers': [
+            {'text': 'a', 'is_correct': True},
+            {'text': 'an', 'is_correct': False},
+            {'text': 'the', 'is_correct': False},
+        ]
+    },
+
+    # A2 Level Questions
+    {
+        'text': "Which of these is a synonym for 'happy'?",
+        'level': 'A2',
+        'answers': [
+            {'text': 'Sad', 'is_correct': False},
+            {'text': 'Joyful', 'is_correct': True},
+            {'text': 'Angry', 'is_correct': False},
+        ]
+    },
+    {
+        'text': "Choose the correct sentence.",
+        'level': 'A2',
+        'answers': [
+            {'text': 'She is going to the store.', 'is_correct': True},
+            {'text': 'She are going to the store.', 'is_correct': False},
+            {'text': 'She go to the store.', 'is_correct': False},
+        ]
+    },
+    {
+        'text': "Fill in the blank: 'They _____ dinner last night.'",
+        'level': 'A2',
+        'answers': [
+            {'text': 'eated', 'is_correct': False},
+            {'text': 'ate', 'is_correct': True},
+            {'text': 'eat', 'is_correct': False},
+        ]
+    },
+
+    # B1 Level Questions
+    {
+        'text': "Choose the correct form of the verb: 'She _____ a book.'",
+        'level': 'B1',
+        'answers': [
+            {'text': 'reads', 'is_correct': True},
+            {'text': 'reading', 'is_correct': False},
+            {'text': 'read', 'is_correct': False},
+        ]
+    },
+    {
+        'text': "Which sentence is in the past perfect tense?",
+        'level': 'B1',
+        'answers': [
+            {'text': 'She had finished the project.', 'is_correct': True},
+            {'text': 'She finishes the project.', 'is_correct': False},
+            {'text': 'She will finish the project.', 'is_correct': False},
+        ]
+    },
+    {
+        'text': "Fill in the blank: 'If I _____ more time, I would learn Spanish.'",
+        'level': 'B1',
+        'answers': [
+            {'text': 'have', 'is_correct': False},
+            {'text': 'had', 'is_correct': True},
+            {'text': 'will have', 'is_correct': False},
+        ]
+    },
+
+    # B2 Level Questions
+    {
+        'text': "Which of these sentences is grammatically correct?",
+        'level': 'B2',
+        'answers': [
+            {'text': 'She don’t like coffee.', 'is_correct': False},
+            {'text': 'She doesn’t like coffee.', 'is_correct': True},
+            {'text': 'She no like coffee.', 'is_correct': False},
+        ]
+    },
+    {
+        'text': "Choose the correct sentence.",
+        'level': 'B2',
+        'answers': [
+            {'text': 'If I see him, I would tell him.', 'is_correct': False},
+            {'text': 'If I saw him, I would tell him.', 'is_correct': True},
+            {'text': 'If I seen him, I would tell him.', 'is_correct': False},
+        ]
+    },
+    {
+        'text': "What is the meaning of the word 'meticulous'?",
+        'level': 'B2',
+        'answers': [
+            {'text': 'Careful and precise', 'is_correct': True},
+            {'text': 'Quick and easy', 'is_correct': False},
+            {'text': 'Rough and careless', 'is_correct': False},
+        ]
+    },
+
+    # C1 Level Questions
+    {
+        'text': "Which of these words is an antonym for 'abundant'?",
+        'level': 'C1',
+        'answers': [
+            {'text': 'Plentiful', 'is_correct': False},
+            {'text': 'Sparse', 'is_correct': True},
+            {'text': 'Numerous', 'is_correct': False},
+        ]
+    },
+    {
+        'text': "Complete the sentence: 'Had he known the truth, he _____ differently.'",
+        'level': 'C1',
+        'answers': [
+            {'text': 'would have acted', 'is_correct': True},
+            {'text': 'acted', 'is_correct': False},
+            {'text': 'would act', 'is_correct': False},
+        ]
+    },
+    {
+        'text': "Which sentence uses the subjunctive mood correctly?",
+        'level': 'C1',
+        'answers': [
+            {'text': 'If I was you, I would go.', 'is_correct': False},
+            {'text': 'If I were you, I would go.', 'is_correct': True},
+            {'text': 'If I am you, I would go.', 'is_correct': False},
+        ]
+    },
+
+    # C2 Level Questions
+    {
+        'text': "Choose the correct sentence with advanced grammar.",
+        'level': 'C2',
+        'answers': [
+            {'text': 'Despite of the rain, we went outside.', 'is_correct': False},
+            {'text': 'In spite of the rain, we went outside.', 'is_correct': True},
+            {'text': 'In spite the rain, we went outside.', 'is_correct': False},
+        ]
+    },
+    {
+        'text': "Which sentence best demonstrates proper use of a conditional clause?",
+        'level': 'C2',
+        'answers': [
+            {'text': 'Were she to know the truth, she would react differently.', 'is_correct': True},
+            {'text': 'If she would know the truth, she will react differently.', 'is_correct': False},
+            {'text': 'If she knows the truth, she would react differently.', 'is_correct': False},
+        ]
+    },
+    {
+        'text': "Which of these sentences correctly uses a relative clause?",
+        'level': 'C2',
+        'answers': [
+            {'text': 'The book which I bought it yesterday is on the table.', 'is_correct': False},
+            {'text': 'The book I bought yesterday is on the table.', 'is_correct': True},
+            {'text': 'The book that I bought it yesterday is on the table.', 'is_correct': False},
+        ]
+    }
+]
 
 class Command(BaseCommand):
-    help = 'Populates the database with initial questions and answers'
+    help = 'Populates the database with test questions and answers'
 
     def handle(self, *args, **kwargs):
-        self.create_questions()
-        self.stdout.write(self.style.SUCCESS('Successfully populated the questions and answers'))
-        
+        self.populate_questions()
+        self.stdout.write(self.style.SUCCESS('Successfully populated test questions and answers'))
 
-    def create_questions(self):
-        # Question 1
-        q1 = Question.objects.create(text="What is the past tense of 'run'?")
-        Answer.objects.create(question=q1, text="Ran", is_correct=True)
-        Answer.objects.create(question=q1, text="Run", is_correct=False)
-        Answer.objects.create(question=q1, text="Runned", is_correct=False)
-
-        # Question 2
-        q2 = Question.objects.create(text="What is the synonym of 'happy'?")
-        Answer.objects.create(question=q2, text="Sad", is_correct=False)
-        Answer.objects.create(question=q2, text="Joyful", is_correct=True)
-        Answer.objects.create(question=q2, text="Angry", is_correct=False)
-
-        # Question 3
-        q3 = Question.objects.create(text="Which word is a noun?")
-        Answer.objects.create(question=q3, text="Run", is_correct=False)
-        Answer.objects.create(question=q3, text="Apple", is_correct=True)
-        Answer.objects.create(question=q3, text="Quickly", is_correct=False)
-
-        # Question 4
-        q4 = Question.objects.create(text="What is the opposite of 'large'?")
-        Answer.objects.create(question=q4, text="Small", is_correct=True)
-        Answer.objects.create(question=q4, text="Big", is_correct=False)
-        Answer.objects.create(question=q4, text="Huge", is_correct=False)
-
-        # Question 5
-        q5 = Question.objects.create(text="Which word is a verb?")
-        Answer.objects.create(question=q5, text="Run", is_correct=True)
-        Answer.objects.create(question=q5, text="Apple", is_correct=False)
-        Answer.objects.create(question=q5, text="Blue", is_correct=False)
-
-        # Question 6
-        q6 = Question.objects.create(text="What is the synonym of 'fast'?")
-        Answer.objects.create(question=q6, text="Slow", is_correct=False)
-        Answer.objects.create(question=q6, text="Quick", is_correct=True)
-        Answer.objects.create(question=q6, text="Large", is_correct=False)
-
-        # Question 7
-        q7 = Question.objects.create(text="What is the past tense of 'go'?")
-        Answer.objects.create(question=q7, text="Went", is_correct=True)
-        Answer.objects.create(question=q7, text="Go", is_correct=False)
-        Answer.objects.create(question=q7, text="Gone", is_correct=False)
-
-        # Question 8
-        q8 = Question.objects.create(text="What is the opposite of 'good'?")
-        Answer.objects.create(question=q8, text="Bad", is_correct=True)
-        Answer.objects.create(question=q8, text="Nice", is_correct=False)
-        Answer.objects.create(question=q8, text="Cool", is_correct=False)
-
-        # Question 9
-        q9 = Question.objects.create(text="Which word is an adjective?")
-        Answer.objects.create(question=q9, text="Quickly", is_correct=False)
-        Answer.objects.create(question=q9, text="Blue", is_correct=True)
-        Answer.objects.create(question=q9, text="Run", is_correct=False)
-
-        # Question 10
-        q10 = Question.objects.create(text="What is the past tense of 'swim'?")
-        Answer.objects.create(question=q10, text="Swam", is_correct=True)
-        Answer.objects.create(question=q10, text="Swim", is_correct=False)
-        Answer.objects.create(question=q10, text="Swimmed", is_correct=False)
-
-        # Question 11
-        q11 = Question.objects.create(text="What is the synonym of 'angry'?")
-        Answer.objects.create(question=q11, text="Furious", is_correct=True)
-        Answer.objects.create(question=q11, text="Happy", is_correct=False)
-        Answer.objects.create(question=q11, text="Excited", is_correct=False)
-
-        # Question 12
-        q12 = Question.objects.create(text="Which word is a pronoun?")
-        Answer.objects.create(question=q12, text="She", is_correct=True)
-        Answer.objects.create(question=q12, text="Blue", is_correct=False)
-        Answer.objects.create(question=q12, text="Apple", is_correct=False)
-
-        # Question 13
-        q13 = Question.objects.create(text="What is the opposite of 'hot'?")
-        Answer.objects.create(question=q13, text="Cold", is_correct=True)
-        Answer.objects.create(question=q13, text="Warm", is_correct=False)
-        Answer.objects.create(question=q13, text="Cool", is_correct=False)
-
-        # Question 14
-        q14 = Question.objects.create(text="What is the synonym of 'easy'?")
-        Answer.objects.create(question=q14, text="Simple", is_correct=True)
-        Answer.objects.create(question=q14, text="Hard", is_correct=False)
-        Answer.objects.create(question=q14, text="Difficult", is_correct=False)
-
-        # Question 15
-        q15 = Question.objects.create(text="What is the past tense of 'teach'?")
-        Answer.objects.create(question=q15, text="Taught", is_correct=True)
-        Answer.objects.create(question=q15, text="Teach", is_correct=False)
-        Answer.objects.create(question=q15, text="Teached", is_correct=False)
+    def populate_questions(self):
+        for q_data in questions_data:
+            question = Question.objects.create(text=q_data['text'], level=q_data['level'], category='test')
+            for a_data in q_data['answers']:
+                Answer.objects.create(question=question, text=a_data['text'], is_correct=a_data['is_correct'])
