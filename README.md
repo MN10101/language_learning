@@ -10,6 +10,7 @@
 - $env:Path += ";C:\Program Files\PostgreSQL\16\bin"
 - psql -U postgres
 - CREATE DATABASE language_learning_db;
+- python manage.py makemigrations
 - python manage.py migrate
 - python manage.py createsuperuser
 - mkdir D:\language_learning\static
