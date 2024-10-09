@@ -17,7 +17,7 @@
 - python manage.py populate_questions
 - python manage.py game_questions
 - python manage.py runserver
-- New Commabd:
+- New Command:
 - pip install openai
 
 
@@ -36,5 +36,5 @@
 -  python manage.py populate_questions
 -  python manage.py game_questions
 -  python manage.py runserver
--  New Commabd:
+-  New Command:
 - pip install openai
