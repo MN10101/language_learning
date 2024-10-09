@@ -17,6 +17,9 @@
 - python manage.py populate_questions
 - python manage.py game_questions
 - python manage.py runserver
+- New Commabd:
+- pip install openai
+
 
 ## Commands MacOS
 - python -m venv venv
@@ -33,3 +36,5 @@
 -  python manage.py populate_questions
 -  python manage.py game_questions
 -  python manage.py runserver
+-  New Commabd:
+- pip install openai
