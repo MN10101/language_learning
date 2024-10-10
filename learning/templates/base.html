@@ -648,7 +648,6 @@
     });
 </script>
 
-<!-- Chatbot JavaScript -->
 <script>
     // Load sound effect
     const messageSound = new Audio("{% static 'sounds/message-alert.mp3' %}");
@@ -667,9 +666,18 @@
         }
     }
 
-    // Open the chatbot when the page loads
+    // Check if the user is logged in
+    function isUserLoggedIn() {
+        // Replace this with your actual login check logic
+        return {{ user.is_authenticated|yesno:"true,false" }};  // Example for Django template context
+    }
+
+    // Open the chatbot if the user is logged in and it hasn't been opened before
     window.onload = function () {
-        toggleChat();  // Automatically open chatbot on load
+        if (isUserLoggedIn() && !localStorage.getItem('chatbotOpened')) {
+            toggleChat();  // Automatically open chatbot on load if logged in
+            localStorage.setItem('chatbotOpened', 'true');  // Set flag that chatbot has been opened
+        }
     };
 
     // Send message when the "Enter" key is pressed
@@ -725,8 +733,8 @@
                 addMessage("Chatbot", "Sorry, something went wrong.");
             });
     }
-
 </script>
+
 
     <!-- Footer -->
     <footer class="footer">
