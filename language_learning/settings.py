@@ -9,12 +9,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Quick-start development settings - unsuitable for production
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-y64*h3vg2l0l+e_nj%s2rluz(v0_9ox=v2ugoyv+!^ck=7mu4)'
-
-# SECURITY WARNING: don't run with debug turned on in production!
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-y64*h3vg2l0l+e_nj%s2rluz(v0_9ox=v2ugoyv+!^ck=7mu4)')
 DEBUG = True
-
 ALLOWED_HOSTS = []  # Add your domain(s) or IP addresses here for production.
 
 # Application definition
@@ -43,7 +39,7 @@ ROOT_URLCONF = 'language_learning.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['D:/language_learning_01/learning/templates'],  # Update with the correct path
+        'DIRS': [os.path.join(BASE_DIR, 'learning/templates')],  # Updated to macOS path
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -56,50 +52,38 @@ TEMPLATES = [
     },
 ]
 
-
 TIME_ZONE = 'Europe/Berlin'
 USE_I18N = True
 USE_TZ = True
 
 WSGI_APPLICATION = 'language_learning.wsgi.application'
 
-# Database
+# Database configuration
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'language_learning_db',  
-        'USER': 'postgres',         
-        'PASSWORD': 'mamo',     
-        'HOST': 'localhost',             
-        'PORT': '5432',                 
+        'NAME': 'language_learning_db',
+        'USER': 'postgres',
+        'PASSWORD': 'mamo',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
-
-# Internationalization
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'Europe/Berlin'
-USE_I18N = True
-USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+    "/Users/jonathanerasmusdavies/Desktop/edu_02/language_learning_01/static",
+]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Media files
@@ -123,5 +107,5 @@ EMAIL_HOST_PASSWORD = 'your-email-password'
 DEFAULT_FROM_EMAIL = 'your-email@example.com'
 
 # Stripe Configuration
-STRIPE_PUBLIC_KEY = 'pk_test_51Ptska04h4gWOpo7Xnr8GsZnb15xqXxtkxQEcmPbGjJTm42EzPLMMF1A5ki3pvsYrMAXYKebbht6sZmYtIThIWaU00Xud903UD'
-STRIPE_SECRET_KEY = 'sk_test_51Ptska04h4gWOpo7XARvCthwxyNKibVirpMACbjSM8cgHXAcFFqrhr4nxAIlg16oz1n3x333BORwZ7FdziI2QQmK00OjZSscLu'
+STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', 'pk_test_51Ptska04h4gWOpo7Xnr8GsZnb15xqXxtkxQEcmPbGjJTm42EzPLMMF1A5ki3pvsYrMAXYKebbht6sZmYtIThIWaU00Xud903UD')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', 'sk_test_51Ptska04h4gWOpo7XARvCthwxyNKibVirpMACbjSM8cgHXAcFFqrhr4nxAIlg16oz1n3x333BORwZ7FdziI2QQmK00OjZSscLu')

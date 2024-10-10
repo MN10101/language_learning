@@ -8,7 +8,7 @@
 - pip show psycopg
 - $env:Path
 - $env:Path += ";C:\Program Files\PostgreSQL\16\bin"
-- psql -U postgres
+- psql -U postgreslscle
 - CREATE DATABASE language_learning_db;
 - python manage.py makemigrations
 - python manage.py migrate
