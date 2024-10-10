@@ -125,3 +125,33 @@ DEFAULT_FROM_EMAIL = 'your-email@example.com'
 # Stripe Configuration
 STRIPE_PUBLIC_KEY = 'pk_test_51Ptska04h4gWOpo7Xnr8GsZnb15xqXxtkxQEcmPbGjJTm42EzPLMMF1A5ki3pvsYrMAXYKebbht6sZmYtIThIWaU00Xud903UD'
 STRIPE_SECRET_KEY = 'sk_test_51Ptska04h4gWOpo7XARvCthwxyNKibVirpMACbjSM8cgHXAcFFqrhr4nxAIlg16oz1n3x333BORwZ7FdziI2QQmK00OjZSscLu'
+
+# OpenAI API Key
+# OPENAI_API_KEY = 'sk-QFOqnIppQ7OTlO9bF9RSN0UHX9lw6pBBCp8cDkwPUNT3BlbkFJdYHRVB5lGQ4V8qa55gka4CULy_HP9r-GAe03PHrbEA'
+
+# Logging configuration
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'console': {
+#             'level': 'DEBUG',  # Adjust log level as needed (e.g., INFO, ERROR)
+#             'class': 'logging.StreamHandler',
+#         },
+#         'file': {
+#             'level': 'DEBUG',
+#             'class': 'logging.FileHandler',
+#             'filename': os.path.join(BASE_DIR, 'debug.log'),  # Logs will be saved to debug.log file
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['console', 'file'],  # Output logs to both console and file
+#             'level': 'DEBUG',  # Log level
+#         },
+#         'openai': {
+#             'handlers': ['console', 'file'],
+#             'level': 'DEBUG',  # Enable debugging for OpenAI-related logs
+#         },
+#     },
+# }

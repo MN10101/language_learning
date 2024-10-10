@@ -24,8 +24,20 @@ from django.shortcuts import render, get_object_or_404
 from .models import Question, Answer
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
+import openai
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+from django.conf import settings
+import logging
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
+
+
+# openai.api_key = settings.OPENAI_API_KEY
+
+# # Initialize logger for debugging
+# logger = logging.getLogger(__name__)
 
 
 
@@ -68,7 +80,7 @@ def english_test(request):
 
     if 'question_index' not in request.session or 'questions' not in request.session:
         # Initialize the session to track progress and randomize questions
-        questions = list(test_questions)  # Use filtered questions instead of all questions
+        questions = list(test_questions)
         random.shuffle(questions)
         request.session['questions'] = [q.id for q in questions]
         request.session['question_index'] = 0
@@ -76,7 +88,7 @@ def english_test(request):
 
     # Retrieve the current question index
     question_index = request.session.get('question_index', 0)  # Default to 0 if not set
-    questions = request.session.get('questions', [])  # Get questions from session
+    questions = request.session.get('questions', [])
 
     # Check if there are questions available
     if not questions or question_index >= len(questions):
@@ -84,7 +96,7 @@ def english_test(request):
         return redirect('submit_english_test')
 
     question_id = questions[question_index]
-    question = get_object_or_404(Question, id=question_id)  # Use get_object_or_404 for safety
+    question = get_object_or_404(Question, id=question_id)
     answers = Answer.objects.filter(question=question)
 
     if request.method == 'POST':
@@ -123,7 +135,7 @@ def profile(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile updated successfully!')
-            return redirect('view_profile')  # Redirect to 'My Profile' page after saving
+            return redirect('view_profile')
     else:
         form = ProfileForm(instance=profile)
     return render(request, 'learning/profile.html', {'form': form, 'profile': profile})
@@ -143,7 +155,7 @@ def save_profile(request):
         form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
         if form.is_valid():
             form.save()
-            return redirect('welcome')  # Redirect to the Welcome page after saving
+            return redirect('welcome')
     else:
         form = ProfileForm(instance=request.user.profile)
     
@@ -166,7 +178,7 @@ def register(request):
             user = form.save()
 
             # Check if the registration is for a teacher (you could add a condition here)
-            if request.POST.get('is_teacher'):  # Assuming you pass this from a form field
+            if request.POST.get('is_teacher'):
                 teachers_group, created = Group.objects.get_or_create(name='Teachers')
                 user.groups.add(teachers_group)
 
@@ -186,13 +198,13 @@ def register(request):
 @login_required
 def view_profile(request):
     profile = request.user.profile
-    is_teacher = request.user.groups.filter(name='Teachers').exists()  # Check if the user is in the "Teachers" group
+    is_teacher = request.user.groups.filter(name='Teachers').exists()
     
-    print(f"Is Teacher: {is_teacher}")  # Debugging to check if user is a teacher
+    print(f"Is Teacher: {is_teacher}")
     
     return render(request, 'learning/view_profile.html', {
         'profile': profile,
-        'is_teacher': is_teacher  # Pass the result to the template
+        'is_teacher': is_teacher 
     })
 
     print(request.user.groups.all())
@@ -205,7 +217,7 @@ def user_login(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('welcome')  # Redirect to the Welcome page after login
+            return redirect('welcome') 
     else:
         form = AuthenticationForm()
     return render(request, 'learning/login.html', {'form': form})
@@ -225,11 +237,11 @@ def upload_file(request):
     if request.method == 'POST':
         form = FileUploadForm(request.POST, request.FILES)
         if form.is_valid():
-            user_file = form.save(commit=False)  # Don't save yet, as we need to add the user
-            user_file.user = request.user        # Associate the uploaded file with the current user
-            user_file.save()                     # Now save it
+            user_file = form.save(commit=False) 
+            user_file.user = request.user  
+            user_file.save()         
             messages.success(request, 'File uploaded successfully!')
-            return redirect('list_files')        # Redirect after successful upload
+            return redirect('list_files')   
     else:
         form = FileUploadForm()
     return render(request, 'learning/upload_file.html', {'form': form})
@@ -274,12 +286,12 @@ def contact_us(request):
         send_mail(
             f'Message from {name} via Contact Us',
             message,
-            email,  # From the user
-            [settings.DEFAULT_FROM_EMAIL],  # To your admin email
+            email, 
+            [settings.DEFAULT_FROM_EMAIL], 
             fail_silently=False,
         )
         messages.success(request, 'Your message has been sent successfully!')
-        return redirect('contact_us')  # Redirect back to the contact page
+        return redirect('contact_us')  
     return render(request, 'learning/contact_us.html')
 
 
@@ -296,7 +308,7 @@ def book_course(request, level):
     }
 
     # Get the price in cents and convert it to euros
-    price = course_prices.get(level, 0) / 100  # Convert to euros
+    price = course_prices.get(level, 0) / 100 
 
     if request.method == 'POST':
         session = stripe.checkout.Session.create(
@@ -350,7 +362,7 @@ def teachers_view(request):
     teachers = Teacher.objects.select_related('user').all()
     
     # Debugging output to check if teachers are being fetched
-    print(teachers)  # This will output to your terminal or server log
+    print(teachers)
     
     return render(request, 'learning/teachers.html', {'teachers': teachers})
 
@@ -368,7 +380,7 @@ def save_password_social_accounts(request):
             if user.check_password(current_password):
                 user.set_password(new_password)
                 user.save()
-                update_session_auth_hash(request, user)  # Important to keep the user logged in
+                update_session_auth_hash(request, user)
                 messages.success(request, 'Password successfully updated.')
             else:
                 messages.error(request, 'Current password is incorrect.')
@@ -420,7 +432,6 @@ def save_notifications(request):
 
 def save_calendar_connection(request):
     if request.method == 'POST':
-        # Handle any settings related to calendar connections
         # This may involve redirecting the user to an OAuth page for Google or Office365
         messages.success(request, 'Calendar connection settings saved.')
     
@@ -461,7 +472,7 @@ def is_teacher(user):
 @user_passes_test(is_teacher)
 def question(request, question_id):
     question = get_object_or_404(Question, id=question_id)
-    answers = Answer.objects.filter(question=question)  # Fetch all answers related to the question
+    answers = Answer.objects.filter(question=question) 
     
     context = {
         'question': question,
@@ -482,7 +493,7 @@ def students_view(request):
     # Get profile information and booked classes for each student
     student_profiles = []
     for student in students:
-        profile = student.profile  # Assuming each user has a related Profile model
+        profile = student.profile 
         booked_classes = ScheduledClass.objects.filter(user=student).distinct()
         student_profiles.append({
             'student': student,
@@ -496,4 +507,108 @@ def students_view(request):
 
     return render(request, 'learning/students.html', context)
 
+# @csrf_exempt
+# def chatbot_answer(request):
+#     if request.method == 'POST':
+#         data = json.loads(request.body)
+#         user_question = data.get('question', '')
 
+#         if not user_question:
+#             return JsonResponse({'error': 'No question provided'}, status=400)
+
+#         try:
+#             # Call GPT-3.5 or GPT-4 from OpenAI
+#             response = openai.ChatCompletion.create(
+#                 model="gpt-3.5-turbo",  # or "gpt-4"
+#                 messages=[
+#                     {"role": "system", "content": "You are a helpful assistant."},
+#                     {"role": "user", "content": user_question},
+#                 ],
+#                 max_tokens=150
+#             )
+#             chatbot_answer = response['choices'][0]['message']['content']
+#             return JsonResponse({'answer': chatbot_answer})
+
+#         except openai.error.RateLimitError:
+#             return JsonResponse({'error': 'OpenAI API rate limit exceeded. Please try again later.'}, status=429)
+
+#         except openai.error.AuthenticationError:
+#             return JsonResponse({'error': 'Invalid OpenAI API key.'}, status=500)
+
+#         except Exception as e:
+#             return JsonResponse({'error': f'General error: {str(e)}'}, status=500)
+
+#     return JsonResponse({'error': 'Invalid request method'}, status=400)
+
+
+@csrf_exempt
+def chatbot_answer(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        user_question = data.get('question', '').lower().strip()
+
+        if not user_question:
+            return JsonResponse({'error': 'No question provided'}, status=400)
+
+        # Define some common questions and answers
+        responses = {
+        "hello": "Hello! How can I help you today?",
+        "what is this app?": "This app is a language learning platform where you can take quizzes, schedule classes, and track your progress.",
+        "how do i register?": "You can register by clicking on the 'Register' button at the top right corner of the homepage and filling out your details.",
+        "how can i book a course?": "To book a course, go to the 'Book Course' page, select your level, and follow the payment instructions.",
+        "who are the teachers?": "Our teachers are experienced professionals who are passionate about helping you learn languages.",
+        "what languages can i learn?": "Currently, we offer courses in English, Spanish, French, and German.",
+        "how do i reset my password?": "You can reset your password by clicking the 'Forgot Password' link on the login page.",
+        "how can i contact support?": "You can reach our support team by using the 'Contact Us' page or emailing us at support@example.com.",
+        "what are the payment options?": "We accept credit card payments through Stripe. All transactions are secure and encrypted.",
+        "how can i update my profile?": "You can update your profile by navigating to the 'Profile' section and clicking 'Edit'.",
+        "what is the refund policy?": "You can request a refund within 14 days of purchase if you have not started the course.",
+        "can i change my course level?": "Yes, you can change your course level by contacting support or directly on the course settings page.",
+        "how long does each course take?": "Each course is designed to be flexible, but the average course takes about 4 to 6 weeks to complete.",
+        "can i access the course on mobile?": "Yes, you can access the courses from your mobile device using any browser. The app is fully responsive for mobile use.",
+        "do you offer certificates?": "Yes, upon completing a course, you will receive a certificate of completion that you can download and share.",
+        "how much does a course cost?": "Course prices vary depending on the level. Please visit the 'Prices' page for the most up-to-date pricing information.",
+        "can i take more than one course at a time?": "Yes, you can enroll in multiple courses at the same time, depending on your availability and schedule.",
+        "are the lessons live or pre-recorded?": "Our courses include a mix of pre-recorded video lessons, quizzes, and live classes with instructors.",
+        "can i interact with other students?": "Yes, we encourage interaction between students. You can join group discussions, study groups, and participate in class forums.",
+        "what happens if i miss a live class?": "If you miss a live class, don't worry! Recordings of the sessions are available for you to watch at any time.",
+        "do you offer a free trial?": "Yes, we offer a free trial for certain courses. Please check the course details page to see if a trial is available.",
+        "how can i cancel my subscription?": "You can cancel your subscription by going to the 'Account Settings' page and clicking on 'Manage Subscription'.",
+        "is there a discount for bulk courses?": "Yes, we offer discounts for bulk course purchases or for businesses looking to enroll multiple employees. Contact our support team for more information.",
+        "how do i schedule a live class?": "You can schedule a live class by visiting the 'My Classes' section and selecting an available time slot.",
+        "can i change my scheduled class?": "Yes, you can reschedule or cancel a class up to 24 hours before the class starts. Go to 'My Classes' to manage your bookings.",
+        "are there quizzes in the course?": "Yes, each course includes quizzes to test your knowledge and help reinforce the material.",
+        "what is the grading system?": "Our grading system is based on quiz scores, class participation, and your overall engagement with the course materials.",
+        "can i get a tutor for one-on-one sessions?": "Yes, we offer personalized one-on-one tutoring sessions for students who want additional help.",
+        "how do i apply a discount code?": "You can apply a discount code during the checkout process in the 'Payment' section.",
+        "where can i see my progress?": "You can view your progress by going to the 'My Course' page where you'll find your completed lessons, scores, and upcoming classes.",
+        "can i download course materials?": "Yes, course materials such as worksheets and slides can be downloaded directly from the lesson pages.",
+        "how can i refer a friend?": "You can refer a friend by sharing your unique referral link, which can be found in the 'Profile' section under 'Referrals'.",
+        "is there a loyalty program?": "Yes, we have a loyalty program where you earn points for completing courses, attending live classes, and referring friends. Points can be redeemed for discounts.",
+        "what level should i start at?": "If you're unsure about your level, we recommend taking our placement test, available on the homepage, to find the best course for you.",
+        "can i learn at my own pace?": "Yes, you can learn at your own pace. While live classes have scheduled times, the video lessons and quizzes can be completed anytime.",
+        "do i need to buy books or materials?": "All materials are included in the course, and additional reading or worksheets can be downloaded from the lesson pages.",
+        "how do i improve my speaking skills?": "To improve your speaking skills, we recommend participating in live classes, scheduling one-on-one tutoring, or joining student discussion groups.",
+        "how much time should i spend learning each day?": "We suggest dedicating at least 30 minutes a day to your studies, but you can adjust this based on your own pace and goals.",
+        "are there any practice exercises?": "Yes, each course includes exercises and practice quizzes designed to help reinforce what you've learned.",
+        "how do live classes work?": "Live classes are held via video conferencing. You can participate in real-time, ask questions, and interact with the instructor and other students.",
+        "what happens after i complete a course?": "After completing a course, you will receive a certificate, and you can move on to the next level or continue learning with more advanced topics.",
+        "how do i track my daily streak?": "Your daily streak is tracked on your dashboard. Keep logging in and completing lessons daily to maintain your streak!",
+        "do i need to have a webcam for live classes?": "A webcam is recommended for live classes so you can fully engage with the instructor, but it's not mandatory.",
+        "how do i stay motivated?": "Try setting small, achievable goals and reward yourself for meeting them! You can also join group discussions or study with friends to stay engaged.",
+        "i'm not making progress, what should i do?": "It can feel frustrating when you're not making progress, but try to review past lessons, focus on weak areas, and don’t hesitate to reach out to a tutor for extra help.",
+        "how can i fit learning into my busy schedule?": "Our courses are flexible. You can schedule live classes when it's convenient, and complete lessons and quizzes on your own time, even if it’s just 10 minutes a day.",
+        "can i study offline?": "At the moment, our courses are fully online. However, you can download certain materials like worksheets to use offline.",
+        "can i get feedback on my progress?": "Absolutely! Instructors provide feedback in live classes, and our system tracks your performance on quizzes and exercises, so you know where to improve."
+    }
+
+
+
+        # Default response if the question is not recognized
+        default_response = "I'm sorry, I didn't understand that. Can you please rephrase?"
+
+        # Get the response for the user question, or use the default response
+        chatbot_answer = responses.get(user_question, default_response)
+        return JsonResponse({'answer': chatbot_answer})
+
+    return JsonResponse({'error': 'Invalid request method'}, status=400)

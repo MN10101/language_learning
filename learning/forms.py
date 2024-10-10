@@ -16,7 +16,7 @@ class TestForm(forms.Form):
     )
 
 class ProfileForm(forms.ModelForm):
-    email = forms.EmailField(max_length=254, required=True)  # Add email field
+    email = forms.EmailField(max_length=254, required=True)
 
     class Meta:
         model = Profile
@@ -39,5 +39,5 @@ class ProfileForm(forms.ModelForm):
         profile.user.email = self.cleaned_data['email']
         if commit:
             profile.save()
-            profile.user.save()  # Save the User model to store the email change
+            profile.user.save()
         return profile

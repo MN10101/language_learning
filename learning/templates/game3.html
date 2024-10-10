@@ -27,7 +27,7 @@
         /* Layout styles for the flashcard container */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: transparent; /* Allow canvas background to show */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -38,6 +38,8 @@
 
         .container {
             text-align: center;
+            position: relative; /* Ensure container is on top of background */
+            z-index: 1; /* Above the background */
         }
 
         .card {
@@ -98,10 +100,25 @@
         .back-button:hover {
             background-color: #5e2d91;
         }
+
+        /* Full-screen canvas setup */
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;  /* Full viewport width */
+            height: 100vh; /* Full viewport height */
+            z-index: 0;    /* Ensure background is behind content */
+            pointer-events: none; /* Allow interactions to pass through */
+        }
     </style>
 </head>
 <body>
 
+    <!-- Full-screen canvas for the animated background -->
+    <canvas id="backgroundCanvas"></canvas>
+
+    <!-- Flashcard Game Container -->
     <div class="container">
         <h1>Flashcard Game</h1>
         <div class="flashcards" id="flashcards-container"></div>
@@ -116,6 +133,89 @@
     <!-- Sound effect for clicks -->
     <audio id="click-sound" src="{% static 'sounds/click.wav' %}"></audio>
 
+    <!-- Background Animation Script -->
+    <script>
+        // Particle background animation
+        const canvas = document.getElementById('backgroundCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Full-screen canvas setup
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Particle class to create movement
+        class Particle {
+            constructor(x, y, radius, speedX, speedY, color) {
+                this.x = x;
+                this.y = y;
+                this.radius = radius;
+                this.speedX = speedX;
+                this.speedY = speedY;
+                this.color = color;
+            }
+
+            // Draw the particle on the canvas
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.closePath();
+            }
+
+            // Update the particle position and bounce if it hits the edges
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                // Bounce off edges
+                if (this.x + this.radius > canvas.width || this.x - this.radius < 0) {
+                    this.speedX = -this.speedX;
+                }
+                if (this.y + this.radius > canvas.height || this.y - this.radius < 0) {
+                    this.speedY = -this.speedY;
+                }
+
+                this.draw();
+            }
+        }
+
+        // Create an array to store particles
+        let particlesArray = [];
+        const particleCount = 100;
+
+        // Initialize particles
+        function initParticles() {
+            particlesArray = [];
+            for (let i = 0; i < particleCount; i++) {
+                const radius = Math.random() * 5 + 2;
+                const x = Math.random() * (canvas.width - radius * 2) + radius;
+                const y = Math.random() * (canvas.height - radius * 2) + radius;
+                const speedX = (Math.random() - 0.5) * 2;
+                const speedY = (Math.random() - 0.5) * 2;
+                const color = `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 0.7)`;
+
+                particlesArray.push(new Particle(x, y, radius, speedX, speedY, color));
+            }
+        }
+
+        // Animate particles
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particlesArray.forEach(particle => particle.update());
+            requestAnimationFrame(animate);
+        }
+
+        initParticles();
+        animate();
+    </script>
+
+    <!-- Flashcard Game Script -->
     <script src="{% static 'js/script.js' %}"></script>
+
 </body>
 </html>

@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 from learning.models import Question, Answer
 
-# Sample questions and answers from A1 to C2 levels
+
 questions_data = [
     # A1 Level Questions
     {

@@ -12,7 +12,7 @@ class Question(models.Model):
     level = models.CharField(max_length=2, choices=[
         ('A1', 'A1'), ('A2', 'A2'), ('B1', 'B1'), ('B2', 'B2'), ('C1', 'C1'), ('C2', 'C2')
     ])
-    category = models.CharField(max_length=10, choices=CATEGORY_CHOICES, default='test')  # New field
+    category = models.CharField(max_length=10, choices=CATEGORY_CHOICES, default='test') 
 
     def __str__(self):
         return self.text

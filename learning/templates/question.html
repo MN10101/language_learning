@@ -41,8 +41,8 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             const timeoutSound = document.getElementById('timeoutSound');
-            timeoutSound.play();  // Play timeout sound
-            timer = setInterval(updateTimer, 1000);  // Start 15-second countdown
+            timeoutSound.play();  
+            timer = setInterval(updateTimer, 1000);
 
             // Timeout after 15 seconds if no answer is selected
             timeoutEvent = setTimeout(function () {
@@ -65,13 +65,13 @@
             timeoutSound.pause();
             showMessage('lostMessage');
             setTimeout(function () {
-                window.location.href = '{% url "game" %}';  // Redirect to the main game page
+                window.location.href = '{% url "game" %}'; 
             }, 2000);  // Redirect after 2 seconds
         }
 
         function checkAnswer(isCorrect, button) {
-            clearTimeout(timeoutEvent);  // Stop the timeout
-            clearInterval(timer);  // Stop the countdown
+            clearTimeout(timeoutEvent);  
+            clearInterval(timer); 
 
             const clickSound = document.getElementById('clickSound');
             clickSound.play();
@@ -80,7 +80,7 @@
                 showMessage('correctMessage');
                 document.getElementById('correctSound').play();
                 setTimeout(function () {
-                    window.location.href = '{% url "game" %}';  // Redirect to the main game page after 2 seconds
+                    window.location.href = '{% url "game" %}'; 
                 }, 2000);
             } else {
                 showMessage('wrongMessage');

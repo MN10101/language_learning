@@ -372,6 +372,139 @@
             display: block;
         }
 
+         /* Chatbot Icon and Interface */
+         #chatbot-container {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        #chatbot-icon {
+            cursor: pointer;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #4b0082;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #chatbot-icon img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Chatbot Bubble Style */
+        #chatbot {
+            display: none;
+            position: relative;
+            background-color: #fff;
+            width: 300px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.3s ease-in-out;
+            overflow: hidden;
+            padding: 15px;
+        }
+
+        /* Chatbot Tail (Message Bubble Shape) */
+        #chatbot::before {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            right: 20px;
+            width: 0;
+            height: 0;
+            border: 20px solid transparent;
+            border-top-color: #fff; /* Color matches the chatbot bubble */
+        }
+
+        #chatbot-header {
+            background-color: #822ac2;
+            padding: 10px;
+            color: white;
+            text-align: center;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+
+        #chatbot-messages {
+            padding: 10px;
+            height: 200px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+        }
+
+        #chatbot-input {
+            display: flex;
+            border-top: 1px solid #ccc;
+        }
+
+        #chatbot-input input {
+            flex: 1;
+            border: none;
+            padding: 10px;
+            border-radius: 0 0 0 20px;
+        }
+
+        #chatbot-input button {
+            background-color: #4b0082;
+            border: none;
+            padding: 10px;
+            color: white;
+            cursor: pointer;
+            border-radius: 0 0 20px 0;
+        }
+
+        /* Animation for Chatbot Open/Close */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: scale(1);
+            }
+            to {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+        }
+
+    /* Scroll-to-Top Button Styles */
+    #scrollTopBtn {
+        position: fixed;
+        bottom: 20px; /* Keep a distance between the chatbot */
+        right: 20px;
+        background-color: #4b0082;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        cursor: pointer;
+        font-size: 20px;
+        display: none;
+        z-index: 1000;
+    }
+
+    #scrollTopBtn:hover {
+        background-color: #5e2d91;
+    }
+
     </style>
 </head>
 <body>
@@ -427,6 +560,25 @@
     </div>
 </div>
 
+<!-- Chatbot Icon and Interface -->
+<div id="chatbot-container">
+    {% csrf_token %}
+    <div id="chatbot-icon" onclick="toggleChat()">
+        <img src="{% static 'images/55.webp' %}" alt="Chatbot Icon">
+    </div>
+
+    <div id="chatbot">
+        <div id="chatbot-header">
+            <h3>App Chatbot</h3>
+            <button onclick="toggleChat()">Close</button>
+        </div>
+        <div id="chatbot-messages"></div>
+        <div id="chatbot-input">
+            <input type="text" id="user-input" placeholder="Ask me anything..." onkeypress="checkEnter(event)" />
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+</div>
     
 
     <!-- Main Content Wrapper -->
@@ -494,6 +646,86 @@
             time_24hr: true
         });
     });
+</script>
+
+<!-- Chatbot JavaScript -->
+<script>
+    // Load sound effect
+    const messageSound = new Audio("{% static 'sounds/message-alert.mp3' %}");
+
+    // Toggle the chatbot visibility with animation and sound
+    function toggleChat() {
+        const chatbot = document.getElementById("chatbot");
+        if (chatbot.style.display === "none" || !chatbot.style.display) {
+            chatbot.style.display = "block";
+            chatbot.style.animation = "fadeIn 0.3s ease-in-out";
+            messageSound.play();  // Play sound when chatbot opens
+            addMessage("Chatbot", "Hello! How can I help you today?");  // Display greeting message
+        } else {
+            chatbot.style.animation = "fadeOut 0.3s ease-in-out";
+            setTimeout(() => chatbot.style.display = "none", 300);
+        }
+    }
+
+    // Open the chatbot when the page loads
+    window.onload = function () {
+        toggleChat();  // Automatically open chatbot on load
+    };
+
+    // Send message when the "Enter" key is pressed
+    function checkEnter(event) {
+        if (event.key === 'Enter') {
+            sendMessage();
+        }
+    }
+
+    // Send the user's message
+    function sendMessage() {
+        const inputField = document.getElementById("user-input");
+        const userInput = inputField.value.trim();
+
+        if (userInput) {
+            addMessage("You", userInput);
+            inputField.value = '';
+            fetchResponse(userInput);
+        }
+    }
+
+    // Add a message to the chat
+    function addMessage(sender, message) {
+        const chatMessages = document.getElementById("chatbot-messages");
+        const messageDiv = document.createElement("div");
+        messageDiv.textContent = `${sender}: ${message}`;
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
+    }
+
+    // Fetch the chatbot's response
+    function fetchResponse(question) {
+        addMessage("Chatbot", "Thinking...");
+
+        fetch("/chatbot-answer/", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}',  // Include CSRF token for Django
+            },
+            body: JSON.stringify({ 'question': question }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.answer) {
+                    addMessage("Chatbot", data.answer);
+                } else {
+                    addMessage("Chatbot", "Sorry, I couldn't understand that.");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                addMessage("Chatbot", "Sorry, something went wrong.");
+            });
+    }
+
 </script>
 
     <!-- Footer -->

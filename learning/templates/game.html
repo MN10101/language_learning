@@ -6,8 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>English Quiz Game</title>
     <link rel="stylesheet" href="{% static 'css/game.css' %}">
+    <link rel="stylesheet" href="{% static 'css/background.css' %}"> <!-- Link to new CSS file -->
 </head>
 <body>
+
+    <!-- Full-screen canvas for the animated background -->
+    <canvas id="backgroundCanvas"></canvas> <!-- Add canvas element -->
 
     <!-- Game Grid -->
     <div class="grid">
@@ -28,6 +32,89 @@
     <audio id="openSound" src="{% static 'sounds/question_open.wav' %}" preload="auto" loop></audio>
 
     <script>
+        // Particle background animation
+        const canvas = document.getElementById('backgroundCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Full-screen canvas setup
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Particle class to create movement
+        class Particle {
+            constructor(x, y, radius, speedX, speedY, color) {
+                this.x = x;
+                this.y = y;
+                this.radius = radius;
+                this.speedX = speedX;
+                this.speedY = speedY;
+                this.color = color;
+            }
+
+            // Draw the particle on the canvas
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.closePath();
+            }
+
+            // Update the particle position and bounce if it hits the edges
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                // Bounce off edges
+                if (this.x + this.radius > canvas.width || this.x - this.radius < 0) {
+                    this.speedX = -this.speedX;
+                }
+                if (this.y + this.radius > canvas.height || this.y - this.radius < 0) {
+                    this.speedY = -this.speedY;
+                }
+
+                this.draw();
+            }
+        }
+
+        // Create an array to store particles
+        let particlesArray = [];
+        const particleCount = 100;  // Number of particles
+
+        // Initialize particles
+        function initParticles() {
+            particlesArray = [];
+            for (let i = 0; i < particleCount; i++) {
+                const radius = Math.random() * 5 + 2;  // Random radius between 2 and 7
+                const x = Math.random() * (canvas.width - radius * 2) + radius;
+                const y = Math.random() * (canvas.height - radius * 2) + radius;
+                const speedX = (Math.random() - 0.5) * 2;
+                const speedY = (Math.random() - 0.5) * 2;
+                const color = `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 0.7)`;
+
+                particlesArray.push(new Particle(x, y, radius, speedX, speedY, color));
+            }
+        }
+
+        // Animate particles
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);  // Clear canvas
+
+            particlesArray.forEach(particle => {
+                particle.update();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        // Initialize and start animation
+        initParticles();
+        animate();
+
         // Play the click sound when clicking on any question square
         function playClickSound() {
             const clickSound = document.getElementById('clickSound');
@@ -70,7 +157,6 @@
                 window.location.href = "{% url 'welcome' %}";  // Redirect to 'welcome' after delay
             }, 500);  // Delay for 500ms to allow the sound to play
         }
-
     </script>
 
 </body>
