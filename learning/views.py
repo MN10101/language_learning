@@ -135,10 +135,14 @@ def profile(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile updated successfully!')
-            return redirect('view_profile')
+            return redirect('view_profile')  # Redirect to a view that shows the updated profile
     else:
         form = ProfileForm(instance=profile)
-    return render(request, 'learning/profile.html', {'form': form, 'profile': profile})
+
+    return render(request, 'learning/profile.html', {
+        'form': form,
+        'profile': profile,
+    })
 
 
 
@@ -160,6 +164,7 @@ def save_profile(request):
         form = ProfileForm(instance=request.user.profile)
     
     return render(request, 'learning/profile.html', {'form': form})
+
 
 @login_required
 def welcome(request):
@@ -199,15 +204,11 @@ def register(request):
 def view_profile(request):
     profile = request.user.profile
     is_teacher = request.user.groups.filter(name='Teachers').exists()
-    
-    print(f"Is Teacher: {is_teacher}")
-    
+
     return render(request, 'learning/view_profile.html', {
         'profile': profile,
-        'is_teacher': is_teacher 
+        'is_teacher': is_teacher,
     })
-
-    print(request.user.groups.all())
 
 
 

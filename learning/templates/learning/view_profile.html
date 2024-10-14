@@ -20,6 +20,14 @@
         <p>{{ profile.user.email }}</p>
     </div>
     <div class="profile-detail">
+        <label>Profile Picture</label>
+        {% if profile.profile_picture %}
+            <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" style="width: 150px; height: auto;">
+        {% else %}
+            <p>No profile picture available.</p>
+        {% endif %}
+    </div>
+    <div class="profile-detail">
         <label>Age</label>
         <p>{{ profile.age }}</p>
     </div>
