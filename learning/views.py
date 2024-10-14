@@ -150,7 +150,14 @@ def profile(request):
 @login_required
 def view_profile(request):
     profile = request.user.profile
-    return render(request, 'learning/view_profile.html', {'profile': profile})
+
+    # Check if the profile picture exists; if not, assign a default image
+    profile_picture_url = profile.profile_picture.url if profile.profile_picture else '/media/profile_pictures/default_profile_picture.png'
+    
+    return render(request, 'learning/view_profile.html', {
+        'profile': profile,
+        'profile_picture_url': profile_picture_url
+    })
 
 
 @login_required
@@ -205,9 +212,13 @@ def view_profile(request):
     profile = request.user.profile
     is_teacher = request.user.groups.filter(name='Teachers').exists()
 
+    # Check if the profile picture exists; if not, assign a default image
+    profile_picture_url = profile.profile_picture.url if profile.profile_picture else '/media/profile_pictures/default_profile_picture.png'
+
     return render(request, 'learning/view_profile.html', {
         'profile': profile,
         'is_teacher': is_teacher,
+        'profile_picture_url': profile_picture_url
     })
 
 

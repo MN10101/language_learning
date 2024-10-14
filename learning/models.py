@@ -28,7 +28,7 @@ class Answer(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
+    profile_picture = models.ImageField(upload_to='profile_pictures/', default='profile_pictures/default_profile_picture')
     first_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=30, blank=True)
     age = models.IntegerField(blank=True, null=True)

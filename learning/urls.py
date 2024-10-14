@@ -40,4 +40,6 @@ urlpatterns = [
     path('game2/', views.game2, name='game2'),
     path('game3/', views.game3, name='game3'),
     path('question/<int:question_id>/', views.question, name='question'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] 
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

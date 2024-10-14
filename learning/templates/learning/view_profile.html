@@ -21,12 +21,9 @@
     </div>
     <div class="profile-detail">
         <label>Profile Picture</label>
-        {% if profile.profile_picture %}
-            <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" style="width: 150px; height: auto;">
-        {% else %}
-            <p>No profile picture available.</p>
-        {% endif %}
+        <img src="{{ profile_picture_url }}" alt="Profile Picture">
     </div>
+        
     <div class="profile-detail">
         <label>Age</label>
         <p>{{ profile.age }}</p>
