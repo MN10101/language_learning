@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% load static %}
 
 {% block title %}Welcome{% endblock %}
@@ -57,6 +56,9 @@
         </div>
     </div>
 </div>
+
+<!-- Add the hidden video element -->
+<video id="welcomeVideo" class="fullscreen-video" src="{% static 'vid/je.mp4' %}"></video>
 
 <!-- Add the custom CSS for animations and hover effects -->
 <style>
@@ -184,11 +186,38 @@
         opacity: 1;
         transform: translateX(0) translateY(0);
     }
+
+    /* Fullscreen video styling */
+    .fullscreen-video {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 1000;
+        display: none;  /* Initially hidden */
+    }
 </style>
 
-<!-- JavaScript to trigger animations on scroll -->
+<!-- JavaScript to handle video playback and animations -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        const video = document.getElementById('welcomeVideo');
+        const hasWatchedVideo = localStorage.getItem('hasWatchedVideo');
+
+        // Check if the video has been watched before
+        if (!hasWatchedVideo) {
+            video.style.display = 'block';  // Show the video
+            video.play();  // Play the video with sound
+            
+            // Once the video ends, hide it and mark it as watched
+            video.onended = function () {
+                video.style.display = 'none';
+                localStorage.setItem('hasWatchedVideo', 'true');  // Store in localStorage to play only once
+            };
+        }
+
         const animatedElements = document.querySelectorAll('.animated');
 
         function checkScroll() {
