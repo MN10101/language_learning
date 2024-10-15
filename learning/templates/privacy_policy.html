@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Privacy Policy{% endblock %}
+
+{% block content %}
+<div class="container privacy-policy mt-5">
+    <h1>Privacy Policy</h1>
+    <p>We value your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, and share your data when you use our website and services.</p>
+
+    <h2>1. Information We Collect</h2>
+    <p>We collect information you provide directly to us, such as when you create an account, take a quiz, book a course, or contact us. The types of information we may collect include your name, email address, payment information, and any other information you choose to provide.</p>
+
+    <h2>2. How We Use Your Information</h2>
+    <ul>
+        <li><strong>Service Delivery:</strong> We use your information to provide and improve our services, process transactions, and communicate with you.</li>
+        <li><strong>Personalization:</strong> We may use your data to customize your experience and recommend content based on your preferences and usage.</li>
+        <li><strong>Analytics:</strong> We analyze your information to monitor usage patterns, maintain service stability, and make improvements to our offerings.</li>
+    </ul>
+
+    <h2>3. Sharing Your Information</h2>
+    <p>We do not share your personal information with third parties, except in the following cases:</p>
+    <ul>
+        <li><strong>Service Providers:</strong> We may share your data with trusted partners to assist in delivering our services (e.g., payment processors).</li>
+        <li><strong>Legal Obligations:</strong> We may disclose information if required to do so by law or in response to valid legal requests.</li>
+    </ul>
+
+    <h2>4. Data Security</h2>
+    <p>We take data security seriously and implement industry-standard practices to protect your information. However, no security measure is 100% secure, and we cannot guarantee the absolute security of your data.</p>
+
+    <h2>5. Your Rights</h2>
+    <p>You have the right to access, update, or delete your personal information. To exercise these rights, please contact our support team.</p>
+
+    <h2>6. Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. Any changes will be posted on this page with the updated date.</p>
+
+    <p>If you have any questions about this Privacy Policy, please contact us at privacy@example.com.</p>
+</div>
+
+<style>
+    .privacy-policy {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+        color: #333;
+    }
+    .privacy-policy h1, .privacy-policy h2 {
+        color: #4b0082;
+        margin-bottom: 15px;
+    }
+    .privacy-policy p, .privacy-policy ul {
+        margin-bottom: 20px;
+        font-size: 16px;
+        line-height: 1.6;
+    }
+    .privacy-policy ul {
+        padding-left: 20px;
+    }
+    .privacy-policy ul li {
+        margin-bottom: 10px;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+        .privacy-policy {
+            padding: 15px;
+        }
+        .privacy-policy h1, .privacy-policy h2 {
+            font-size: 24px;
+        }
+        .privacy-policy p, .privacy-policy ul {
+            font-size: 14px;
+        }
+    }
+</style>
+{% endblock %}

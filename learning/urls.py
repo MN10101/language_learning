@@ -32,6 +32,9 @@ urlpatterns = [
     path('save-notifications/', views.save_notifications, name='save_notifications'),
     path('save-calendar-connection/', views.save_calendar_connection, name='save_calendar_connection'),
     path('chatbot-answer/', views.chatbot_answer, name='chatbot_answer'),
+    path('privacy-policy/', views.privacy_policy, name='privacy_policy'),
+    path('terms-of-service/', views.terms_of_service, name='terms_of_service'),
+    path('refund-policy/', views.refund_policy, name='refund_policy'),
     
 
     # Game-related URLs for teachers

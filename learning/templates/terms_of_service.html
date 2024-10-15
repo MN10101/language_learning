@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Terms of Service{% endblock %}
+
+{% block content %}
+<div class="container terms-of-service mt-5">
+    <h1>Terms of Service</h1>
+    <p>Welcome to our platform. By accessing or using our services, you agree to comply with these Terms of Service. Please read them carefully.</p>
+
+    <h2>1. Use of the Platform</h2>
+    <p>Our platform provides educational content, including quizzes, courses, and other learning materials. You are responsible for ensuring that your use of our platform complies with all applicable laws and regulations.</p>
+
+    <h2>2. User Accounts</h2>
+    <ul>
+        <li><strong>Account Creation:</strong> You may be required to create an account to access certain features. You agree to provide accurate information when creating your account and to keep it updated.</li>
+        <li><strong>Account Security:</strong> You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account.</li>
+    </ul>
+
+    <h2>3. Payments and Refunds</h2>
+    <p>All payments made on our platform are processed securely. By making a purchase, you agree to the pricing and payment terms. Refund requests are subject to our <a href="{% url 'refund_policy' %}">Refund Policy</a>.</p>
+
+    <h2>4. Prohibited Activities</h2>
+    <p>Users are prohibited from engaging in the following activities:</p>
+    <ul>
+        <li>Using the platform for any unlawful purposes.</li>
+        <li>Attempting to interfere with the proper functioning of the platform.</li>
+        <li>Sharing your account with others without permission.</li>
+    </ul>
+
+    <h2>5. Termination of Service</h2>
+    <p>We reserve the right to suspend or terminate your account if you violate these Terms of Service. You will not be entitled to a refund in such cases.</p>
+
+    <h2>6. Changes to the Terms</h2>
+    <p>We may update these Terms of Service at any time. Any changes will be posted on this page. Your continued use of the platform constitutes acceptance of the updated terms.</p>
+
+    <p>If you have any questions about these Terms of Service, please contact us at support@example.com.</p>
+</div>
+
+<style>
+    .terms-of-service {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+        color: #333;
+    }
+    .terms-of-service h1, .terms-of-service h2 {
+        color: #4b0082;
+        margin-bottom: 15px;
+    }
+    .terms-of-service p, .terms-of-service ul {
+        margin-bottom: 20px;
+        font-size: 16px;
+        line-height: 1.6;
+    }
+    .terms-of-service ul {
+        padding-left: 20px;
+    }
+    .terms-of-service ul li {
+        margin-bottom: 10px;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+        .terms-of-service {
+            padding: 15px;
+        }
+        .terms-of-service h1, .terms-of-service h2 {
+            font-size: 24px;
+        }
+        .terms-of-service p, .terms-of-service ul {
+            font-size: 14px;
+        }
+    }
+</style>
+{% endblock %}

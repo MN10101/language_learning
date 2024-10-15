@@ -624,3 +624,12 @@ def chatbot_answer(request):
         return JsonResponse({'answer': chatbot_answer})
 
     return JsonResponse({'error': 'Invalid request method'}, status=400)
+
+def privacy_policy(request):
+    return render(request, 'privacy_policy.html')
+
+def terms_of_service(request):
+    return render(request, 'terms_of_service.html')
+
+def refund_policy(request):
+    return render(request, 'refund_policy.html')
