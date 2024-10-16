@@ -29,14 +29,13 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.conf import settings
-import logging
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import render, redirect
-import logging
 
-logger = logging.getLogger(__name__)
+
+
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -300,7 +299,6 @@ def my_course(request):
 
 
 
-
 def contact_us(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -315,13 +313,14 @@ def contact_us(request):
                 [settings.EMAIL_HOST_USER],
                 fail_silently=False,
             )
-            logger.info('Email sent successfully')
             messages.success(request, 'Your message has been sent successfully!')
         except Exception as e:
-            logger.error(f'Failed to send email: {str(e)}')
             messages.error(request, f'Failed to send message: {str(e)}')
 
         return redirect('contact_us')
+
+    # Handle GET request
+    return render(request, 'learning/contact_us.html')
 
 
 
