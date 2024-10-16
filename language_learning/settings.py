@@ -1,7 +1,11 @@
 import os
 from pathlib import Path
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    's8m-adaptable-hubble.circumeo-apps.net',
+    'localhost',  # Optional: for local testing
+    '127.0.0.1',  # Optional: for local testing
+]
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
