@@ -30,6 +30,7 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from django.conf import settings
 import logging
+from django.conf import settings
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -288,17 +289,20 @@ def my_course(request):
     return render(request, 'learning/my_course.html', {'courses': courses})
 
 
+
+
 def contact_us(request):
     if request.method == 'POST':
         name = request.POST.get('name')
         email = request.POST.get('email')
         message = request.POST.get('message')
 
+        # Ensure you're using the settings module here
         send_mail(
             f'Message from {name} via Contact Us',
             message,
             email,
-            [settings.DEFAULT_FROM_EMAIL],
+            [settings.DEFAULT_FROM_EMAIL],  # Access DEFAULT_FROM_EMAIL correctly
             fail_silently=False,
         )
         messages.success(request, 'Your message has been sent successfully!')
