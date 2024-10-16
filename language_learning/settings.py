@@ -1,23 +1,21 @@
 import os
 from pathlib import Path
 
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# MEDIA configurations
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-# Quick-start development settings - unsuitable for production
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-y64*h3vg2l0l+e_nj%s2rluz(v0_9ox=v2ugoyv+!^ck=7mu4)')
 DEBUG = True
-ALLOWED_HOSTS = []  # Add your domain(s) or IP addresses here for production.
 
 ALLOWED_HOSTS = [
     's8m-adaptable-hubble.circumeo-apps.net',
     'localhost',
     '127.0.0.1',
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://s8m-adaptable-hubble.circumeo-apps.net',
+    'http://localhost',
+    'http://127.0.0.1',
 ]
 
 
