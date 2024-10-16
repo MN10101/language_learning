@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
     <!-- FullCalendar and Flatpickr stylesheets -->
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -506,8 +507,25 @@
     }
 
 
-    /* Media Queries for Responsive Design */
+
+   /* Media Queries for Responsive Design */
     @media (max-width: 768px) {
+        .navbar {
+            padding: 10px 20px; /* Maintain the same padding as desktop */
+            flex-direction: row; /* Keep the layout as row for desktop look */
+            justify-content: space-between; /* Ensure items are spaced correctly */
+            overflow: hidden; /* Prevent content overflow */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional: Add shadow for better visibility */
+        }
+        .navbar-left {
+            flex-direction: row; /* Keep the items in a row */
+            gap: 15px; /* Maintain spacing */
+        }
+        .navbar-left a {
+            font-size: 16px; /* Keep font size consistent */
+            padding: 10px; /* Maintain padding */
+        }
+
         .container {
             padding: 20px;
             margin: 10px;
@@ -558,9 +576,6 @@
         }
     }
 
-
-
-
     </style>
 </head>
 <body>
@@ -570,6 +585,8 @@
     <a href="{% url 'welcome' %}" class="logo">
         <span class="logo-letter">J</span><span class="logo-letter">E</span>
     </a>
+
+    
 
     <div class="navbar-left">
     <a href="{% url 'welcome' %}">Home</a>
