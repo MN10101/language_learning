@@ -30,6 +30,10 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from django.conf import settings
 import logging
+from django.core.mail import send_mail
+from django.conf import settings
+from django.contrib import messages
+from django.shortcuts import render, redirect
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -288,10 +292,7 @@ def my_course(request):
     return render(request, 'learning/my_course.html', {'courses': courses})
 
 
-from django.core.mail import send_mail
-from django.conf import settings
-from django.contrib import messages
-from django.shortcuts import render, redirect
+
 
 def contact_us(request):
     if request.method == 'POST':
