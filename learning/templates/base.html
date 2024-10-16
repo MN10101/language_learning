@@ -32,149 +32,173 @@
             justify-content: space-between;
         }
 
-        /* Original Navbar Styles */
-/* Original Navbar Styles */
-.navbar {
-    background-color: #4b0082;
-    color: white;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-}
-
-.hamburger-menu {
-    display: none;
-    font-size: 30px;
-    cursor: pointer;
-}
-
-.navbar-left {
-    display: flex;
-    gap: 15px;
-}
-
-/* Navbar links */
-.navbar-left a {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-    padding: 10px;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.navbar-left a:hover {
-    background-color: #5e2d91;
-    transform: scale(1.2);
-}
-
-/* Media Query for small devices */
-@media (max-width: 768px) {
-    .hamburger-menu {
-        display: block;
-    }
-
-    /* Stack links vertically when active */
-    .navbar-left {
-        flex-direction: column; /* Stack links vertically */
-        width: 100%; /* Full width */
-        background-color: #4b0082;
-        position: absolute;
-        top: 50px;
-        left: 0;
-        right: 0;
-        z-index: 999;
-        max-height: 0; /* Start hidden */
-        overflow: hidden; /* Hide overflow */
-        transition: max-height 0.5s ease-in-out;
-    }
-
-    /* When active, show the navbar */
-    .navbar.active .navbar-left {
-        max-height: 100vh; /* Allow full height when opened */
-    }
-
-    .navbar-left a {
-        font-size: 18px;
-        padding: 15px;
-        text-align: left; /* Align text to the left */
-        width: 100%; /* Make links take the full width */
-        border-bottom: 1px solid #ddd;
-        opacity: 0; /* Start hidden */
-        transform: translateY(-20px); /* Move up initially */
-        animation: none; /* No animation by default */
-    }
-
-    /* Animation for each link: fade-in and slide down */
-    @keyframes curtainEffect {
-        0% {
-            opacity: 0;
-            transform: translateY(-20px);
+        /* Navbar Styles */
+        .navbar {
+            background-color: #4b0082;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
         }
-        100% {
-            opacity: 1;
-            transform: translateY(0);
+
+        .hamburger-menu {
+            display: none;
+            font-size: 30px;
+            cursor: pointer;
         }
-    }
 
-    /* When the navbar is not active, hide the links (curtain closing) */
-    .navbar:not(.active) .navbar-left a {
-        opacity: 0;
-        transform: translateY(-20px);
-        transition: opacity 0.3s, transform 0.3s;
-    }
+        .navbar-left {
+            display: flex;
+            gap: 15px;
+        }
 
-    /* Curtain effect: each link appears one by one */
-    .navbar.active .navbar-left a {
-        animation: curtainEffect 0.5s forwards ease-in-out;
-    }
+        /* Navbar links */
+        .navbar-left a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 10px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
 
-    /* Delay each link’s appearance based on its order */
-    .navbar.active .navbar-left a:nth-child(1) {
-        animation-delay: 0.1s; /* Home */
-    }
+        .navbar-left a:hover {
+            background-color: #5e2d91;
+            transform: scale(1.2);
+        }
 
-    .navbar.active .navbar-left a:nth-child(2) {
-        animation-delay: 0.2s; /* About Us */
-    }
+        /* Media Query for small devices */
+        @media (max-width: 768px) {
+            .hamburger-menu {
+                display: block;
+            }
 
-    .navbar.active .navbar-left a:nth-child(3) {
-        animation-delay: 0.3s; /* Upload File */
-    }
+            /* Stack links vertically when active */
+            .navbar-left {
+                flex-direction: column; /* Stack links vertically */
+                width: 100%; /* Full width */
+                background-color: #4b0082;
+                position: absolute;
+                top: 50px;
+                left: 0;
+                right: 0;
+                z-index: 999;
+                max-height: 0; /* Start hidden */
+                overflow: hidden; /* Hide overflow */
+                transition: max-height 0.5s ease-in-out;
+            }
 
-    .navbar.active .navbar-left a:nth-child(4) {
-        animation-delay: 0.4s; /* My Files */
-    }
+            /* When active, show the navbar */
+            .navbar.active .navbar-left {
+                max-height: 100vh; /* Allow full height when opened */
+            }
 
-    .navbar.active .navbar-left a:nth-child(5) {
-        animation-delay: 0.5s; /* My Classes */
-    }
+            .navbar-left a {
+                font-size: 18px;
+                padding: 15px;
+                text-align: left; /* Align text to the left */
+                width: 100%; /* Make links take the full width */
+                border-bottom: 1px solid #ddd;
+                opacity: 0; /* Start hidden */
+                transform: translateY(-20px); /* Move up initially */
+                animation: none; /* No animation by default */
+            }
 
-    .navbar.active .navbar-left a:nth-child(6) {
-        animation-delay: 0.6s; /* My Course */
-    }
+            /* Animation for each link: fade-in and slide down */
+            @keyframes curtainEffect {
+                0% {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+                100% {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
 
-    .navbar.active .navbar-left a:nth-child(7) {
-        animation-delay: 0.7s; /* Prices */
-    }
+            /* When the navbar is not active, hide the links (curtain closing) */
+            .navbar:not(.active) .navbar-left a {
+                opacity: 0;
+                transform: translateY(-20px);
+                transition: opacity 0.3s, transform 0.3s;
+            }
 
-    .navbar.active .navbar-left a:nth-child(8) {
-        animation-delay: 0.8s; /* Teachers */
-    }
+            /* Curtain effect: each link appears one by one */
+            .navbar.active .navbar-left a {
+                animation: curtainEffect 0.5s forwards ease-in-out;
+            }
 
-    .navbar.active .navbar-left a:nth-child(9) {
-        animation-delay: 0.9s; /* Contact Us */
-    }
-    
-    .navbar.active .navbar-left a:last-child {
-        border-bottom: none;
-    }
-}
+            /* Delay each link’s appearance based on its order */
+            .navbar.active .navbar-left a:nth-child(1) {
+                animation-delay: 0.1s; /* Home */
+            }
+
+            .navbar.active .navbar-left a:nth-child(2) {
+                animation-delay: 0.2s; /* About Us */
+            }
+
+            .navbar.active .navbar-left a:nth-child(3) {
+                animation-delay: 0.3s; /* Upload File */
+            }
+
+            .navbar.active .navbar-left a:nth-child(4) {
+                animation-delay: 0.4s; /* My Files */
+            }
+
+            .navbar.active .navbar-left a:nth-child(5) {
+                animation-delay: 0.5s; /* My Classes */
+            }
+
+            .navbar.active .navbar-left a:nth-child(6) {
+                animation-delay: 0.6s; /* My Course */
+            }
+
+            .navbar.active .navbar-left a:nth-child(7) {
+                animation-delay: 0.7s; /* Prices */
+            }
+
+            .navbar.active .navbar-left a:nth-child(8) {
+                animation-delay: 0.8s; /* Teachers */
+            }
+
+            .navbar.active .navbar-left a:nth-child(9) {
+                animation-delay: 0.9s; /* Contact Us */
+            }
+            
+            .navbar.active .navbar-left a:last-child {
+                border-bottom: none;
+            }
+        }
+        .games-dropdown {
+            position: relative; /* Positioning context for absolute positioning */
+        }
+
+        .games-dropdown-menu {
+            display: none; /* Hide the dropdown by default */
+            position: absolute; /* Position it below the Games link */
+            left: 0;
+            top: 100%; /* Position below the parent link */
+            background-color: #4b0082;
+            width: 100%; /* Match the width of the parent link */
+            border: 1px solid #ddd;
+            z-index: 999; /* Ensure it appears above other elements */
+        }
+
+        .games-dropdown-menu a {
+            display: block; /* Make links fill the width */
+            padding: 10px; /* Add padding */
+            color: white; /* Text color */
+            text-decoration: none; /* Remove underline */
+        }
+
+        .games-dropdown-menu a:hover {
+            background-color: #5e2d91; /* Change color on hover */
+        }
 
 
 
