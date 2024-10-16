@@ -123,7 +123,8 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'admin@j-education.com'  
 EMAIL_HOST_PASSWORD = '' 
-DEFAULT_FROM_EMAIL = 'admin@j-education.com' 
+DEFAULT_FROM_EMAIL = 'admin@j-education.com'
+
 
 
 # Stripe Configuration

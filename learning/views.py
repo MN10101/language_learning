@@ -28,12 +28,10 @@ import openai
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
-from django.conf import settings
 import logging
-from django.conf import settings
 from django.core.mail import send_mail
 from django.contrib import messages
-from django.conf import settings 
+from django.conf import settings
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -300,17 +298,18 @@ def contact_us(request):
         email = request.POST.get('email')
         message = request.POST.get('message')
 
-        # Ensure you're using the settings module here
+        # Send the email using the settings
         send_mail(
             f'Message from {name} via Contact Us',
             message,
             email,
-            [settings.DEFAULT_FROM_EMAIL],  # Access DEFAULT_FROM_EMAIL correctly
+            [settings.DEFAULT_FROM_EMAIL],
             fail_silently=False,
         )
         messages.success(request, 'Your message has been sent successfully!')
         return redirect('contact_us')
     return render(request, 'learning/contact_us.html')
+
 
 
 def book_course(request, level):
