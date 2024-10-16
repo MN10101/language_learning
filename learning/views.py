@@ -306,12 +306,12 @@ def contact_us(request):
         message = request.POST.get('message')
 
         try:
-            # Send email using the settings.DEFAULT_FROM_EMAIL
+            # Send email using the correct from email
             send_mail(
                 f'Message from {name} via Contact Us',  # Email subject
                 message,  # Email body
-                settings.DEFAULT_FROM_EMAIL,  # From email (admin email)
-                [settings.EMAIL_HOST_USER],  # To email
+                settings.EMAIL_HOST_USER,  # From email (Gmail address)
+                [settings.EMAIL_HOST_USER],  # To email (same Gmail address)
                 fail_silently=False,
             )
             messages.success(request, 'Your message has been sent successfully!')
@@ -321,6 +321,7 @@ def contact_us(request):
         return redirect('contact_us')
 
     return render(request, 'learning/contact_us.html')
+
 
 
 

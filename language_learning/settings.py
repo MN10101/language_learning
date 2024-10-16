@@ -124,10 +124,8 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'jonathanerasmusdavies43@gmail.com' 
-EMAIL_HOST_PASSWORD = 'ksgm vamj qwap tftm'  
-
-
-
+EMAIL_HOST_PASSWORD = 'ksgm vamj qwap tftm'
+DEFAULT_FROM_EMAIL = 'jonathanerasmusdavies43@gmail.com'
 
 
 # Stripe Configuration
