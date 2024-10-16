@@ -118,12 +118,13 @@ LOGIN_REDIRECT_URL = 'welcome'
 
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.j-education.com' 
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'admin@j-education.com'  
-EMAIL_HOST_PASSWORD = '' 
+EMAIL_HOST = 'smtp.j-education.com'
+EMAIL_PORT = 587  
+EMAIL_USE_TLS = True  
+EMAIL_HOST_USER = 'admin@j-education.com' 
+EMAIL_HOST_PASSWORD = ''  
 DEFAULT_FROM_EMAIL = 'admin@j-education.com'
+
 
 
 
