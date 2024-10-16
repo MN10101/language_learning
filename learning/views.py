@@ -34,8 +34,13 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import render, redirect
+import logging
+
+logger = logging.getLogger(__name__)
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
+
+
 
 
 # openai.api_key = settings.OPENAI_API_KEY
@@ -301,17 +306,18 @@ def contact_us(request):
         message = request.POST.get('message')
 
         try:
-            # Send email using the settings.DEFAULT_FROM_EMAIL
             send_mail(
-                f'Message from {name} via Contact Us',  # Email subject
-                message,  # Email body
-                settings.DEFAULT_FROM_EMAIL,  # From email (admin email)
-                [settings.EMAIL_HOST_USER],  # To email
+                f'Message from {name} via Contact Us',
+                message,
+                settings.DEFAULT_FROM_EMAIL,
+                [settings.EMAIL_HOST_USER],
                 fail_silently=False,
             )
             messages.success(request, 'Your message has been sent successfully!')
+            logger.info('Email sent successfully')
         except Exception as e:
             messages.error(request, f'Failed to send message: {str(e)}')
+            logger.error(f'Error sending email: {str(e)}')
         
         return redirect('contact_us')
 

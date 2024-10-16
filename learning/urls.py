@@ -36,6 +36,7 @@ urlpatterns = [
     path('terms-of-service/', views.terms_of_service, name='terms_of_service'),
     path('refund-policy/', views.refund_policy, name='refund_policy'),
     
+    
 
     # Game-related URLs for teachers
     path('students/', views.students_view, name='students'),
