@@ -32,35 +32,152 @@
             justify-content: space-between;
         }
 
-        /* Navbar Styles */
-        .navbar {
-            background-color: #4b0082;
-            color: white;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed; /* Fixed position */
-            top: 0; /* Position at the top */
-            left: 0; /* Align to the left */
-            right: 0; /* Align to the right */
-            z-index: 1000; /* Ensure it stays above other content */
+        /* Original Navbar Styles */
+/* Original Navbar Styles */
+.navbar {
+    background-color: #4b0082;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.hamburger-menu {
+    display: none;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.navbar-left {
+    display: flex;
+    gap: 15px;
+}
+
+/* Navbar links */
+.navbar-left a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.navbar-left a:hover {
+    background-color: #5e2d91;
+    transform: scale(1.2);
+}
+
+/* Media Query for small devices */
+@media (max-width: 768px) {
+    .hamburger-menu {
+        display: block;
+    }
+
+    /* Stack links vertically when active */
+    .navbar-left {
+        flex-direction: column; /* Stack links vertically */
+        width: 100%; /* Full width */
+        background-color: #4b0082;
+        position: absolute;
+        top: 50px;
+        left: 0;
+        right: 0;
+        z-index: 999;
+        max-height: 0; /* Start hidden */
+        overflow: hidden; /* Hide overflow */
+        transition: max-height 0.5s ease-in-out;
+    }
+
+    /* When active, show the navbar */
+    .navbar.active .navbar-left {
+        max-height: 100vh; /* Allow full height when opened */
+    }
+
+    .navbar-left a {
+        font-size: 18px;
+        padding: 15px;
+        text-align: left; /* Align text to the left */
+        width: 100%; /* Make links take the full width */
+        border-bottom: 1px solid #ddd;
+        opacity: 0; /* Start hidden */
+        transform: translateY(-20px); /* Move up initially */
+        animation: none; /* No animation by default */
+    }
+
+    /* Animation for each link: fade-in and slide down */
+    @keyframes curtainEffect {
+        0% {
+            opacity: 0;
+            transform: translateY(-20px);
         }
-        .navbar-left {
-            display: flex;
-            gap: 15px;
+        100% {
+            opacity: 1;
+            transform: translateY(0);
         }
-        .navbar-left a {
-            color: white;
-            text-decoration: none;
-            font-size: 16px;
-            padding: 10px;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-        .navbar-left a:hover {
-            background-color: #5e2d91;
-            transform: scale(1.2);
-        }
+    }
+
+    /* When the navbar is not active, hide the links (curtain closing) */
+    .navbar:not(.active) .navbar-left a {
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: opacity 0.3s, transform 0.3s;
+    }
+
+    /* Curtain effect: each link appears one by one */
+    .navbar.active .navbar-left a {
+        animation: curtainEffect 0.5s forwards ease-in-out;
+    }
+
+    /* Delay each link’s appearance based on its order */
+    .navbar.active .navbar-left a:nth-child(1) {
+        animation-delay: 0.1s; /* Home */
+    }
+
+    .navbar.active .navbar-left a:nth-child(2) {
+        animation-delay: 0.2s; /* About Us */
+    }
+
+    .navbar.active .navbar-left a:nth-child(3) {
+        animation-delay: 0.3s; /* Upload File */
+    }
+
+    .navbar.active .navbar-left a:nth-child(4) {
+        animation-delay: 0.4s; /* My Files */
+    }
+
+    .navbar.active .navbar-left a:nth-child(5) {
+        animation-delay: 0.5s; /* My Classes */
+    }
+
+    .navbar.active .navbar-left a:nth-child(6) {
+        animation-delay: 0.6s; /* My Course */
+    }
+
+    .navbar.active .navbar-left a:nth-child(7) {
+        animation-delay: 0.7s; /* Prices */
+    }
+
+    .navbar.active .navbar-left a:nth-child(8) {
+        animation-delay: 0.8s; /* Teachers */
+    }
+
+    .navbar.active .navbar-left a:nth-child(9) {
+        animation-delay: 0.9s; /* Contact Us */
+    }
+    
+    .navbar.active .navbar-left a:last-child {
+        border-bottom: none;
+    }
+}
+
+
+
         .profile-info {
             position: relative;
             display: flex;
@@ -506,60 +623,53 @@
         background-color: #5e2d91;
     }
 
-
-
-   /* Media Queries for Responsive Design */
+    /* Media Queries for Responsive Design */
     @media (max-width: 768px) {
-        .navbar {
-            padding: 10px 20px; /* Maintain the same padding as desktop */
-            flex-direction: row; /* Keep the layout as row for desktop look */
-            justify-content: space-between; /* Ensure items are spaced correctly */
-            overflow: hidden; /* Prevent content overflow */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional: Add shadow for better visibility */
-        }
-        .navbar-left {
-            flex-direction: row; /* Keep the items in a row */
-            gap: 15px; /* Maintain spacing */
-        }
-        .navbar-left a {
-            font-size: 16px; /* Keep font size consistent */
-            padding: 10px; /* Maintain padding */
-        }
-
+        
+        
+        /* Adjust the container and other elements for better mobile experience */
         .container {
             padding: 20px;
             margin: 10px;
         }
+        
         .centered-form-container {
             margin: 20px auto;
-            height: auto; /* Allow the height to adjust based on content */
+            height: auto; /* Allow height to adjust */
         }
+        
         .centered-form-container form {
-            max-width: 100%; /* Allow form to take full width on smaller screens */
+            max-width: 100%; /* Take full width on smaller screens */
         }
+        
         img.profile-picture {
             width: 100px;
             height: 100px;
         }
+        
         button {
             font-size: 14px;
         }
+        
         .footer-content {
             flex-direction: column;
             align-items: center;
         }
+        
         .footer-left p,
         .footer-right a {
             font-size: 12px;
         }
+        
         #scrollTopBtn {
-            bottom: 80px; /* Adjusted position for mobile */
-            right: 10px; /* Adjusted position for mobile */
+            bottom: 80px; /* Adjust for mobile */
+            right: 10px; /* Adjust for mobile */
         }
+        
         /* Chatbot Styles */
         #chatbot {
-            width: 90%; /* Make chatbot bubble responsive */
-            max-width: 300px; /* Set a max-width to avoid it being too wide */
+            width: 90%; /* Make chatbot responsive */
+            max-width: 300px; /* Set a max width */
         }
     }
 
@@ -567,9 +677,11 @@
         .container {
             padding: 15px;
         }
+        
         button {
             font-size: 12px;
         }
+        
         .footer-left p,
         .footer-right a {
             font-size: 10px;
@@ -586,22 +698,23 @@
         <span class="logo-letter">J</span><span class="logo-letter">E</span>
     </a>
 
-    
+    <!-- Hamburger Menu (visible only on mobile screens) -->
+    <div class="hamburger-menu">
+        &#9776; <!-- Unicode character for 3 lines (hamburger icon) -->
+    </div>
 
     <div class="navbar-left">
-    <a href="{% url 'welcome' %}">Home</a>
-    <a href="{% url 'about_us' %}">About Us</a>
-    <a href="{% url 'upload_file' %}">Upload File</a>
-    <a href="{% url 'list_files' %}">My Files</a>
-    <a href="{% url 'my_classes' %}">My Classes</a>
-    <a href="{% url 'my_course' %}">My Course</a>
-    <a href="{% url 'prices' %}">Prices</a>
-    <a href="{% url 'teachers' %}">Teachers</a>
-    <a href="{% url 'contact_us' %}">Contact Us</a>
+        <a href="{% url 'welcome' %}">Home</a>
+        <a href="{% url 'about_us' %}">About Us</a>
+        <a href="{% url 'upload_file' %}">Upload File</a>
+        <a href="{% url 'list_files' %}">My Files</a>
+        <a href="{% url 'my_classes' %}">My Classes</a>
+        <a href="{% url 'my_course' %}">My Course</a>
+        <a href="{% url 'prices' %}">Prices</a>
+        <a href="{% url 'teachers' %}">Teachers</a>
+        <a href="{% url 'contact_us' %}">Contact Us</a>
 
-    {% load custom_tags %}  <!-- Load your custom template filter here -->
-
-    {% if user|is_teacher %}
+        {% if user|is_teacher %}
         <div class="games-dropdown">
             <a href="#" class="games-dropdown-toggle">Games</a>
             <div class="games-dropdown-menu">
@@ -611,8 +724,7 @@
             </div>
         </div>
         <a href="{% url 'students' %}">Students</a>
-    {% endif %}
-
+        {% endif %}
     </div>
 
     <!-- Profile Dropdown -->
@@ -632,6 +744,18 @@
         </div>
     </div>
 </div>
+
+<script>
+    function toggleMenu() {
+        const navbar = document.querySelector('.navbar');
+        navbar.classList.toggle('active');
+    }
+
+    document.querySelector('.hamburger-menu').addEventListener('click', toggleMenu);
+</script>
+
+
+
 
 <!-- Chatbot Icon and Interface -->
 <div id="chatbot-container">
