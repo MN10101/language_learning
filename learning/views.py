@@ -299,6 +299,8 @@ def my_course(request):
 
 
 
+
+
 def contact_us(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -306,21 +308,20 @@ def contact_us(request):
         message = request.POST.get('message')
 
         try:
-            # Send email using the correct from email
             send_mail(
-                f'Message from {name} via Contact Us',  # Email subject
-                message,  # Email body
-                settings.EMAIL_HOST_USER,  # From email (Gmail address)
-                [settings.EMAIL_HOST_USER],  # To email (same Gmail address)
+                f'Message from {name} via Contact Us',
+                message,
+                settings.EMAIL_HOST_USER,
+                [settings.EMAIL_HOST_USER],
                 fail_silently=False,
             )
+            logger.info('Email sent successfully')
             messages.success(request, 'Your message has been sent successfully!')
         except Exception as e:
+            logger.error(f'Failed to send email: {str(e)}')
             messages.error(request, f'Failed to send message: {str(e)}')
-        
-        return redirect('contact_us')
 
-    return render(request, 'learning/contact_us.html')
+        return redirect('contact_us')
 
 
 
