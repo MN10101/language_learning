@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.conf import settings
 from django.contrib import messages
 from django.core.mail import send_mail
@@ -10,28 +10,12 @@ from django.urls import reverse
 import stripe
 import pytz
 import random
-from django.contrib.auth.decorators import login_required
-from .models import Teacher
-from .forms import ProfileForm, FileUploadForm
-from .models import Language, Question, Answer, UserFile, ScheduledClass, Course
-from django.contrib.auth import update_session_auth_hash
-from django.contrib.auth.forms import PasswordChangeForm
-from django.shortcuts import redirect
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required, user_passes_test
-from .models import Question
-from django.shortcuts import render, get_object_or_404
-from .models import Question, Answer
-from django.contrib.auth.models import User
-from django.contrib.auth.models import Group
 import openai
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 import json
 import logging
-from django.core.mail import send_mail
-from django.contrib import messages
-from django.conf import settings
+from django.http import JsonResponse
+from .models import Teacher, Language, Question, Answer, UserFile, ScheduledClass, Course
+from .forms import ProfileForm, FileUploadForm
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -291,14 +275,15 @@ def my_course(request):
 
 
 
-
 def contact_us(request):
     if request.method == 'POST':
         name = request.POST.get('name')
         email = request.POST.get('email')
         message = request.POST.get('message')
 
-        # Send the email using the settings
+        # Debugging line to check the type of settings
+        print(f"Type of settings: {type(settings)}")  # Add this line
+
         send_mail(
             f'Message from {name} via Contact Us',
             message,
@@ -309,6 +294,7 @@ def contact_us(request):
         messages.success(request, 'Your message has been sent successfully!')
         return redirect('contact_us')
     return render(request, 'learning/contact_us.html')
+
 
 
 
