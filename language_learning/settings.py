@@ -122,7 +122,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587  
 EMAIL_USE_TLS = True  
 EMAIL_HOST_USER = 'jonathanerasmusdavies43@gmail.com' 
-EMAIL_HOST_PASSWORD = 'thwchbjbvmmahubg'  
+EMAIL_HOST_PASSWORD = 'ksgmvamjqwaptftm'  
 DEFAULT_FROM_EMAIL = 'jonathanerasmusdavies43@gmail.com'
 
 
