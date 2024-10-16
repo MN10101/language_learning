@@ -294,16 +294,15 @@ def contact_us(request):
         email = request.POST.get('email')
         message = request.POST.get('message')
 
-        # You can change the email recipient below
         send_mail(
             f'Message from {name} via Contact Us',
             message,
-            email, 
-            [settings.DEFAULT_FROM_EMAIL], 
+            email,
+            [settings.DEFAULT_FROM_EMAIL],
             fail_silently=False,
         )
         messages.success(request, 'Your message has been sent successfully!')
-        return redirect('contact_us')  
+        return redirect('contact_us')
     return render(request, 'learning/contact_us.html')
 
 
