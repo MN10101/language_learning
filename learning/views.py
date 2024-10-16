@@ -31,6 +31,9 @@ import json
 from django.conf import settings
 import logging
 from django.conf import settings
+from django.core.mail import send_mail
+from django.contrib import messages
+from django.conf import settings 
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
