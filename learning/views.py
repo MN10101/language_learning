@@ -30,7 +30,7 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 
 from django.core.mail import send_mail
-from django.conf import settings
+from django.conf import settings as django_settings
 from django.contrib import messages
 from django.shortcuts import render, redirect
 
@@ -314,12 +314,13 @@ def contact_us(request):
 
         try:
             send_mail(
-                f'Message from {name} via Contact Us',
-                message,
-                settings.EMAIL_HOST_USER,
-                [settings.EMAIL_HOST_USER],
-                fail_silently=False,
-            )
+            f'Message from {name} via Contact Us',
+            message,
+            django_settings.EMAIL_HOST_USER,
+            [django_settings.EMAIL_HOST_USER],
+            fail_silently=False,
+        )
+
             messages.success(request, 'Your message has been sent successfully!')
         except Exception as e:
             messages.error(request, f'Failed to send message: {str(e)}')
