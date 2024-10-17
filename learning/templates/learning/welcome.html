@@ -57,14 +57,8 @@
     </div>
 </div>
 
-
 <!-- Add the hidden video element -->
-<video id="welcomeVideo" class="fullscreen-video" src="{% static 'vid/je.mp4' %}" autoplay playsinline muted></video>
-<button id="unmuteButton" style="display: none;">Unmute Video</button>
-
-
-
-
+<video id="welcomeVideo" class="fullscreen-video" src="{% static 'vid/je.mp4' %}"></video>
 
 <!-- Add the custom CSS for animations and hover effects -->
 <style>
@@ -210,27 +204,35 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const video = document.getElementById('welcomeVideo');
-        const unmuteButton = document.getElementById('unmuteButton');
+        const hasWatchedVideo = localStorage.getItem('hasWatchedVideo');
 
-        // Show the video and start playing it muted
-        video.style.display = 'block';
+        // Check if the video has been watched before
+        if (!hasWatchedVideo) {
+            video.style.display = 'block';  // Show the video
+            video.play();  // Play the video with sound
+            
+            // Once the video ends, hide it and mark it as watched
+            video.onended = function () {
+                video.style.display = 'none';
+                localStorage.setItem('hasWatchedVideo', 'true');  // Store in localStorage to play only once
+            };
+        }
 
-        // Play the video
-        video.play();
+        const animatedElements = document.querySelectorAll('.animated');
 
-        // Show unmute button for user interaction
-        unmuteButton.style.display = 'block';
+        function checkScroll() {
+            animatedElements.forEach(element => {
+                const position = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.4;
 
-        // Add click event to unmute the video
-        unmuteButton.addEventListener('click', function () {
-            video.muted = false; // Unmute the video
-            unmuteButton.style.display = 'none'; // Hide the button
-        });
+                if (position < screenPosition) {
+                    element.classList.add('show');
+                }
+            });
+        }
 
-        // Hide the video after it ends
-        video.onended = function () {
-            video.style.display = 'none';
-        };
+        window.addEventListener('scroll', checkScroll);
+        checkScroll(); // Run on page load
     });
 </script>
 {% endblock %}
