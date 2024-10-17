@@ -782,44 +782,17 @@
 </div>
 
 <script>
-    // Function to toggle the mobile menu
     function toggleMenu() {
         const navbar = document.querySelector('.navbar');
         navbar.classList.toggle('active');
     }
 
-    // Function to toggle the dropdown menu in the profile section
-    function toggleDropdown() {
-        const dropdownMenu = document.getElementById("dropdownMenu");
-        dropdownMenu.classList.toggle('active');
-    }
+    const hamburgerMenu = document.querySelector('.hamburger-menu');
+    
+    // Add both click and touchstart for compatibility on all devices
+    hamburgerMenu.addEventListener('click', toggleMenu);
+    hamburgerMenu.addEventListener('touchstart', toggleMenu);
 
-    // Ensure DOM is fully loaded before adding event listeners
-    document.addEventListener('DOMContentLoaded', function() {
-        const hamburgerMenu = document.querySelector('.hamburger-menu');
-        const profileInfo = document.querySelector('.profile-info');
-
-        // Add event listeners for both click and touchstart for cross-device compatibility
-        if (hamburgerMenu) {
-            hamburgerMenu.addEventListener('click', toggleMenu);
-            hamburgerMenu.addEventListener('touchstart', toggleMenu);
-        }
-
-        if (profileInfo) {
-            profileInfo.addEventListener('click', toggleDropdown);
-            profileInfo.addEventListener('touchstart', toggleDropdown);
-        }
-    });
-
-    // Close dropdown if clicked outside
-    window.onclick = function(event) {
-        if (!event.target.closest('.profile-info')) {
-            const dropdownMenu = document.getElementById("dropdownMenu");
-            if (dropdownMenu && dropdownMenu.classList.contains('active')) {
-                dropdownMenu.classList.remove('active');
-            }
-        }
-    };
 </script>
 
 
