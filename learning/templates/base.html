@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
 
@@ -204,6 +203,14 @@
 
         .games-dropdown-menu a:hover {
             background-color: #5e2d91; /* Change color on hover */
+        }
+
+        * {
+        -webkit-tap-highlight-color: transparent;
+        }
+        
+        html, body, button, input, select, textarea {
+            touch-action: manipulation;
         }
 
 
@@ -717,16 +724,6 @@
             font-size: 10px;
         }
     }
-
-    * {
-        -webkit-tap-highlight-color: transparent;
-    }
-    html, body, button, input, select, textarea {
-        touch-action: manipulation;
-    }
-
-
-
     </style>
 </head>
 <body>
