@@ -28,10 +28,12 @@ import openai
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import render, redirect
+
 
 
 
@@ -298,11 +300,17 @@ def my_course(request):
 
 
 
+
+
 def contact_us(request):
     if request.method == 'POST':
         name = request.POST.get('name')
         email = request.POST.get('email')
         message = request.POST.get('message')
+
+        # Debugging - print email details to console
+        print(f'Name: {name}, Email: {email}, Message: {message}')
+        print(f'Attempting to send email from: {settings.EMAIL_HOST_USER}')
 
         try:
             send_mail(
@@ -315,10 +323,10 @@ def contact_us(request):
             messages.success(request, 'Your message has been sent successfully!')
         except Exception as e:
             messages.error(request, f'Failed to send message: {str(e)}')
+            print(f'Email failed to send: {e}')  # Print error to console for debugging
 
         return redirect('contact_us')
 
-    # Handle GET request
     return render(request, 'learning/contact_us.html')
 
 
