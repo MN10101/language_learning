@@ -47,6 +47,7 @@
             left: 0;
             right: 0;
             z-index: 1000;
+            pointer-events: auto;
         }
 
         .hamburger-menu {
@@ -789,15 +790,31 @@
         navbar.classList.toggle('active');
     }
 
+    // Ensure dropdown toggles correctly
     function toggleDropdown() {
-        document.getElementById("dropdownMenu").classList.toggle('active');
+        const dropdown = document.getElementById("dropdownMenu");
+        dropdown.classList.toggle('active');
     }
 
+    // Ensure that clicking outside the dropdown closes it
+    window.onclick = function(event) {
+        if (!event.target.matches('.profile-info img')) {
+            const dropdowns = document.getElementsByClassName("dropdown-menu");
+            for (let i = 0; i < dropdowns.length; i++) {
+                const openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('active')) {
+                    openDropdown.classList.remove('active');
+                }
+            }
+        }
+    };
+
+    // Add event listeners after the DOM content is fully loaded
     document.addEventListener('DOMContentLoaded', function() {
         const hamburgerMenu = document.querySelector('.hamburger-menu');
         const profileInfo = document.querySelector('.profile-info');
 
-        // Add event listeners for both click and touchstart for compatibility
+        // Handle both click and touchstart for mobile devices
         hamburgerMenu.addEventListener('click', toggleMenu);
         hamburgerMenu.addEventListener('touchstart', toggleMenu);
 
