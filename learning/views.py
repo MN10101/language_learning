@@ -316,23 +316,20 @@ def contact_us(request):
         email = request.POST.get('email')
         message = request.POST.get('message')
 
+        logger.info(f"Received contact form submission: Name: {name}, Email: {email}, Message: {message}")
+
         try:
-            email_host_user = getattr(settings, 'EMAIL_HOST_USER', None)
-
-            if not email_host_user:
-                raise ValueError("EMAIL_HOST_USER not set in settings.")
-
             send_mail(
                 f'Message from {name} via Contact Us',
                 message,
-                email_host_user,
-                [email_host_user],
+                settings.EMAIL_HOST_USER,
+                [settings.EMAIL_HOST_USER],
                 fail_silently=False,
             )
             messages.success(request, 'Your message has been sent successfully!')
         except Exception as e:
-            logger.error(f"Error sending email: {str(e)}")  # Log the error
-            messages.error(request, f'Failed to send message: {str(e)}')
+            logger.error(f"Error sending email: {str(e)}")
+            messages.error(request, 'Failed to send message.')
 
         return redirect('contact_us')
 
