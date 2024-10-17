@@ -57,8 +57,9 @@
     </div>
 </div>
 
-<!-- Add the hidden video element -->
-<video id="welcomeVideo" class="fullscreen-video" src="{% static 'vid/je.mp4' %}" autoplay></video>
+<video id="welcomeVideo" class="fullscreen-video" src="{% static 'vid/je.mp4' %}" autoplay playsinline></video>
+
+
 
 
 <!-- Add the custom CSS for animations and hover effects -->
@@ -202,7 +203,7 @@
 </style>
 
 <!-- JavaScript to handle video playback and animations -->
-<script>
+<<script>
     document.addEventListener('DOMContentLoaded', function () {
         const video = document.getElementById('welcomeVideo');
         const hasWatchedVideo = localStorage.getItem('hasWatchedVideo');
