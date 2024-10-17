@@ -790,32 +790,8 @@
         navbar.classList.toggle('active');
     }
 
-    function toggleDropdown() {
-        const dropdownMenu = document.getElementById("dropdownMenu");
-        dropdownMenu.classList.toggle('active');
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const hamburgerMenu = document.querySelector('.hamburger-menu');
-        const profileInfo = document.querySelector('.profile-info');
-
-        // Handle both click and touchstart events for cross-device compatibility
-        hamburgerMenu.addEventListener('click', toggleMenu);
-        hamburgerMenu.addEventListener('touchstart', toggleMenu);
-
-        profileInfo.addEventListener('click', toggleDropdown);
-        profileInfo.addEventListener('touchstart', toggleDropdown);
-    });
-
-    // Close dropdown if clicked outside
-    window.onclick = function(event) {
-        if (!event.target.closest('.profile-info')) {
-            const dropdownMenu = document.getElementById("dropdownMenu");
-            if (dropdownMenu.classList.contains('active')) {
-                dropdownMenu.classList.remove('active');
-            }
-        }
-    };
+    document.querySelector('.hamburger-menu').addEventListener('click', toggleMenu);
+    
 </script>
 
 
