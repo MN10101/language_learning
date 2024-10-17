@@ -214,26 +214,13 @@
         // Check if the video has been watched before
         if (!hasWatchedVideo) {
             video.style.display = 'block';  // Show the video
-
-            // Play the video muted initially
-            video.play().then(() => {
-                // Listen for user interaction to unmute
-                video.muted = true; // Start muted
-
-                // Allow sound to be activated with a click
-                window.addEventListener('click', function unmuteVideo() {
-                    video.muted = false;  // Unmute the video
-                    window.removeEventListener('click', unmuteVideo);  // Remove listener after unmuting
-                });
-            });
-
+            video.play();  // Play the video with sound
+            
             // Once the video ends, hide it and mark it as watched
             video.onended = function () {
                 video.style.display = 'none';
                 localStorage.setItem('hasWatchedVideo', 'true');  // Store in localStorage to play only once
             };
-        } else {
-            video.style.display = 'none';  // Hide the video if already watched
         }
 
         const animatedElements = document.querySelectorAll('.animated');
@@ -253,5 +240,4 @@
         checkScroll(); // Run on page load
     });
 </script>
-
 {% endblock %}
