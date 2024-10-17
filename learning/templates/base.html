@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
 
 
     <!-- FullCalendar and Flatpickr stylesheets -->
@@ -45,6 +47,7 @@
             left: 0;
             right: 0;
             z-index: 1000;
+            pointer-events: auto;
         }
 
         .hamburger-menu {
@@ -56,6 +59,7 @@
         .navbar-left {
             display: flex;
             gap: 15px;
+            pointer-events: auto;
         }
 
         /* Navbar links */
@@ -65,6 +69,7 @@
             font-size: 16px;
             padding: 10px;
             transition: background-color 0.3s, transform 0.3s;
+            pointer-events: auto;
         }
 
         .navbar-left a:hover {
@@ -76,6 +81,7 @@
         @media (max-width: 768px) {
             .hamburger-menu {
                 display: block;
+                pointer-events: auto;
             }
 
             /* Stack links vertically when active */
@@ -712,12 +718,21 @@
         }
     }
 
+    * {
+        -webkit-tap-highlight-color: transparent;
+    }
+    html, body, button, input, select, textarea {
+        touch-action: manipulation;
+    }
+
+
+
     </style>
 </head>
 <body>
     
     <!-- Navbar -->
-<div class="navbar">
+    <div class="navbar">
     <a href="{% url 'welcome' %}" class="logo">
         <span class="logo-letter">J</span><span class="logo-letter">E</span>
     </a>
@@ -775,8 +790,23 @@
         navbar.classList.toggle('active');
     }
 
-    document.querySelector('.hamburger-menu').addEventListener('click', toggleMenu);
+    function toggleDropdown() {
+        document.getElementById("dropdownMenu").classList.toggle('active');
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const hamburgerMenu = document.querySelector('.hamburger-menu');
+        const profileInfo = document.querySelector('.profile-info');
+
+        // Add event listeners for both click and touchstart for compatibility
+        hamburgerMenu.addEventListener('click', toggleMenu);
+        hamburgerMenu.addEventListener('touchstart', toggleMenu);
+
+        profileInfo.addEventListener('click', toggleDropdown);
+        profileInfo.addEventListener('touchstart', toggleDropdown);
+    });
 </script>
+
 
 
 
