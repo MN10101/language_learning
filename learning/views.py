@@ -31,6 +31,7 @@ import json
 
 from django.core.mail import send_mail
 from django.conf import settings as django_settings
+from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import render, redirect
 
@@ -302,33 +303,35 @@ def my_course(request):
 
 
 
+
+
 def contact_us(request):
     if request.method == 'POST':
         name = request.POST.get('name')
         email = request.POST.get('email')
         message = request.POST.get('message')
 
-        # Debugging - print email details to console
-        print(f'Name: {name}, Email: {email}, Message: {message}')
-        print(f'Attempting to send email from: {settings.EMAIL_HOST_USER}')
-
         try:
-            send_mail(
-            f'Message from {name} via Contact Us',
-            message,
-            django_settings.EMAIL_HOST_USER,
-            [django_settings.EMAIL_HOST_USER],
-            fail_silently=False,
-        )
+            email_host_user = getattr(settings, 'EMAIL_HOST_USER', None)
 
+            if not email_host_user:
+                raise ValueError("EMAIL_HOST_USER not set in settings.")
+
+            send_mail(
+                f'Message from {name} via Contact Us',
+                message,
+                email_host_user,
+                [email_host_user],
+                fail_silently=False,
+            )
             messages.success(request, 'Your message has been sent successfully!')
         except Exception as e:
             messages.error(request, f'Failed to send message: {str(e)}')
-            print(f'Email failed to send: {e}')  # Print error to console for debugging
 
         return redirect('contact_us')
 
     return render(request, 'learning/contact_us.html')
+
 
 
 
