@@ -123,9 +123,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'mamocool3@gmail.com' 
-EMAIL_HOST_PASSWORD = 'thwc hbjb vmma hubg'
+EMAIL_HOST_USER = 'mamocool3@gmail.com'
+EMAIL_HOST_PASSWORD = 'fnfr qvee datg vbhj'
 DEFAULT_FROM_EMAIL = 'mamocool3@gmail.com'
+
 
 
 # Stripe Configuration
