@@ -206,16 +206,23 @@
         const video = document.getElementById('welcomeVideo');
         const hasWatchedVideo = localStorage.getItem('hasWatchedVideo');
 
-        // Check if the video has been watched before
-        if (!hasWatchedVideo) {
+        function playVideo() {
             video.style.display = 'block';  // Show the video
             video.play();  // Play the video with sound
-            
+
             // Once the video ends, hide it and mark it as watched
             video.onended = function () {
                 video.style.display = 'none';
                 localStorage.setItem('hasWatchedVideo', 'true');  // Store in localStorage to play only once
             };
+
+            // Remove the event listener after the first interaction
+            document.removeEventListener('click', playVideo);
+        }
+
+        // Check if the video has been watched before
+        if (!hasWatchedVideo) {
+            document.addEventListener('click', playVideo); // Wait for user interaction
         }
 
         const animatedElements = document.querySelectorAll('.animated');
@@ -235,4 +242,5 @@
         checkScroll(); // Run on page load
     });
 </script>
+
 {% endblock %}
