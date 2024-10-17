@@ -46,7 +46,7 @@
             left: 0;
             right: 0;
             z-index: 1000;
-            pointer-events: auto;
+            
         }
 
         .hamburger-menu {
@@ -80,7 +80,7 @@
         @media (max-width: 768px) {
             .hamburger-menu {
                 display: block;
-                pointer-events: auto;
+                
             }
 
             /* Stack links vertically when active */
@@ -208,7 +208,7 @@
         * {
         -webkit-tap-highlight-color: transparent;
         }
-        
+
         html, body, button, input, select, textarea {
             touch-action: manipulation;
         }
@@ -782,14 +782,46 @@
 </div>
 
 <script>
+    // Function to toggle the mobile menu
     function toggleMenu() {
         const navbar = document.querySelector('.navbar');
         navbar.classList.toggle('active');
     }
 
-    document.querySelector('.hamburger-menu').addEventListener('click', toggleMenu);
-    
+    // Function to toggle the dropdown menu in the profile section
+    function toggleDropdown() {
+        const dropdownMenu = document.getElementById("dropdownMenu");
+        dropdownMenu.classList.toggle('active');
+    }
+
+    // Ensure DOM is fully loaded before adding event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+        const hamburgerMenu = document.querySelector('.hamburger-menu');
+        const profileInfo = document.querySelector('.profile-info');
+
+        // Add event listeners for both click and touchstart for cross-device compatibility
+        if (hamburgerMenu) {
+            hamburgerMenu.addEventListener('click', toggleMenu);
+            hamburgerMenu.addEventListener('touchstart', toggleMenu);
+        }
+
+        if (profileInfo) {
+            profileInfo.addEventListener('click', toggleDropdown);
+            profileInfo.addEventListener('touchstart', toggleDropdown);
+        }
+    });
+
+    // Close dropdown if clicked outside
+    window.onclick = function(event) {
+        if (!event.target.closest('.profile-info')) {
+            const dropdownMenu = document.getElementById("dropdownMenu");
+            if (dropdownMenu && dropdownMenu.classList.contains('active')) {
+                dropdownMenu.classList.remove('active');
+            }
+        }
+    };
 </script>
+
 
 
 
