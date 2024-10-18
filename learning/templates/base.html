@@ -71,36 +71,7 @@
         </div>
     </div>
 </div>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-    const dropdown = document.querySelector('.games-dropdown');
-    const menu = dropdown.querySelector('.games-dropdown-menu');
 
-    dropdown.addEventListener('click', function (event) {
-        event.stopPropagation(); // Prevent event bubbling
-        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-
-        // Prevent body scroll when dropdown is open
-        if (menu.style.display === 'block') {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = ''; // Restore body scroll
-        }
-    });
-
-    // Close dropdown when clicking outside
-    document.addEventListener('click', function () {
-        menu.style.display = 'none';
-        document.body.style.overflow = ''; // Restore body scroll
-    });
-
-    // Prevent scroll event on dropdown
-    menu.addEventListener('wheel', function (event) {
-        event.stopPropagation(); // Prevent the scroll event from bubbling
-    });
-});
-
-</script>
 <script>
     function toggleMenu() {
         const navbar = document.querySelector('.navbar');
