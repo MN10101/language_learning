@@ -6,7 +6,7 @@ html, body {
     padding: 0;
     height: 100%;
     width: 100%;
-    overflow: hidden; /* Prevent any scrolling */
+    overflow: hidden; 
     font-family: 'Arial', sans-serif;
     display: flex;
     justify-content: center;
@@ -18,10 +18,10 @@ canvas {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100vw;  /* Full viewport width */
-    height: 100vh; /* Full viewport height */
-    z-index: 0;    /* Ensure background is behind content */
-    pointer-events: none; /* Allow interactions to pass through */
+    width: 100vw;  
+    height: 100vh; 
+    z-index: 0;    
+    pointer-events: none; 
 }
 
 /* Game container styles */
@@ -39,10 +39,10 @@ canvas {
 
 /* Dynamic height based on viewport size */
 .grid {
-    width: 80vw; /* 80% of viewport width */
-    max-width: 600px; /* Limit the grid width */
-    height: calc(80vh - 60px); /* 80% of viewport height minus space for the button */
-    max-height: 600px; /* Limit the grid height */
+    width: 80vw; 
+    max-width: 600px; 
+    height: calc(80vh - 60px); 
+    max-height: 600px; 
 }
 
 /* Individual squares in the grid */
@@ -90,11 +90,11 @@ canvas {
 /* Back-home button */
 .back-home {
     position: absolute;
-    bottom: 20px; /* Fixed distance from the bottom */
+    bottom: 20px; 
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
-    z-index: 1; /* Ensure button is above the background */
+    z-index: 1; 
 }
 
 .back-home button {

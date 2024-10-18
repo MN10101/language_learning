@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
+
 {% load static %}
 
 {% block title %}Welcome{% endblock %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'css/welcome.css' %}">
 <div class="welcome-container">
     <!-- Profile section -->
     <div class="profile-section animated fade-in-center">
@@ -59,146 +61,6 @@
 
 <!-- Add the hidden video element -->
 <video id="welcomeVideo" class="fullscreen-video" src="{% static 'vid/je.mp4' %}"></video>
-
-<!-- Add the custom CSS for animations and hover effects -->
-<style>
-    .welcome-container {
-        padding: 50px 20px;
-        max-width: 1200px;
-        margin: 0 auto;
-        text-align: center;
-        font-family: Arial, sans-serif;
-    }
-
-    .profile-section {
-        text-align: center;
-        margin-bottom: 40px;
-    }
-
-    .profile-picture {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        transition: transform 0.3s, filter 0.3s;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .profile-picture:hover {
-        filter: grayscale(100%) sepia(100%) hue-rotate(270deg);
-        transform: scale(1.1);
-    }
-
-    .info-section {
-        margin-bottom: 50px;
-        max-width: 800px;
-        margin-left: auto;
-        margin-right: auto;
-        position: relative;
-    }
-
-    .btn {
-        padding: 12px 20px;
-        background-color: #4b0082;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s, transform 0.3s;
-    }
-
-    .btn:hover {
-        background-color: #5e2d91;
-        transform: scale(1.05);
-    }
-
-    /* Arrow styling */
-    .arrow-container {
-        margin-top: 20px;
-        text-align: center;
-    }
-
-    .arrow {
-        width: 30px;
-        height: 30px;
-        border-right: 5px solid #4b0082;
-        border-bottom: 5px solid #4b0082;
-        transform: rotate(45deg);
-        animation: bounce 1.5s infinite;
-        margin: 0 auto;
-    }
-
-    @keyframes bounce {
-        0%, 100% {
-            transform: translateY(0) rotate(45deg);
-        }
-        50% {
-            transform: translateY(10px) rotate(45deg);
-        }
-    }
-
-    .image-section {
-        display: flex;
-        flex-direction: column;
-        gap: 40px;
-    }
-
-    .image-text-pair {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .image-container, .text-container {
-        width: 45%;
-    }
-
-    .info-image {
-        width: 100%;
-        max-width: 300px;
-        transition: transform 0.3s, filter 0.3s;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .info-image:hover {
-        filter: grayscale(100%) sepia(100%) hue-rotate(270deg);
-        transform: scale(1.1);
-    }
-
-    .animated {
-        opacity: 0;
-        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    }
-
-    .fade-in-center {
-        opacity: 0;
-        transform: translateY(50px);
-    }
-
-    .slide-in-left {
-        transform: translateX(-100px);
-    }
-
-    .slide-in-right {
-        transform: translateX(100px);
-    }
-
-    .animated.show {
-        opacity: 1;
-        transform: translateX(0) translateY(0);
-    }
-
-    /* Fullscreen video styling */
-    .fullscreen-video {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        z-index: 1000;
-        display: none;  /* Initially hidden */
-    }
-</style>
 
 <!-- JavaScript to handle video playback and animations -->
 <script>

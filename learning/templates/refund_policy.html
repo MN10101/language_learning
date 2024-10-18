@@ -5,6 +5,7 @@
 {% block title %}Refund Policy{% endblock %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'css/refund_policy.css' %}">
 <div class="container refund-policy mt-5">
     <h1>Refund Policy</h1>
     <p>We offer a refund within 14 days of purchase if the course has not been started. Once a course has been accessed or started, refunds are no longer available.</p>
@@ -21,35 +22,4 @@
     <p>If you have any questions regarding our refund policy, please contact us at support@example.com.</p>
 </div>
 
-<style>
-    .refund-policy {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 20px;
-        font-family: Arial, sans-serif;
-        color: #333;
-    }
-    .refund-policy h1, .refund-policy h2 {
-        color: #4b0082;
-        margin-bottom: 15px;
-    }
-    .refund-policy p {
-        margin-bottom: 20px;
-        font-size: 16px;
-        line-height: 1.6;
-    }
-
-    /* Responsive Styles */
-    @media (max-width: 768px) {
-        .refund-policy {
-            padding: 15px;
-        }
-        .refund-policy h1, .refund-policy h2 {
-            font-size: 24px;
-        }
-        .refund-policy p {
-            font-size: 14px;
-        }
-    }
-</style>
 {% endblock %}

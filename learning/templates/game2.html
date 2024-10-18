@@ -1,62 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Picture Quiz Game</title>
     <link rel="stylesheet" href="{% static 'css/game2.css' %}">
-    <style>
-        /* Ensure full-screen coverage */
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow: hidden;
-            font-family: 'Arial', sans-serif;
-        }
-    
-        /* Full-screen canvas setup */
-        canvas {
-            display: block;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 0; /* Ensure background is behind content */
-            pointer-events: none; /* Allow clicks to pass through */
-        }
-    
-        /* Game container styles */
-        .game-container {
-            position: relative;
-            z-index: 1; /* Ensure content is above background */
-            text-align: center;
-            margin-bottom: 20px; /* Ensure space between game and the button */
-        }
-    
-        /* Back to Home Button */
-        .back-home {
-            text-align: center;
-            margin-top: 20px;
-            position: relative; /* Make it a positioned element */
-            z-index: 2; /* Ensure it is above other elements */
-        }
-    
-        .back-home button {
-            background-color: #4b0082;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-    
-        .back-home button:hover {
-            background-color: #5e2d91;
-        }
-    </style>
     
 </head>
 <body>

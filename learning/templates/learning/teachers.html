@@ -5,42 +5,8 @@
 {% block content %}
 
 {% load static %}
-<style>
-    /* Flexbox layout for vertical stacking */
-    .teachers-list {
-        display: flex;
-        flex-direction: column; /* Stack items vertically */
-        gap: 20px;
-        margin-top: 30px;
-    }
 
-    .teacher-card {
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        text-align: center;
-    }
-
-    .teacher-pic {
-        width: 150px; /* Fixed width for the profile picture */
-        height: 150px; /* Fixed height for the profile picture */
-        border-radius: 50%;
-        margin-bottom: 15px;
-        object-fit: cover; /* Ensure the image covers the entire circle */
-    }
-
-    .teacher-card h2 {
-        margin-top: 10px;
-        margin-bottom: 10px;
-        font-size: 24px;
-    }
-
-    .teacher-card p {
-        font-size: 16px;
-        color: #555;
-    }
-</style>
+<link rel="stylesheet" href="{% static 'css/teachers.css' %}">
 
 <div class="container">
     <h1>Meet Our Teachers</h1>

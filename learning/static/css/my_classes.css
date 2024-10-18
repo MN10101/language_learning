@@ -1,0 +1,81 @@
+.container-classes {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 40px;
+}
+
+.classes-section {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 60%;
+    padding: 30px;
+    text-align: center;
+}
+
+.calendar-section {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 35%;
+    padding: 20px;
+}
+
+.calendar-container {
+    margin-top: 20px;
+    height: 400px; 
+    border: 1px solid #ccc;
+}
+
+.btn {
+    padding: 12px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #4b0082;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn:hover {
+    background-color: #5e2d91;
+    transform: scale(1.05);
+}
+
+.no-classes {
+    text-align: center;
+    padding: 40px;
+}
+
+.no-classes img {
+    max-width: 200px;
+    margin-bottom: 20px;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .container-classes {
+        padding: 20px; /* Reduce padding on smaller screens */
+    }
+
+    .classes-section,
+    .calendar-section {
+        width: 100%; /* Make sections full width on small devices */
+        margin-bottom: 20px; /* Add spacing between sections */
+    }
+
+    .calendar-container {
+        height: auto; /* Allow calendar container to adjust height */
+    }
+
+    .btn {
+        width: 100%; /* Make buttons full width */
+        font-size: 14px; /* Adjust font size */
+    }
+
+    .no-classes {
+        padding: 20px; /* Reduce padding for no-classes section */
+    }
+}

@@ -5,62 +5,7 @@
 {% load static %} 
 
 {% block content %}
-<style>
-    .container-classes {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        padding: 40px;
-    }
-
-    .classes-section {
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        width: 60%;
-        padding: 30px;
-        text-align: center;
-    }
-
-    .calendar-section {
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        width: 35%;
-        padding: 20px;
-    }
-
-    .calendar-container {
-        margin-top: 20px;
-        height: 400px; /* Ensure the calendar has a fixed height */
-        border: 1px solid #ccc;
-    }
-
-    .btn {
-        padding: 12px 20px;
-        font-size: 16px;
-        color: white;
-        background-color: #4b0082;
-        text-decoration: none;
-        border-radius: 5px;
-        transition: background-color 0.3s, transform 0.2s;
-    }
-
-    .btn:hover {
-        background-color: #5e2d91;
-        transform: scale(1.05);
-    }
-
-    .no-classes {
-        text-align: center;
-        padding: 40px;
-    }
-
-    .no-classes img {
-        max-width: 200px;
-        margin-bottom: 20px;
-    }
-</style>
+<link rel="stylesheet" href="{% static 'css/my_classes.css' %}">
 
 <div class="container-classes">
     <!-- Scheduled Classes Section -->

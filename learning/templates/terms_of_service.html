@@ -5,6 +5,7 @@
 {% block title %}Terms of Service{% endblock %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'css/terms_of_service.css' %}">
 <div class="container terms-of-service mt-5">
     <h1>Terms of Service</h1>
     <p>Welcome to our platform. By accessing or using our services, you agree to comply with these Terms of Service. Please read them carefully.</p>
@@ -38,41 +39,4 @@
     <p>If you have any questions about these Terms of Service, please contact us at support@example.com.</p>
 </div>
 
-<style>
-    .terms-of-service {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 20px;
-        font-family: Arial, sans-serif;
-        color: #333;
-    }
-    .terms-of-service h1, .terms-of-service h2 {
-        color: #4b0082;
-        margin-bottom: 15px;
-    }
-    .terms-of-service p, .terms-of-service ul {
-        margin-bottom: 20px;
-        font-size: 16px;
-        line-height: 1.6;
-    }
-    .terms-of-service ul {
-        padding-left: 20px;
-    }
-    .terms-of-service ul li {
-        margin-bottom: 10px;
-    }
-
-    /* Responsive Styles */
-    @media (max-width: 768px) {
-        .terms-of-service {
-            padding: 15px;
-        }
-        .terms-of-service h1, .terms-of-service h2 {
-            font-size: 24px;
-        }
-        .terms-of-service p, .terms-of-service ul {
-            font-size: 14px;
-        }
-    }
-</style>
 {% endblock %}
