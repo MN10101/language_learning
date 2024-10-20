@@ -1,6 +1,5 @@
 .container-classes {
     display: flex;
-    flex-wrap: wrap; /* Allow items to wrap to the next line */
     justify-content: space-between;
     align-items: flex-start;
     padding: 40px;
@@ -54,28 +53,24 @@
     margin-bottom: 20px;
 }
 
-/* Media Queries for Responsiveness */
+/* Media Queries for Small Devices */
 @media (max-width: 768px) {
     .container-classes {
-        padding: 20px; /* Reduce padding on smaller screens */
+        flex-direction: column; /* Stack the sections vertically */
+        padding: 20px; /* Reduce padding */
     }
 
     .classes-section,
     .calendar-section {
-        width: 100%; /* Make sections full width on small devices */
-        margin-bottom: 20px; /* Add spacing between sections */
+        width: 100%; /* Make sections full width */
+        margin-bottom: 20px; /* Add spacing between them */
     }
 
     .calendar-container {
-        height: auto; /* Allow calendar container to adjust height */
+        height: auto; /* Allow container height to adjust */
     }
 
     .btn {
         width: 100%; /* Make buttons full width */
-        font-size: 14px; /* Adjust font size */
-    }
-
-    .no-classes {
-        padding: 20px; /* Reduce padding for no-classes section */
     }
 }
