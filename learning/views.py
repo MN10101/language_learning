@@ -689,21 +689,18 @@ def send_password_reset_email(user, uid, token):
         'uid': uid,
         'token': token,
         'domain': 's8m-adaptable-hubble.circumeo-apps.net',  # Your domain
-        'site_name': 'Your Site Name',
-        # Removed 'user' and 'username' to simplify the email
-        'reset_link': f"http://s8m-adaptable-hubble.circumeo-apps.net/reset/{uid}/{token}/"
     }
 
     email_html = render_to_string(email_template_name, context)
-    email_plain = strip_tags(email_html)  # For the plain text version (fallback)
+    email_plain = strip_tags(email_html)  # Plain text version
 
     send_mail(
         subject,
-        email_plain,  # Plain text version of the email
+        email_plain,  # Plain text email
         'admin@j-education.com',  # Sender
-        [user.email],  # Recipient list
+        [user.email],  # Recipient
         fail_silently=False,
-        html_message=email_html  # HTML version of the email
+        html_message=email_html  # HTML email
     )
 
 
