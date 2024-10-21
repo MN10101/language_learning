@@ -672,6 +672,15 @@ def refund_policy(request):
     return render(request, 'refund_policy.html')
 
 
+
+class CustomPasswordResetView(PasswordResetView):
+    template_name = 'registration/password_reset_form.html'
+    email_template_name = 'registration/password_reset_email.html'
+    subject_template_name = 'registration/password_reset_subject.txt'
+    success_url = '/password_reset/done/'
+
+
+
 def send_password_reset_email(user, uid, token):
     subject = render_to_string('registration/password_reset_subject.txt', {'user': user})
     email_template_name = 'registration/password_reset_email.html'
