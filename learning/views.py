@@ -675,8 +675,6 @@ def refund_policy(request):
 
 
 
-
-
 class CustomPasswordResetView(PasswordResetView):
     template_name = 'registration/password_reset_form.html'
     email_template_name = 'registration/password_reset_email.html'
@@ -693,18 +691,18 @@ def send_password_reset_email(user, uid, token):
         'domain': 's8m-adaptable-hubble.circumeo-apps.net',  # Your domain
         'site_name': 'Your Site Name',
         'user': user,
+        'reset_link': f"http://s8m-adaptable-hubble.circumeo-apps.net/reset/{uid}/{token}/"  # Direct link for the email
     }
-    
+
     email = render_to_string(email_template_name, context)
 
-    # Send the email with the HTML version
     send_mail(
         subject,
-        strip_tags(email),  # This is for the plain text version
+        strip_tags(email),
         'admin@j-education.com',
         [user.email],
         fail_silently=False,
-        html_message=email  # This is the HTML version
+        html_message=email
     )
 
 
