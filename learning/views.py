@@ -682,25 +682,30 @@ class CustomPasswordResetView(PasswordResetView):
     success_url = '/password_reset/done/'
 
 def send_password_reset_email(user, uid, token):
+    # Render the subject (plain text)
     subject = render_to_string('registration/password_reset_subject.txt', {'user': user})
+    subject = ''.join(subject.splitlines())  # Ensures no newlines in the subject
+
+    # Email template and context
     email_template_name = 'registration/password_reset_email.html'
-    
     context = {
         'uid': uid,
         'token': token,
         'domain': 's8m-adaptable-hubble.circumeo-apps.net',  # Your domain
     }
 
+    # Render the HTML email content
     email_html = render_to_string(email_template_name, context)
-    email_plain = strip_tags(email_html)  # Plain text version
+    email_plain = strip_tags(email_html)  # Fallback plain text version
 
+    # Send the email
     send_mail(
         subject,
-        email_plain,  # Plain text email
-        'admin@j-education.com',  # Sender
-        [user.email],  # Recipient
+        email_plain,  # Plain text body (fallback)
+        'admin@j-education.com',  # From address
+        [user.email],  # Recipient email
         fail_silently=False,
-        html_message=email_html  # HTML email
+        html_message=email_html  # HTML email content
     )
 
 
