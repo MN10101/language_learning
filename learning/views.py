@@ -38,7 +38,7 @@ from django.contrib.auth.views import PasswordResetView
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-from django.core.mail import EmailMultiAlternatives
+from django.core.mail import EmailMessage
 
 
 # Set up logging
@@ -683,9 +683,8 @@ class CustomPasswordResetView(PasswordResetView):
     success_url = '/password_reset/done/'
 
 def send_password_reset_email(user, uid, token):
-    # Render subject as plain text
     subject = render_to_string('registration/password_reset_subject.txt', {'user': user}).strip()
-
+    
     # Render HTML email
     email_template_name = 'registration/password_reset_email.html'
     context = {
@@ -693,20 +692,20 @@ def send_password_reset_email(user, uid, token):
         'token': token,
         'domain': 's8m-adaptable-hubble.circumeo-apps.net',  # Your domain
     }
+    
     html_content = render_to_string(email_template_name, context)
-    plain_content = strip_tags(html_content)  # Create plain text fallback
-
-    # Prepare email
-    from_email = 'admin@j-education.com'
-    to_email = user.email
-    email = EmailMultiAlternatives(subject, plain_content, from_email, [to_email])
-
-    # Attach HTML content
-    email.attach_alternative(html_content, "text/html")
-
-    # Send email
+    
+    # Create email message with proper headers
+    email = EmailMessage(
+        subject,         # Subject
+        html_content,    # Body (HTML)
+        'admin@j-education.com',  # From email
+        [user.email],    # To email list
+    )
+    
+    email.content_subtype = "html"  # This is critical: it tells Django to interpret the content as HTML
+    
     email.send(fail_silently=False)
-
 
 
 
