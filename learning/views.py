@@ -38,7 +38,6 @@ from django.contrib.auth.views import PasswordResetView
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
-from django.conf import settings
 
 
 # Set up logging
@@ -676,47 +675,39 @@ def refund_policy(request):
 
 
 
-
 class CustomPasswordResetView(PasswordResetView):
     template_name = 'registration/password_reset_form.html'
     email_template_name = 'registration/password_reset_email.html'
     subject_template_name = 'registration/password_reset_subject.txt'
     success_url = '/password_reset/done/'
 
-    def send_password_reset_email(self, user, uid, token):
-        subject = render_to_string(self.subject_template_name, {'user': user})
-        subject = ''.join(subject.splitlines())  # Remove unnecessary newlines
+def send_password_reset_email(user, uid, token):
+    subject = render_to_string('registration/password_reset_subject.txt', {'user': user}).strip()
+    
+    # Render HTML email
+    email_template_name = 'registration/password_reset_email.html'
+    context = {
+        'uid': uid,
+        'token': token,
+        'domain': 's8m-adaptable-hubble.circumeo-apps.net',  # Your domain
+    }
+    
+    html_content = render_to_string(email_template_name, context)
+    
+    # Create email message with proper headers
+    email = EmailMessage(
+        subject,         # Subject
+        html_content,    # Body (HTML)
+        'admin@j-education.com',  # From email
+        [user.email],    # To email list
+    )
+    
+    email.content_subtype = "html"  # This is critical: it tells Django to interpret the content as HTML
+    
+    email.send(fail_silently=False)
 
-        context = {
-            'uid': uid,
-            'token': token,
-            'domain': get_current_domain(self.request),  # Use helper function
-            'site_name': get_site_name(),                 # Use helper function (optional)
-        }
-
-        html_content = render_to_string(self.email_template_name, context)
-
-        email = EmailMessage(
-            subject,
-            html_content,
-            self.from_email,  # Use self.from_email for consistent sender
-            [user.email],
-        )
-        email.content_subtype = "html"
-        email.send(fail_silently=False)
 
 
 
 
-
-def get_current_domain(request):
-    """Retrieves the current domain name from the request."""
-    if request.META.get('HTTP_HOST'):
-        return request.META['HTTP_HOST']
-    else:
-        return settings.ALLOWED_HOSTS[0]
-
-def get_site_name():
-    """Returns the site name from settings.SITE_NAME, if available."""
-    return getattr(settings, 'SITE_NAME', '')
 
