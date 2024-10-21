@@ -684,27 +684,28 @@ class CustomPasswordResetView(PasswordResetView):
 def send_password_reset_email(user, uid, token):
     subject = render_to_string('registration/password_reset_subject.txt', {'user': user})
     email_template_name = 'registration/password_reset_email.html'
+    
     context = {
-        'email': user.email,
         'uid': uid,
         'token': token,
         'domain': 's8m-adaptable-hubble.circumeo-apps.net',  # Your domain
         'site_name': 'Your Site Name',
-        'user': user,
-        'reset_link': f"http://s8m-adaptable-hubble.circumeo-apps.net/reset/{uid}/{token}/"  # Direct link for the email
+        # Removed 'user' and 'username' to simplify the email
+        'reset_link': f"http://s8m-adaptable-hubble.circumeo-apps.net/reset/{uid}/{token}/"
     }
 
     email_html = render_to_string(email_template_name, context)
-    email_plain = strip_tags(email_html)  # Plain text version
+    email_plain = strip_tags(email_html)  # For the plain text version (fallback)
 
     send_mail(
         subject,
-        email_plain,  # Sending plain text
-        'admin@j-education.com',
-        [user.email],
+        email_plain,  # Plain text version of the email
+        'admin@j-education.com',  # Sender
+        [user.email],  # Recipient list
         fail_silently=False,
-        html_message=email_html  # Sending HTML version
+        html_message=email_html  # HTML version of the email
     )
+
 
 
 
