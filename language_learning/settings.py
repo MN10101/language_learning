@@ -130,6 +130,8 @@ EMAIL_HOST_USER = 'j.education.system@gmail.com'
 EMAIL_HOST_PASSWORD = 'xpqr hcwc reew jhin'
 DEFAULT_FROM_EMAIL = 'j.education.system@gmail.com'
 
+SITE_ID = 1
+
 
 
 
