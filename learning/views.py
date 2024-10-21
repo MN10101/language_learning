@@ -694,16 +694,18 @@ def send_password_reset_email(user, uid, token):
         'reset_link': f"http://s8m-adaptable-hubble.circumeo-apps.net/reset/{uid}/{token}/"  # Direct link for the email
     }
 
-    email = render_to_string(email_template_name, context)
+    email_html = render_to_string(email_template_name, context)
+    email_plain = strip_tags(email_html)  # Plain text version
 
     send_mail(
         subject,
-        strip_tags(email),
+        email_plain,  # Sending plain text
         'admin@j-education.com',
         [user.email],
         fail_silently=False,
-        html_message=email
+        html_message=email_html  # Sending HTML version
     )
+
 
 
 
