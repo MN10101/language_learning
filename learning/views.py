@@ -37,6 +37,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.views import PasswordResetView
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 
 # Set up logging
@@ -693,17 +694,19 @@ def send_password_reset_email(user, uid, token):
         'site_name': 'Your Site Name',
         'user': user,
     }
+    
     email = render_to_string(email_template_name, context)
 
-    # Here we specify the html_message to ensure it's sent as HTML
+    # Send the email with the HTML version
     send_mail(
         subject,
-        strip_tags(email),  # This will send plain text version
+        strip_tags(email),  # This is for the plain text version
         'admin@j-education.com',
         [user.email],
         fail_silently=False,
         html_message=email  # This is the HTML version
     )
+
 
 
 
