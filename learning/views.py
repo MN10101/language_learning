@@ -38,6 +38,7 @@ from django.contrib.auth.views import PasswordResetView
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
+from django.core.mail import EmailMultiAlternatives
 
 
 # Set up logging
@@ -682,32 +683,29 @@ class CustomPasswordResetView(PasswordResetView):
     success_url = '/password_reset/done/'
 
 def send_password_reset_email(user, uid, token):
-    # Render the subject (plain text)
-    subject = render_to_string('registration/password_reset_subject.txt', {'user': user})
-    subject = ''.join(subject.splitlines())  # Ensures no newlines in the subject
+    # Render subject as plain text
+    subject = render_to_string('registration/password_reset_subject.txt', {'user': user}).strip()
 
-    # Email template and context
+    # Render HTML email
     email_template_name = 'registration/password_reset_email.html'
     context = {
         'uid': uid,
         'token': token,
         'domain': 's8m-adaptable-hubble.circumeo-apps.net',  # Your domain
     }
+    html_content = render_to_string(email_template_name, context)
+    plain_content = strip_tags(html_content)  # Create plain text fallback
 
-    # Render the HTML email content
-    email_html = render_to_string(email_template_name, context)
-    email_plain = strip_tags(email_html)  # Fallback plain text version
+    # Prepare email
+    from_email = 'admin@j-education.com'
+    to_email = user.email
+    email = EmailMultiAlternatives(subject, plain_content, from_email, [to_email])
 
-    # Send the email
-    send_mail(
-        subject,
-        email_plain,  # Plain text body (fallback)
-        'admin@j-education.com',  # From address
-        [user.email],  # Recipient email
-        fail_silently=False,
-        html_message=email_html  # HTML email content
-    )
+    # Attach HTML content
+    email.attach_alternative(html_content, "text/html")
 
+    # Send email
+    email.send(fail_silently=False)
 
 
 
