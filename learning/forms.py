@@ -1,6 +1,8 @@
 from django import forms
 from .models import Profile, Answer
 from .models import UserFile
+from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 
 
 class FileUploadForm(forms.ModelForm):
@@ -41,3 +43,14 @@ class ProfileForm(forms.ModelForm):
             profile.save()
             profile.user.save()
         return profile
+
+class CustomPasswordResetForm(forms.Form):
+    email = forms.EmailField(label=_("Email"), max_length=254)
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        try:
+            User.objects.get(email=email)
+        except User.DoesNotExist:
+            raise forms.ValidationError(_("This email is not registered."), code='email_not_registered')
+        return email

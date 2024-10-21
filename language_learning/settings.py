@@ -42,12 +42,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
 ROOT_URLCONF = 'language_learning.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'learning/templates')],  # Updated to correct path
+        'DIRS': [os.path.join(BASE_DIR, 'learning/templates')],  # Ensure this path is correct
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -59,6 +60,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 TIME_ZONE = 'Europe/Berlin'
 USE_I18N = True
@@ -111,6 +113,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -119,13 +122,14 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'welcome'
 
 # Email settings
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'mamocool3@gmail.com'
-EMAIL_HOST_PASSWORD = 'fnfr qvee datg vbhj'
-DEFAULT_FROM_EMAIL = 'mamocool3@gmail.com'
+EMAIL_HOST_USER = 'j.education.system@gmail.com'
+EMAIL_HOST_PASSWORD = 'xpqr hcwc reew jhin'
+DEFAULT_FROM_EMAIL = 'j.education.system@gmail.com'
+
 
 
 

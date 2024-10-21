@@ -667,3 +667,10 @@ def terms_of_service(request):
 
 def refund_policy(request):
     return render(request, 'refund_policy.html')
+
+from django.contrib.auth.views import PasswordResetView
+
+class CustomPasswordResetView(PasswordResetView):
+    template_name = 'registration/password_reset_form.html'
+
+

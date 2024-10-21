@@ -2,8 +2,12 @@ from django.urls import path
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
+from django.contrib import admin
+from .views import CustomPasswordResetView
 
 urlpatterns = [
+    path('admin/', admin.site.urls),  # Admin panel URL (Move this to the top)
     path('', views.home, name='home'),
     path('register/', views.register, name='register'),
     path('login/', views.user_login, name='login'),
@@ -36,7 +40,11 @@ urlpatterns = [
     path('terms-of-service/', views.terms_of_service, name='terms_of_service'),
     path('refund-policy/', views.refund_policy, name='refund_policy'),
     
-    
+    # Password Reset URLs
+    path('password_reset/', CustomPasswordResetView.as_view(), name='password_reset'),
+    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 
     # Game-related URLs for teachers
     path('students/', views.students_view, name='students'),
@@ -44,6 +52,7 @@ urlpatterns = [
     path('game2/', views.game2, name='game2'),
     path('game3/', views.game3, name='game3'),
     path('question/<int:question_id>/', views.question, name='question'),
-] 
+]
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
