@@ -35,6 +35,8 @@ from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.views import PasswordResetView
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 
 # Set up logging
 logger = logging.getLogger(__name__)
@@ -670,12 +672,20 @@ def refund_policy(request):
     return render(request, 'refund_policy.html')
 
 
-
-class CustomPasswordResetView(PasswordResetView):
-    template_name = 'registration/password_reset_form.html'
+def send_password_reset_email(user, uid, token):
+    subject = render_to_string('registration/password_reset_subject.txt', {'user': user})
     email_template_name = 'registration/password_reset_email.html'
-    subject_template_name = 'registration/password_reset_subject.txt'
-    success_url = '/password_reset/done/'
+    context = {
+        'email': user.email,
+        'uid': uid,
+        'token': token,
+        'domain': 's8m-adaptable-hubble.circumeo-apps.net',  # Your domain
+        'site_name': 'Your Site Name',
+        'user': user,
+    }
+    email = render_to_string(email_template_name, context)
+    send_mail(subject, email, 'admin@j-education.com', [user.email], fail_silently=False, html_message=email)
+
 
 
 
