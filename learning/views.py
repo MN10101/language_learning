@@ -37,6 +37,7 @@ from django.utils.html import strip_tags
 
 
 from django.conf import settings as django_settings 
+from django.core.mail import send_mail
 from django.contrib import messages
 from django.shortcuts import render, redirect
 import logging
@@ -330,9 +331,10 @@ def contact_us(request):
             send_mail(
                 f'Message from {name} via Contact Us',
                 message,
-                email,  
+                django_settings.EMAIL_HOST_USER,  
                 [django_settings.EMAIL_HOST_USER],  
                 fail_silently=False,
+                headers={'Reply-To': email}  
             )
             messages.success(request, 'Your message has been sent successfully!')
         except Exception as e:
