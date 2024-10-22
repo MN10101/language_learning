@@ -48,7 +48,7 @@ ROOT_URLCONF = 'language_learning.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'learning/templates')],  # Ensure this path is correct
+        'DIRS': [os.path.join(BASE_DIR, 'learning/templates')],  
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

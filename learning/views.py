@@ -28,21 +28,18 @@ import openai
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
-
-
 from django.contrib.auth.views import PasswordResetView
 from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 from django.utils.html import strip_tags
-
-
-from django.conf import settings as django_settings  # Import with an alias
-from django.core.mail import send_mail
+from django.conf import settings as django_settings 
+from django.core.mail import EmailMessage
 from django.contrib import messages
 from django.shortcuts import render, redirect
 import logging
 
 logger = logging.getLogger(__name__)
+
 
 
 
@@ -89,8 +86,6 @@ def submit_english_test(request):
     return render(request, 'test_result.html', {'score': score, 'level': level})
 
 
-
-
 @login_required
 def english_test(request):
     # Ensure test questions are filtered properly
@@ -105,7 +100,7 @@ def english_test(request):
         request.session['answers'] = {}
 
     # Retrieve the current question index
-    question_index = request.session.get('question_index', 0)  # Default to 0 if not set
+    question_index = request.session.get('question_index', 0)
     questions = request.session.get('questions', [])
 
     # Check if there are questions available
@@ -153,7 +148,7 @@ def profile(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile updated successfully!')
-            return redirect('view_profile')  # Redirect to a view that shows the updated profile
+            return redirect('view_profile') 
     else:
         form = ProfileForm(instance=profile)
 
@@ -306,18 +301,6 @@ def my_course(request):
     return render(request, 'learning/my_course.html', {'courses': courses})
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 def contact_us(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -328,26 +311,19 @@ def contact_us(request):
 
         try:
             subject = f'Message from {name} via Contact Us'
-            body = f"""
-            You've received a new message from your contact form:
+            body = f"{message}\n\nFrom: {name}\nEmail: {email}"
 
-            Name: {name}
-            Email: {email}
-
-            Message:
-            {message}
-
-            Please reply to the user's email: {email}
-            """
-
-            # Send email to yourself (recipient)
-            send_mail(
+            # Create EmailMessage object and set reply_to
+            email_message = EmailMessage(
                 subject,
                 body,
-                django_settings.EMAIL_HOST_USER,  # Your email as the sender
-                [django_settings.EMAIL_HOST_USER],  # Recipient's email
-                fail_silently=False,
+                from_email=email, 
+                to=[django_settings.EMAIL_HOST_USER],  
+                reply_to=[email],  
             )
+
+            # Send the email
+            email_message.send(fail_silently=False)
 
             messages.success(request, 'Your message has been sent successfully!')
         except Exception as e:
@@ -357,11 +333,6 @@ def contact_us(request):
         return redirect('contact_us')
 
     return render(request, 'learning/contact_us.html')
-
-
-
-
-
 
 
 
@@ -700,17 +671,12 @@ class CustomPasswordResetView(PasswordResetView):
     subject_template_name = 'registration/password_reset_subject.txt'
     success_url = '/password_reset/done/'
 
-
-
-
-
-
 def send_password_reset_email(user, uid, token):
     # Define the context for the email template
     context = {
         'uid': uid,
         'token': token,
-        'domain': 's8m-adaptable-hubble.circumeo-apps.net',  # Replace with your domain
+        'domain': 's8m-adaptable-hubble.circumeo-apps.net', 
     }
 
     # Construct the subject (plain text)
@@ -725,7 +691,7 @@ def send_password_reset_email(user, uid, token):
     # Create the email with plain-text content as the body
     email = EmailMultiAlternatives(
         subject=subject,
-        body=text_content,  # Plain text content (fallback)
+        body=text_content, 
         from_email='admin@j-education.com',
         to=[user.email],
     )
@@ -734,7 +700,7 @@ def send_password_reset_email(user, uid, token):
     email.attach_alternative(html_content, "text/html")
     
     # Optional: Print headers for debugging
-    print(email.message())  # To verify the Content-Type in headers
+    print(email.message()) 
 
     # Send the email
     email.send(fail_silently=False)

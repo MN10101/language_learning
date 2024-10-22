@@ -160,22 +160,22 @@ html, body {
 }
 /* Hide mobile games links by default */
 .mobile-games {
-    display: none; /* Hide on larger screens */
+    display: none; 
 }
 
 /* Media Query for small devices */
 @media (max-width: 768px) {
     .mobile-games {
-        display: flex; /* Show games links on mobile */
-        flex-direction: column; /* Stack vertically */
-        gap: 10px; /* Add some spacing between links */
-        background-color: #4b0082; /* Match navbar background */
-        padding: 10px; /* Add padding for aesthetics */
+        display: flex; 
+        flex-direction: column; 
+        gap: 10px; 
+        background-color: #4b0082; 
+        padding: 10px; 
     }
 
     /* Hide the games dropdown for mobile */
     .games-dropdown {
-        display: none; /* Hide dropdown on mobile */
+        display: none; 
     }
 }
 
