@@ -158,12 +158,12 @@ html, body {
         border-bottom: none;
     }
 }
-/* Hide mobile games links by default */
+/* Hide mobile game links by default (for desktop) */
 .mobile-games {
     display: none; 
 }
 
-/* Media Query for small devices */
+/* Show mobile game links on small devices */
 @media (max-width: 768px) {
     .mobile-games {
         display: flex; 
@@ -172,12 +172,8 @@ html, body {
         background-color: #4b0082; 
         padding: 10px; 
     }
-
-    /* Hide the games dropdown for mobile */
-    .games-dropdown {
-        display: none; 
-    }
 }
+
 
 
 * {
