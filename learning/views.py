@@ -47,7 +47,6 @@ logger = logging.getLogger(__name__)
 
 
 
-
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
@@ -329,7 +328,17 @@ def contact_us(request):
 
         try:
             subject = f'Message from {name} via Contact Us'
-            body = f"From: {name} <{email}>\n\nMessage:\n{message}"
+            body = f"""
+            You've received a new message from your contact form:
+
+            Name: {name}
+            Email: {email}
+
+            Message:
+            {message}
+
+            Please reply to the user's email: {email}
+            """
 
             # Send email to yourself (recipient)
             send_mail(
