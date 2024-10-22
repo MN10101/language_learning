@@ -35,16 +35,13 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 from django.utils.html import strip_tags
 
-from django.conf import settings  
+
+from django.conf import settings as django_settings 
 from django.core.mail import send_mail
 from django.contrib import messages
 from django.shortcuts import render, redirect
 import logging
 
-logger = logging.getLogger(__name__)
-
-
-# Set up logging
 logger = logging.getLogger(__name__)
 
 
@@ -313,6 +310,13 @@ def my_course(request):
 
 
 
+
+
+
+
+
+
+
 def contact_us(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -325,8 +329,8 @@ def contact_us(request):
             send_mail(
                 f'Message from {name} via Contact Us',
                 message,
-                settings.EMAIL_HOST_USER,  # This should access the settings correctly
-                [settings.EMAIL_HOST_USER],  # This should access the settings correctly
+                django_settings.EMAIL_HOST_USER,  # Use the alias here
+                [django_settings.EMAIL_HOST_USER],  # Use the alias here
                 fail_silently=False,
             )
             messages.success(request, 'Your message has been sent successfully!')
