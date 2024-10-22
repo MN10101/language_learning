@@ -308,14 +308,6 @@ def my_course(request):
 
 
 
-
-
-
-
-
-
-
-
 def contact_us(request):
     if request.method == 'POST':
         name = request.POST.get('name')
