@@ -38,6 +38,7 @@ from django.contrib.auth.views import PasswordResetView
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
+from django.utils.html import strip_tags
 
 
 # Set up logging
@@ -684,6 +685,8 @@ class CustomPasswordResetView(PasswordResetView):
 
 
 
+
+
 def send_password_reset_email(user, uid, token):
     # Construct the subject
     subject = render_to_string('registration/password_reset_subject.txt', {'user': user}).strip()
@@ -695,10 +698,12 @@ def send_password_reset_email(user, uid, token):
         'domain': 's8m-adaptable-hubble.circumeo-apps.net',  # Replace with your domain
     }
     
-    # Render the plain-text and HTML content versions
-    text_content = render_to_string('registration/password_reset_email.txt', context)  # Plain-text fallback
-    html_content = render_to_string('registration/password_reset_email.html', context)  # HTML version
+    # Render the HTML content from the template
+    html_content = render_to_string('registration/password_reset_email.html', context)
     
+    # Create a plain-text version of the email by stripping HTML tags (as a fallback for non-HTML clients)
+    text_content = strip_tags(html_content)
+
     # Create the email object
     email = EmailMultiAlternatives(
         subject=subject,
@@ -709,9 +714,9 @@ def send_password_reset_email(user, uid, token):
     
     # Attach the HTML content as an alternative content type
     email.attach_alternative(html_content, "text/html")
-
-    print(email.message())  # Add this line before email.send()
-
+    
+    # Optional: print email headers for debugging
+    print(email.message())  # To check the content type and email headers
     
     # Send the email
     email.send(fail_silently=False)
