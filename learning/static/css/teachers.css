@@ -1,6 +1,7 @@
 .teachers-list {
     display: flex;
-    flex-direction: column; 
+    flex-direction: row; /* Change to row for side-by-side layout */
+    flex-wrap: wrap; /* Allow items to wrap to the next line on smaller screens */
     gap: 20px;
     margin-top: 30px;
 }
@@ -11,6 +12,7 @@
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
+    flex: 1 1 200px; /* Allow cards to grow and shrink, with a base width */
 }
 
 .teacher-pic {
@@ -30,4 +32,15 @@
 .teacher-card p {
     font-size: 16px;
     color: #555;
+}
+
+/* Responsive adjustments for small devices */
+@media (max-width: 768px) {
+    .teachers-list {
+        flex-direction: row; /* Keep teachers side by side on small devices */
+    }
+    
+    .teacher-card {
+        flex: 1 1 150px; /* Adjust base width for smaller devices */
+    }
 }
