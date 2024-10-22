@@ -163,7 +163,7 @@ html, body {
     display: none;
 }
 
-/* Show mobile game links on small devices */
+/* Show mobile game links only on small devices */
 @media (max-width: 768px) {
     .mobile-games {
         display: flex;
@@ -173,9 +173,16 @@ html, body {
         padding: 10px;
     }
 
-    /* Hide the desktop games dropdown on mobile */
+    /* Keep the games dropdown visible on desktop but hide on mobile */
     .games-dropdown {
-        display: none;
+        display: flex;
+    }
+
+    /* On small devices, hide the desktop games dropdown */
+    @media (max-width: 768px) {
+        .games-dropdown {
+            display: none;
+        }
     }
 }
 
