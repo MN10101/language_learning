@@ -37,7 +37,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.views import PasswordResetView
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMultiAlternatives
 
 
 # Set up logging
@@ -688,25 +688,27 @@ def send_password_reset_email(user, uid, token):
     # Construct the subject
     subject = render_to_string('registration/password_reset_subject.txt', {'user': user}).strip()
     
-    # Define the context
+    # Define the context for the email template
     context = {
         'uid': uid,
         'token': token,
         'domain': 's8m-adaptable-hubble.circumeo-apps.net',  # Replace with your domain
     }
     
-    # Render the HTML content from the updated email template
-    html_content = render_to_string('registration/password_reset_email.html', context)
+    # Render the plain-text and HTML content versions
+    text_content = render_to_string('registration/password_reset_email.txt', context)  # Plain-text fallback
+    html_content = render_to_string('registration/password_reset_email.html', context)  # HTML version
     
-    # Create the email object and specify that it's HTML content
-    email = EmailMessage(
+    # Create the email object
+    email = EmailMultiAlternatives(
         subject=subject,
-        body=html_content,
+        body=text_content,  # Plain-text content as the primary body
         from_email='admin@j-education.com',
         to=[user.email]
     )
     
-    email.content_subtype = 'html'  # Important: this tells Django to send the email as HTML
+    # Attach the HTML content as an alternative content type
+    email.attach_alternative(html_content, "text/html")
     
     # Send the email
     email.send(fail_silently=False)
