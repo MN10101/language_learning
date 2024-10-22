@@ -158,31 +158,24 @@ html, body {
         border-bottom: none;
     }
 }
-/* Hide mobile game links by default (for desktop) */
+/* Hide mobile games links by default (for desktop) */
 .mobile-games {
-    display: none;
+    display: none; 
 }
 
-/* Show mobile game links only on small devices */
+/* Media Query for small devices */
 @media (max-width: 768px) {
     .mobile-games {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        background-color: #4b0082;
-        padding: 10px;
+        display: flex; 
+        flex-direction: column; 
+        gap: 10px; 
+        background-color: #4b0082; 
+        padding: 10px; 
     }
 
-    /* Keep the games dropdown visible on desktop but hide on mobile */
+    /* Hide the games dropdown for mobile */
     .games-dropdown {
-        display: flex;
-    }
-
-    /* On small devices, hide the desktop games dropdown */
-    @media (max-width: 768px) {
-        .games-dropdown {
-            display: none;
-        }
+        display: none; 
     }
 }
 
