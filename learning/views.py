@@ -688,38 +688,39 @@ class CustomPasswordResetView(PasswordResetView):
 
 
 def send_password_reset_email(user, uid, token):
-    # Construct the subject
-    subject = render_to_string('registration/password_reset_subject.txt', {'user': user}).strip()
-    
     # Define the context for the email template
     context = {
         'uid': uid,
         'token': token,
         'domain': 's8m-adaptable-hubble.circumeo-apps.net',  # Replace with your domain
     }
+
+    # Construct the subject (plain text)
+    subject = render_to_string('registration/password_reset_subject.txt', context).strip()
     
-    # Render the HTML content from the template
+    # Render the HTML content
     html_content = render_to_string('registration/password_reset_email.html', context)
     
-    # Create a plain-text version of the email by stripping HTML tags (as a fallback for non-HTML clients)
+    # Create a plain-text fallback by stripping HTML tags
     text_content = strip_tags(html_content)
-
-    # Create the email object
+    
+    # Create the email with plain-text content as the body
     email = EmailMultiAlternatives(
         subject=subject,
-        body=text_content,  # Plain-text content as the primary body
+        body=text_content,  # Plain text content (fallback)
         from_email='admin@j-education.com',
-        to=[user.email]
+        to=[user.email],
     )
     
-    # Attach the HTML content as an alternative content type
+    # Attach the HTML content as an alternative
     email.attach_alternative(html_content, "text/html")
     
-    # Optional: print email headers for debugging
-    print(email.message())  # To check the content type and email headers
-    
+    # Optional: Print headers for debugging
+    print(email.message())  # To verify the Content-Type in headers
+
     # Send the email
     email.send(fail_silently=False)
+
 
 
 
