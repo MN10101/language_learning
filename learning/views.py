@@ -328,24 +328,15 @@ def contact_us(request):
         logger.info(f"Received contact form submission: Name: {name}, Email: {email}, Message: {message}")
 
         try:
-            # Prepare the email
             subject = f'Message from {name} via Contact Us'
-            body = message
-            
+            body = f"From: {name} <{email}>\n\nMessage:\n{message}"
+
+            # Send email to yourself (recipient)
             send_mail(
                 subject,
                 body,
                 django_settings.EMAIL_HOST_USER,  # Your email as the sender
                 [django_settings.EMAIL_HOST_USER],  # Recipient's email
-                fail_silently=False,
-            )
-
-            # Here, you may send an additional email to the user as well if needed
-            send_mail(
-                subject,
-                body,
-                django_settings.EMAIL_HOST_USER,  # Your email as the sender
-                [email],  # Send a copy to the user who filled the form
                 fail_silently=False,
             )
 
