@@ -681,30 +681,36 @@ class CustomPasswordResetView(PasswordResetView):
     subject_template_name = 'registration/password_reset_subject.txt'
     success_url = '/password_reset/done/'
 
+
+
+
 def send_password_reset_email(user, uid, token):
+    # Construct the subject
     subject = render_to_string('registration/password_reset_subject.txt', {'user': user}).strip()
     
-    # Render HTML email
-    email_template_name = 'registration/password_reset_email.html'
+    # Define the context
     context = {
         'uid': uid,
         'token': token,
-        'domain': 's8m-adaptable-hubble.circumeo-apps.net',  # Your domain
+        'domain': 's8m-adaptable-hubble.circumeo-apps.net',  # Replace with your domain
     }
     
-    html_content = render_to_string(email_template_name, context)
+    # Render the HTML content from the updated email template
+    html_content = render_to_string('registration/password_reset_email.html', context)
     
-    # Create email message with proper headers
+    # Create the email object and specify that it's HTML content
     email = EmailMessage(
-        subject,         # Subject
-        html_content,    # Body (HTML)
-        'admin@j-education.com',  # From email
-        [user.email],    # To email list
+        subject=subject,
+        body=html_content,
+        from_email='admin@j-education.com',
+        to=[user.email]
     )
     
-    email.content_subtype = "html"  # This is critical: it tells Django to interpret the content as HTML
+    email.content_subtype = 'html'  # Important: this tells Django to send the email as HTML
     
+    # Send the email
     email.send(fail_silently=False)
+
 
 
 
