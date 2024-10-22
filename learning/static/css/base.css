@@ -166,18 +166,19 @@ html, body {
 /* Media Query for small devices */
 @media (max-width: 768px) {
     .mobile-games {
-        display: flex; 
-        flex-direction: column; 
+        display: flex;
+        flex-direction: row; /* Set games to be next to each other */
         gap: 10px; 
         background-color: #4b0082; 
-        padding: 10px; 
+        padding: 10px;
     }
 
     /* Hide the games dropdown for mobile */
     .games-dropdown {
-        display: none; 
+        display: none;
     }
 }
+
 
 
 * {
