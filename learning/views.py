@@ -709,6 +709,9 @@ def send_password_reset_email(user, uid, token):
     
     # Attach the HTML content as an alternative content type
     email.attach_alternative(html_content, "text/html")
+
+    print(email.message())  # Add this line before email.send()
+
     
     # Send the email
     email.send(fail_silently=False)
