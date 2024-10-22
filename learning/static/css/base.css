@@ -158,31 +158,27 @@ html, body {
         border-bottom: none;
     }
 }
-.games-dropdown {
-    position: relative; 
+/* Hide mobile games links by default */
+.mobile-games {
+    display: none; /* Hide on larger screens */
 }
 
-.games-dropdown-menu {
-    display: none; 
-    position: absolute; 
-    left: 0;
-    top: 100%; 
-    background-color: #4b0082;
-    width: 100%;
-    border: 1px solid #ddd;
-    z-index: 999;
+/* Media Query for small devices */
+@media (max-width: 768px) {
+    .mobile-games {
+        display: flex; /* Show games links on mobile */
+        flex-direction: column; /* Stack vertically */
+        gap: 10px; /* Add some spacing between links */
+        background-color: #4b0082; /* Match navbar background */
+        padding: 10px; /* Add padding for aesthetics */
+    }
+
+    /* Hide the games dropdown for mobile */
+    .games-dropdown {
+        display: none; /* Hide dropdown on mobile */
+    }
 }
 
-.games-dropdown-menu a {
-    display: block; 
-    padding: 10px; 
-    color: white; 
-    text-decoration: none; 
-}
-
-.games-dropdown-menu a:hover {
-    background-color: #5e2d91; 
-}
 
 * {
 -webkit-tap-highlight-color: transparent;
