@@ -246,7 +246,6 @@ def user_login(request):
             # Clear specific cookies
             response = redirect('welcome')
             response.delete_cookie('csrftoken')
-            response.delete_cookie('messages')
             response.delete_cookie('sessionid')
             return response
     else:
