@@ -25,5 +25,63 @@
             </form>
         </div>
     </div>
+
+    <!-- Popup Message -->
+    <div class="popup-messages">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="popup-message {% if message.tags %}{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
 </div>
+
+<style>
+    .popup-messages {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000;
+        width: auto;
+        text-align: center;
+    }
+    .popup-message {
+        background-color: #f8d7da; /* Red background for error */
+        color: #721c24; /* Dark red text */
+        border: 1px solid #f5c6cb;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        opacity: 1;
+        animation: fadeIn 0.5s ease-in-out, fadeOut 0.5s ease-in-out 1.5s forwards; /* Adjusted for fade-out */
+    }
+    .popup-message.success {
+        background-color: #4b0082; /* Green background for success */
+        color: yellow; /* Dark green text */
+        border-color: #c3e6cb;
+    }
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    @keyframes fadeOut {
+        from {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+    }
+</style>
 {% endblock %}
