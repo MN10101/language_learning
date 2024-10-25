@@ -242,10 +242,19 @@ def user_login(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('welcome') 
+            
+            # Clear specific cookies
+            response = redirect('welcome')
+            response.delete_cookie('csrftoken')
+            response.delete_cookie('messages')
+            response.delete_cookie('sessionid')
+            return response
     else:
         form = AuthenticationForm()
+    
     return render(request, 'learning/login.html', {'form': form})
+
+
 
 def user_logout(request):
     logout(request)
