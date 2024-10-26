@@ -15,6 +15,8 @@
 - mkdir D:\language_learning\static
 - python manage.py populate_questions
 - python manage.py game_questions
+- python manage.py java_questions
+- python manage.py python_questions 
 - pip install whitenoise
 - python manage.py collectstatic
 - python manage.py makemigrations
