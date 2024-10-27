@@ -167,18 +167,17 @@ html, body {
 @media (max-width: 768px) {
     .mobile-games {
         display: flex;
-        flex-direction: row; /* Set games to be next to each other */
+        flex-direction: row; /* Align games next to each other */
         gap: 10px; 
         background-color: #4b0082; 
         padding: 10px;
-        overflow-x: auto;
-        scroll-behavior: smooth;
+        overflow-x: auto; /* Allow horizontal scroll */
+        white-space: nowrap; /* Prevent wrapping */
     }
 
     /* Hide the games dropdown for mobile */
     .games-dropdown {
         display: none;
-        
     }
 }
 
