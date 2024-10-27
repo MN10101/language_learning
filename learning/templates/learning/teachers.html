@@ -25,13 +25,14 @@
 
             <!-- Display teacher's bio -->
             <p>{{ teacher.user.profile.bio }}</p>
+
+            <!-- Display teacher's email -->
+            <p>Email: <a href="mailto:{{ teacher.user.email }}">{{ teacher.user.email }}</a></p>
         </div>
         {% empty %}
         <p>No teachers available at the moment.</p>
         {% endfor %}
     </div>
 </div>
-
-
 
 {% endblock %}
