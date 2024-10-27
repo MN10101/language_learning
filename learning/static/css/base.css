@@ -180,7 +180,7 @@ html, body {
     /* Add this to ensure the navbar fits within the screen */
     .navbar {
         overflow-x: auto; /* Enable horizontal scrolling if content overflows */
-        padding: 40px;
+        padding: 35px;
     }
 }
 
