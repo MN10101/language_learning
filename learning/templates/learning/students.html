@@ -28,7 +28,7 @@
                     <!-- Student's Full Name -->
                     <div class="student-details">
                         <strong>{{ entry.profile.first_name }} {{ entry.profile.last_name }}</strong>
-                        <p>Email: {{ entry.student.email }}</p>
+                        <p>Email: <a href="mailto:{{ entry.student.email }}">{{ entry.student.email }}</a></p>
 
                         <!-- Booked Classes -->
                         <div class="student-classes">
