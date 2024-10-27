@@ -42,24 +42,24 @@
         <a href="{% url 'contact_us' %}">Contact Us</a>
 
         {% if user|is_teacher %}
-    <div class="games-dropdown">
-        <a href="#" class="games-dropdown-toggle">Games</a>
-        <div class="games-dropdown-menu">
+        <div class="games-dropdown">
+            <a href="#" class="games-dropdown-toggle">Games</a>
+            <div class="games-dropdown-menu">
+                <a href="{% url 'game' %}">Game</a>
+                <a href="{% url 'game2' %}">Picture Quiz</a>
+                <a href="{% url 'game3' %}">Flashcard Game</a>
+            </div>
+        </div>
+
+        <!-- Mobile Game Links -->
+        <div class="mobile-games">
             <a href="{% url 'game' %}">Game</a>
             <a href="{% url 'game2' %}">Picture Quiz</a>
             <a href="{% url 'game3' %}">Flashcard Game</a>
         </div>
-    </div>
 
-    <!-- Mobile Game Links -->
-    <div class="mobile-games">
-        <a href="{% url 'game' %}">Game</a>
-        <a href="{% url 'game2' %}">Picture Quiz</a>
-        <a href="{% url 'game3' %}">Flashcard Game</a>
-    </div>
-
-    <a href="{% url 'students' %}">Students</a>
-{% endif %}
+        <a href="{% url 'students' %}">Students</a>
+    {% endif %}
 
     </div>
 
@@ -203,7 +203,7 @@
     // Check if the user is logged in
     function isUserLoggedIn() {
         // Replace this with your actual login check logic
-        return {{ user.is_authenticated|yesno:"true,false" }};  // Example for Django template context
+        return {{ user.is_authenticated|yesno:"true,false" }};  
     }
 
     // Open the chatbot if the user is logged in and it hasn't been opened before
