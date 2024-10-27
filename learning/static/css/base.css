@@ -171,12 +171,14 @@ html, body {
         gap: 10px; 
         background-color: #4b0082; 
         padding: 10px;
+        overflow-x: auto;
+        scroll-behavior: smooth;
     }
 
     /* Hide the games dropdown for mobile */
     .games-dropdown {
         display: none;
-        overflow-x: auto;
+        
     }
 }
 
