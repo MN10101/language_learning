@@ -154,9 +154,9 @@ html, body {
         animation-delay: 0.9s; /* Contact Us */
     }
     
-    .navbar.active .navbar-left a:last-child {
+    /* .navbar.active .navbar-left a:last-child {
         border-bottom: none;
-    }
+    } */
 }
 /* Hide mobile games links by default */
 .mobile-games {
@@ -167,12 +167,12 @@ html, body {
 @media (max-width: 768px) {
     .mobile-games {
         display: flex;
-        flex-direction: row; /* Align games next to each other */
+        flex-direction: row; 
         gap: 10px; 
         background-color: #4b0082; 
         padding: 10px;
-        overflow-x: auto; /* Allow horizontal scroll */
-        white-space: nowrap; /* Prevent wrapping */
+        overflow-x: auto; 
+        white-space: nowrap; 
     }
 
     /* Hide the games dropdown for mobile */
