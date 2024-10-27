@@ -176,6 +176,7 @@ html, body {
     /* Hide the games dropdown for mobile */
     .games-dropdown {
         display: none;
+        overflow-x: auto;
     }
 }
 
