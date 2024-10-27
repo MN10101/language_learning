@@ -158,29 +158,24 @@ html, body {
         border-bottom: none;
     }
 }
-/* Hide the games-dropdown on mobile */
+/* Default styles for desktop */
 .games-dropdown {
-    display: block; /* Show on larger screens */
+    display: block;
 }
-
 .mobile-games {
-    display: none; /* Hide on larger screens */
+    display: none;
 }
 
 /* Mobile-specific styling */
 @media (max-width: 767px) {
     .games-dropdown {
-        display: none; /* Hide Games section on mobile */
+        display: none; /* Hide Games dropdown on mobile */
     }
     .mobile-games {
-        display: flex; /* Show individual games on mobile */
-        flex-direction: column; /* Stack them vertically */
+        display: flex; /* Show mobile games */
+        justify-content: space-around;
     }
 }
-
-
-
-
 
 * {
 -webkit-tap-highlight-color: transparent;
