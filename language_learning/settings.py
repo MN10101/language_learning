@@ -70,28 +70,28 @@ WSGI_APPLICATION = 'language_learning.wsgi.application'
 
 # Database configuration
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'language_learning_db',
-#         'USER': 'postgres',
-#         'PASSWORD': 'mamo',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
-
-
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ["POSTGRES_DB"],
-        "USER": os.environ["POSTGRES_USER"],
-        "PASSWORD": os.environ["POSTGRES_PASSWORD"],
-        "HOST": os.environ["POSTGRES_HOST"],
-        "PORT": os.environ["POSTGRES_PORT"],
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'language_learning_db',
+        'USER': 'postgres',
+        'PASSWORD': 'mamo',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
+
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": os.environ["POSTGRES_DB"],
+#         "USER": os.environ["POSTGRES_USER"],
+#         "PASSWORD": os.environ["POSTGRES_PASSWORD"],
+#         "HOST": os.environ["POSTGRES_HOST"],
+#         "PORT": os.environ["POSTGRES_PORT"],
+#     }
+# }
 
 
 # Password validation
@@ -129,6 +129,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'j.education.system@gmail.com'
 EMAIL_HOST_PASSWORD = 'xpqr hcwc reew jhin'
 DEFAULT_FROM_EMAIL = 'j.education.system@gmail.com'
+
 
 SITE_ID = 1
 

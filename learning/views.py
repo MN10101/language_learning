@@ -683,30 +683,27 @@ def send_password_reset_email(user, uid, token):
     context = {
         'uid': uid,
         'token': token,
-        'domain': 'https://s8m-adaptable-hubble.circumeo-apps.net',  # or any relevant domain
+        'domain': 'https://s8m-adaptable-hubble.circumeo-apps.net',  # Your domain
     }
 
+    # Subject and email content
     subject = render_to_string('registration/password_reset_subject.txt', context).strip()
-    
-    # Render the HTML content
     html_content = render_to_string('registration/password_reset_email.html', context)
-    
-    # Create a plain-text fallback by stripping HTML tags
     text_content = strip_tags(html_content)
-    
+
+    # Create email object with both text and HTML parts
     email = EmailMultiAlternatives(
         subject=subject,
-        body=text_content,
+        body=text_content,  # Plain text fallback
         from_email='j.education.system@gmail.com',
-        to=[user.email],
+        to=[user.email]
     )
-    
-    # Attach the HTML content as an alternative
+
+    # Attach the HTML part as an alternative
     email.attach_alternative(html_content, "text/html")
-    
+
     # Send the email
     email.send(fail_silently=False)
-
 
 
 
