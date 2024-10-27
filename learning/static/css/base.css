@@ -158,10 +158,11 @@ html, body {
         border-bottom: none;
     }
 }
-/* Default styles for desktop */
+/* Default styling for desktop */
 .games-dropdown {
     display: block;
 }
+
 .mobile-games {
     display: none;
 }
@@ -172,11 +173,15 @@ html, body {
         display: none; /* Hide Games dropdown on mobile */
     }
     .mobile-games {
-        display: flex; /* Show mobile games */
-        justify-content: space-around;
+        display: flex;
+        justify-content: space-around; /* Align games in a row */
+    }
+    
+    /* Add this to ensure the navbar fits within the screen */
+    .navbar {
+        overflow-x: auto; /* Enable horizontal scrolling if content overflows */
     }
 }
-
 * {
 -webkit-tap-highlight-color: transparent;
 }
