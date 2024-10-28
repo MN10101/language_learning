@@ -121,11 +121,15 @@ LOGIN_REDIRECT_URL = 'welcome'
 LOGOUT_REDIRECT_URL = 'login'
 
 # Session Management
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # End session when browser closes
-SESSION_COOKIE_AGE = 1800  # 30 minutes session timeout
-SESSION_COOKIE_HTTPONLY = True  # Prevent JavaScript access to session cookie
-SESSION_COOKIE_SAMESITE = 'Lax'  # Protect against CSRF attacks
-SESSION_COOKIE_SECURE = not DEBUG  # Use secure cookies in production
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# Security settings for the session cookie
+SESSION_COOKIE_AGE = None  # Ensures it acts like a session cookie
+SESSION_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SECURE = not DEBUG  # Ensure secure cookies if using HTTPS
+SESSION_COOKIE_HTTPONLY = True  # Prevent JavaScript from accessing it
+
 
 # CSRF Cookie Settings
 CSRF_COOKIE_HTTPONLY = True  # Prevent JavaScript access to CSRF cookie

@@ -333,14 +333,15 @@ def user_logout(request):
     # Log the user out
     logout(request)
 
-    # Create a response to redirect after logout
+    # Create a response to redirect the user to the login page
     response = redirect('login')
-    
-    # Delete specific cookies that may cause issues
-    response.delete_cookie('csrftoken')
-    response.delete_cookie('sessionid')
+
+    # Explicitly delete any cookies that may cause issues
+    response.delete_cookie('sessionid')  # Django session cookie
+    response.delete_cookie('csrftoken')  # CSRF token cookie
 
     return response
+
 
 def choose_language(request):
     languages = Language.objects.all()
