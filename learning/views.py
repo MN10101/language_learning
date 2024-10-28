@@ -148,19 +148,17 @@ def it_test(request):
     # Filter questions based on the specified subject, e.g., 'IT'
     test_questions = Question.objects.filter(category='test', subject='IT')
 
-    if 'question_index' not in request.session or 'questions' not in request.session:
-        # Initialize the session to track progress and randomize questions
+    # Check for session keys specifically for IT test
+    if 'it_question_index' not in request.session or 'it_questions' not in request.session:
         questions = list(test_questions)
         random.shuffle(questions)
-        request.session['questions'] = [q.id for q in questions]
-        request.session['question_index'] = 0
-        request.session['answers'] = {}
+        request.session['it_questions'] = [q.id for q in questions]
+        request.session['it_question_index'] = 0
+        request.session['it_answers'] = {}
 
-    # Retrieve the current question index
-    question_index = request.session.get('question_index', 0)
-    questions = request.session.get('questions', [])
+    question_index = request.session.get('it_question_index', 0)
+    questions = request.session.get('it_questions', [])
 
-    # Check if there are questions available
     if not questions or question_index >= len(questions):
         return redirect('submit_it_test')
 
@@ -169,14 +167,12 @@ def it_test(request):
     answers = Answer.objects.filter(question=question)
 
     if request.method == 'POST':
-        # Save the current answer
         selected_answer = request.POST.get('answer')
         if selected_answer:
-            request.session['answers'][question_id] = selected_answer
-            request.session['question_index'] += 1
+            request.session['it_answers'][question_id] = selected_answer
+            request.session['it_question_index'] += 1
 
-            # Check if we've reached the end of the questions
-            if request.session['question_index'] >= len(questions):
+            if request.session['it_question_index'] >= len(questions):
                 return redirect('submit_it_test')
 
             return redirect('it_test')
@@ -188,7 +184,6 @@ def it_test(request):
         'total_number': len(questions),
     }
     return render(request, 'it_test.html', context)
-
 
 @login_required
 def submit_it_test(request):

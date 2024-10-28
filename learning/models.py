@@ -13,16 +13,15 @@ class Question(models.Model):
     ]
 
     text = models.CharField(max_length=255)
-    level = models.CharField(max_length=2, choices=[
-        ('A1', 'A1'), ('A2', 'A2'), ('B1', 'B1'), ('B2', 'B2'), ('C1', 'C1'), ('C2', 'C2')
+    level = models.CharField(max_length=20, choices=[
+        ('A1', 'A1'), ('A2', 'A2'), ('B1', 'B1'), ('B2', 'B2'), ('C1', 'C1'), ('C2', 'C2'),
+        ('Basic', 'Basic'), ('Intermediate', 'Intermediate'), ('Advanced', 'Advanced'),
     ])
     category = models.CharField(max_length=10, choices=CATEGORY_CHOICES, default='test')
-    subject = models.CharField(max_length=10, choices=SUBJECT_CHOICES)  # New field
+    subject = models.CharField(max_length=10, choices=SUBJECT_CHOICES)
 
     def __str__(self):
         return self.text
-
-
 
 class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
@@ -31,6 +30,7 @@ class Answer(models.Model):
 
     def __str__(self):
         return self.text
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
