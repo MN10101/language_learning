@@ -115,6 +115,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Default Primary Key Field Type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Use ManifestStaticFilesStorage for cache busting
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
 # Login and Authentication
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'welcome'
