@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}IT Skills Test Result{% endblock %}
+
+{% block content %}
+<div class="container centered-form-container">
+    <h1>Your IT Skills Test Result</h1>
+    <p>Your score: {{ score }} out of {{ total_number }}</p>  <!-- Use total_number here -->
+    <p>Your level: <strong>{{ level }}</strong></p>
+
+    {% if level == 'Beginner' %}
+        <p>Keep practicing! Consider revisiting the basics.</p>
+    {% elif level == 'Intermediate' %}
+        <p>Good job! You're on the right track. Keep honing your skills!</p>
+    {% elif level == 'Advanced' %}
+        <p>Excellent work! You have a strong grasp of IT concepts!</p>
+    {% endif %}
+
+    <a href="{% url 'prices' %}" class="button">Development Courses</a>
+</div>
+{% endblock %}

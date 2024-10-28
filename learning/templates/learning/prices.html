@@ -10,6 +10,7 @@
 <body>
     <div class="container centered-form-container">
         <h1>Prices</h1>
+        
         <table class="price-table">
             <thead>
                 <tr>
@@ -58,6 +59,34 @@
                     <td>Business English - Advanced</td>
                     <td>600 €</td>
                     <td><a href="{% url 'book_course' level='Business-Advanced' %}" class="btn">Book Now</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Development Courses</h2>
+        <table class="price-table">
+            <thead>
+                <tr>
+                    <th>Course</th>
+                    <th>Price (€)</th>
+                    <th>Book Now</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Java Development</td>
+                    <td>60,000 €</td>
+                    <td><a href="{% url 'book_course' level='Java' %}" class="btn">Book Now</a></td>
+                </tr>
+                <tr>
+                    <td>Python Development</td>
+                    <td>65,000 €</td>
+                    <td><a href="{% url 'book_course' level='Python' %}" class="btn">Book Now</a></td>
+                </tr>
+                <tr>
+                    <td>Web Development</td>
+                    <td>55,000 €</td>
+                    <td><a href="{% url 'book_course' level='Web' %}" class="btn">Book Now</a></td>
                 </tr>
             </tbody>
         </table>

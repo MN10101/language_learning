@@ -61,12 +61,17 @@ def submit_english_test(request):
     answers = request.session.get('answers', {})
     score = 0
 
+    print(f"Session answers: {answers}")
+
     for question_id, selected_answer_id in answers.items():
         correct_answer = Answer.objects.filter(question_id=question_id, is_correct=True).first()
+        print(f"Checking Question ID: {question_id}, Selected Answer ID: {selected_answer_id}, Correct Answer ID: {correct_answer.id if correct_answer else 'None'}")
+        
         if correct_answer and correct_answer.id == int(selected_answer_id):
             score += 1
 
-    # Adjusted level determination based on the 19 questions
+    print(f"Score calculated: {score}")
+
     if score <= 5:
         level = 'A1'
     elif score <= 10:
@@ -80,32 +85,30 @@ def submit_english_test(request):
     else:
         level = 'C2'
 
-    # Clear session data
-    request.session.flush()
+    # Clear English test session data
+    request.session.pop('english_questions', None)
+    request.session.pop('english_question_index', None)
+    request.session.pop('english_answers', None)
 
     return render(request, 'test_result.html', {'score': score, 'level': level})
 
 
+
 @login_required
 def english_test(request):
-    # Ensure test questions are filtered properly
-    test_questions = Question.objects.filter(category='test') 
+    test_questions = Question.objects.filter(category='test', subject='English')
 
-    if 'question_index' not in request.session or 'questions' not in request.session:
-        # Initialize the session to track progress and randomize questions
+    if 'english_question_index' not in request.session or 'english_questions' not in request.session:
         questions = list(test_questions)
         random.shuffle(questions)
-        request.session['questions'] = [q.id for q in questions]
-        request.session['question_index'] = 0
-        request.session['answers'] = {}
+        request.session['english_questions'] = [q.id for q in questions]
+        request.session['english_question_index'] = 0
+        request.session['english_answers'] = {}
 
-    # Retrieve the current question index
-    question_index = request.session.get('question_index', 0)
-    questions = request.session.get('questions', [])
+    question_index = request.session.get('english_question_index', 0)
+    questions = request.session.get('english_questions', [])
 
-    # Check if there are questions available
     if not questions or question_index >= len(questions):
-        # Redirect to the test result page if there are no more questions
         return redirect('submit_english_test')
 
     question_id = questions[question_index]
@@ -113,14 +116,15 @@ def english_test(request):
     answers = Answer.objects.filter(question=question)
 
     if request.method == 'POST':
-        # Save the current answer
         selected_answer = request.POST.get('answer')
         if selected_answer:
-            request.session['answers'][question_id] = selected_answer
-            request.session['question_index'] += 1
+            request.session['english_answers'][question_id] = selected_answer
+            request.session['english_question_index'] += 1
 
-            # Check if we've reached the end of the questions
-            if request.session['question_index'] >= len(questions):
+            # Save answers to session before redirecting
+            save_answers_to_session(request)
+
+            if request.session['english_question_index'] >= len(questions):
                 return redirect('submit_english_test')
 
             return redirect('english_test')
@@ -132,6 +136,81 @@ def english_test(request):
         'total_number': len(questions),
     }
     return render(request, 'english_test.html', context)
+
+def save_answers_to_session(request):
+    answers = request.session.get('english_answers', {})
+    request.session['answers'] = answers  # Save the answers for the submit view
+
+
+
+@login_required
+def it_test(request):
+    # Filter questions based on the specified subject, e.g., 'IT'
+    test_questions = Question.objects.filter(category='test', subject='IT')
+
+    # Check for session keys specifically for IT test
+    if 'it_question_index' not in request.session or 'it_questions' not in request.session:
+        questions = list(test_questions)
+        random.shuffle(questions)
+        request.session['it_questions'] = [q.id for q in questions]
+        request.session['it_question_index'] = 0
+        request.session['it_answers'] = {}
+
+    question_index = request.session.get('it_question_index', 0)
+    questions = request.session.get('it_questions', [])
+
+    if not questions or question_index >= len(questions):
+        return redirect('submit_it_test')
+
+    question_id = questions[question_index]
+    question = get_object_or_404(Question, id=question_id)
+    answers = Answer.objects.filter(question=question)
+
+    if request.method == 'POST':
+        selected_answer = request.POST.get('answer')
+        if selected_answer:
+            request.session['it_answers'][question_id] = selected_answer
+            request.session['it_question_index'] += 1
+
+            if request.session['it_question_index'] >= len(questions):
+                return redirect('submit_it_test')
+
+            return redirect('it_test')
+
+    context = {
+        'question': question,
+        'answers': answers,
+        'current_number': question_index + 1,
+        'total_number': len(questions),
+    }
+    return render(request, 'it_test.html', context)
+
+@login_required
+def submit_it_test(request):
+    answers = request.session.get('it_answers', {})
+    
+    score = sum(
+        1 for question_id, selected_answer_id in answers.items()
+        if Answer.objects.filter(question_id=question_id, is_correct=True).first().id == int(selected_answer_id)
+    )
+
+    total_questions = Question.objects.filter(subject='IT').count()
+    passing_score = total_questions // 2
+
+    level = 'Beginner' if score < passing_score else 'Intermediate' if score < (passing_score + 3) else 'Advanced'
+
+    # Clear IT test session data
+    request.session.pop('it_questions', None)
+    request.session.pop('it_question_index', None)
+    request.session.pop('it_answers', None)
+
+    return render(request, 'it_test_result.html', {
+        'score': score,
+        'level': level,
+        'passing_score': passing_score,
+        'total_number': total_questions
+    })
+
 
 
 
@@ -354,9 +433,11 @@ def book_course(request, level):
         'C2': 45000,
         'Business-Intermediate': 50000,
         'Business-Advanced': 60000,
+        'Java': 60000,
+        'Python': 65000,
+        'Web': 55000,
     }
 
-    # Get the price in cents and convert it to euros
     price = course_prices.get(level, 0) / 100 
 
     if request.method == 'POST':
@@ -381,6 +462,7 @@ def book_course(request, level):
     return render(request, 'learning/book_course.html', {'level': level, 'price': price})
 
 
+
 def prices(request):
     # Define prices for different levels
     course_prices = {
@@ -392,6 +474,9 @@ def prices(request):
         'C2': 45000,
         'Business-Intermediate': 50000,
         'Business-Advanced': 60000,
+        'Java': 60000,
+        'Python': 65000,
+        'Web': 55000,
     }
     
     context = {

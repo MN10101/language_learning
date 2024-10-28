@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}IT Skills Test{% endblock %}
+
+{% block content %}
+<div class="container centered-form-container">
+    <h1>IT Skills Test</h1>
+    <p>Question {{ current_number }} of {{ total_number }}</p>
+    <form id="itTestForm" method="post">
+        {% csrf_token %}
+        <div class="question">
+            <p>{{ question.text }}</p>
+            <div class="dropdown-container">
+                <select id="answerSelect" name="answer" class="answer-select" required>
+                    <option value="" disabled selected>Select your answer</option>
+                    {% for answer in answers %}
+                        <option value="{{ answer.id }}">{{ answer.text }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <button type="submit" id="nextButton" class="next-button">Next</button>
+    </form>    
+</div>
+{% endblock %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const answerSelect = document.getElementById('answerSelect');
+    const nextButton = document.getElementById('nextButton');
+
+    document.getElementById('itTestForm').addEventListener('submit', function (event) {
+        if (!answerSelect.value) {
+            event.preventDefault(); // Prevent form submission if no answer is selected
+            alert("Please select an answer before proceeding.");
+        }
+    });
+});
+</script>
