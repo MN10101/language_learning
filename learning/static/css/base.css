@@ -79,7 +79,20 @@ html, body {
 @media (max-width: 768px) {
     .hamburger-menu {
         display: block;
+        display: block; /* Ensure it is displayed as a block */
+        max-height: 300px; /* Set a maximum height */
+        overflow-y: auto
         
+    }
+
+    /* Add specific styles for the games-dropdown-menu to ensure it is displayed properly */
+    .games-dropdown .games-dropdown-menu {
+        display: block; /* Ensure it is displayed */
+        position: relative; /* Set position relative for better placement */
+        background-color: #4b0082; /* Background color */
+        padding: 10px; /* Padding for spacing */
+        border-radius: 5px; /* Rounded corners */
+        z-index: 1; /* Ensure it appears above other content */
     }
 
     /* Stack links vertically when active */
@@ -177,28 +190,6 @@ html, body {
     /* .navbar.active .navbar-left a:last-child {
         border-bottom: none;
     } */
-}
-/* Hide mobile games links by default */
-.mobile-games {
-    display: none; 
-}
-
-/* Media Query for small devices */
-@media (max-width: 768px) {
-    .mobile-games {
-        display: flex;
-        flex-direction: row; 
-        gap: 10px; 
-        background-color: #4b0082; 
-        padding: 10px;
-        overflow-x: auto; 
-        white-space: nowrap; 
-    }
-
-    /* Hide the games dropdown for mobile */
-    .games-dropdown {
-        display: none;
-    }
 }
 
 
