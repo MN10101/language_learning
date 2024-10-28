@@ -2,26 +2,29 @@ import os
 from pathlib import Path
 from django.conf import settings
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Secret Key Configuration
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-y64*h3vg2l0l+e_nj%s2rluz(v0_9ox=v2ugoyv+!^ck=7mu4)')
+
+# Debug Mode
 DEBUG = True
 
+# Allowed Hosts Configuration
 ALLOWED_HOSTS = [
     's8m-adaptable-hubble.circumeo-apps.net',
     'localhost',
     '127.0.0.1',
 ]
 
+# CSRF Trusted Origins
 CSRF_TRUSTED_ORIGINS = [
     'https://s8m-adaptable-hubble.circumeo-apps.net',
     'http://localhost',
     'http://127.0.0.1',
 ]
 
-
-# Application definition
+# Application Definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,7 +45,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-
 ROOT_URLCONF = 'language_learning.urls'
 
 TEMPLATES = [
@@ -61,14 +63,19 @@ TEMPLATES = [
     },
 ]
 
-
-TIME_ZONE = 'Europe/Berlin'
-USE_I18N = True
-USE_TZ = True
-
 WSGI_APPLICATION = 'language_learning.wsgi.application'
 
-# Database configuration
+# Database Configuration
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ["POSTGRES_DB"],
+        "USER": os.environ["POSTGRES_USER"],
+        "PASSWORD": os.environ["POSTGRES_PASSWORD"],
+        "HOST": os.environ["POSTGRES_HOST"],
+        "PORT": os.environ["POSTGRES_PORT"],
+    }
+}
 
 # DATABASES = {
 #     'default': {
@@ -81,20 +88,7 @@ WSGI_APPLICATION = 'language_learning.wsgi.application'
 #     }
 # }
 
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ["POSTGRES_DB"],
-        "USER": os.environ["POSTGRES_USER"],
-        "PASSWORD": os.environ["POSTGRES_PASSWORD"],
-        "HOST": os.environ["POSTGRES_HOST"],
-        "PORT": os.environ["POSTGRES_PORT"],
-    }
-}
-
-
-# Password validation
+# Password Validation
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -102,26 +96,49 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-# Static files (CSS, JavaScript, Images)
+# Time Zone and Internationalization
+TIME_ZONE = 'Europe/Berlin'
+USE_I18N = True
+USE_TZ = True
+
+# Static Files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Media files
+# Media Files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-
-# Default primary key field type
+# Default Primary Key Field Type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Login and authentication
+# Login and Authentication
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'welcome'
+LOGOUT_REDIRECT_URL = 'login'
 
-# Email settings
+# Session Management
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # End session when browser closes
+SESSION_COOKIE_AGE = 1800  # 30 minutes session timeout
+SESSION_COOKIE_HTTPONLY = True  # Prevent JavaScript access to session cookie
+SESSION_COOKIE_SAMESITE = 'Lax'  # Protect against CSRF attacks
+SESSION_COOKIE_SECURE = not DEBUG  # Use secure cookies in production
+
+# CSRF Cookie Settings
+CSRF_COOKIE_HTTPONLY = True  # Prevent JavaScript access to CSRF cookie
+CSRF_COOKIE_SAMESITE = 'Lax'  # SameSite policy for CSRF cookie
+CSRF_COOKIE_SECURE = not DEBUG  # Use secure cookies in production
+
+# Security Settings (Enable in production)
+SECURE_SSL_REDIRECT = not DEBUG  # Redirect HTTP to HTTPS
+SECURE_HSTS_SECONDS = 3600  # HTTP Strict Transport Security
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+# Email Settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
@@ -130,12 +147,9 @@ EMAIL_HOST_USER = 'j.education.system@gmail.com'
 EMAIL_HOST_PASSWORD = 'xpqr hcwc reew jhin'
 DEFAULT_FROM_EMAIL = 'j.education.system@gmail.com'
 
-
-SITE_ID = 1
-
-
-
-
 # Stripe Configuration
 STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', 'pk_test_51Ptska04h4gWOpo7Xnr8GsZnb15xqXxtkxQEcmPbGjJTm42EzPLMMF1A5ki3pvsYrMAXYKebbht6sZmYtIThIWaU00Xud903UD')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', 'sk_test_51Ptska04h4gWOpo7XARvCthwxyNKibVirpMACbjSM8cgHXAcFFqrhr4nxAIlg16oz1n3x333BORwZ7FdziI2QQmK00OjZSscLu')
+
+# Site ID (for Django's Sites Framework)
+SITE_ID = 1

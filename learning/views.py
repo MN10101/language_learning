@@ -321,12 +321,7 @@ def user_login(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            
-            # Clear specific cookies
-            response = redirect('welcome')
-            response.delete_cookie('csrftoken')
-            response.delete_cookie('sessionid')
-            return response
+            return redirect('welcome')
     else:
         form = AuthenticationForm()
     
@@ -335,8 +330,17 @@ def user_login(request):
 
 
 def user_logout(request):
+    # Log the user out
     logout(request)
-    return redirect('login')
+
+    # Create a response to redirect after logout
+    response = redirect('login')
+    
+    # Delete specific cookies that may cause issues
+    response.delete_cookie('csrftoken')
+    response.delete_cookie('sessionid')
+
+    return response
 
 def choose_language(request):
     languages = Language.objects.all()
