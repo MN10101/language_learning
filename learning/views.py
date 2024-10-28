@@ -137,7 +137,7 @@ def english_test(request):
         'question': question,
         'answers': answers,
         'current_number': question_index + 1,
-        'total_number': len(request.session['questions']),
+        'total_number': len(questions),
     }
     return render(request, 'english_test.html', context)
 
@@ -145,7 +145,7 @@ def english_test(request):
 
 @login_required
 def it_test(request):
-    # Filter questions based on the specified subject, e.g., 'IT'
+  
     test_questions = Question.objects.filter(category='test', subject='IT')
 
     # Check for session keys specifically for IT test
