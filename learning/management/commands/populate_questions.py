@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand
 from learning.models import Question, Answer
 
 
-questions_data = [
+english_questions_data = [
     # A1 Level Questions
     {
         'text': "What is the past tense of 'go'?",
@@ -188,14 +188,19 @@ questions_data = [
 ]
 
 class Command(BaseCommand):
-    help = 'Populates the database with test questions and answers'
+    help = 'Populates the database with questions and answers'
 
     def handle(self, *args, **kwargs):
-        self.populate_questions()
-        self.stdout.write(self.style.SUCCESS('Successfully populated test questions and answers'))
+        self.populate_questions('English', english_questions_data)
+        self.stdout.write(self.style.SUCCESS('Successfully populated questions and answers'))
 
-    def populate_questions(self):
+    def populate_questions(self, subject, questions_data):
         for q_data in questions_data:
-            question = Question.objects.create(text=q_data['text'], level=q_data['level'], category='test')
+            question = Question.objects.create(
+                text=q_data['text'],
+                level=q_data['level'],
+                category='test',
+                subject=subject  # Assign subject
+            )
             for a_data in q_data['answers']:
                 Answer.objects.create(question=question, text=a_data['text'], is_correct=a_data['is_correct'])

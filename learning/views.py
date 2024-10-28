@@ -97,7 +97,7 @@ def submit_english_test(request):
 @login_required
 def english_test(request):
     # Ensure test questions are filtered properly
-    test_questions = Question.objects.filter(category='test')
+    test_questions = Question.objects.filter(category='test', subject='English')
 
     if 'question_index' not in request.session or 'questions' not in request.session:
         # Initialize the session to track progress and randomize questions
