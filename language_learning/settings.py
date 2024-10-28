@@ -125,7 +125,6 @@ LOGOUT_REDIRECT_URL = 'login'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Security settings for the session cookie
-SESSION_COOKIE_AGE = None  # Ensures it acts like a session cookie
 SESSION_COOKIE_SAMESITE = 'Lax'
 SESSION_COOKIE_SECURE = not DEBUG  # Ensure secure cookies if using HTTPS
 SESSION_COOKIE_HTTPONLY = True  # Prevent JavaScript from accessing it
