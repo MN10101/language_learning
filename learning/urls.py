@@ -6,6 +6,7 @@ from django.contrib.auth import views as auth_views
 from django.contrib import admin
 from .views import CustomPasswordResetView
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),  # Admin panel URL (Move this to the top)
     path('', views.home, name='home'),

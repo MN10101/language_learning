@@ -96,24 +96,19 @@ def submit_english_test(request):
 
 @login_required
 def english_test(request):
-    # Ensure test questions are filtered properly
-    test_questions = Question.objects.filter(category='test') 
+    test_questions = Question.objects.filter(category='test', subject='English')
 
-    if 'question_index' not in request.session or 'questions' not in request.session:
-        # Initialize the session to track progress and randomize questions
+    if 'english_question_index' not in request.session or 'english_questions' not in request.session:
         questions = list(test_questions)
         random.shuffle(questions)
-        request.session['questions'] = [q.id for q in questions]
-        request.session['question_index'] = 0
-        request.session['answers'] = {}
+        request.session['english_questions'] = [q.id for q in questions]
+        request.session['english_question_index'] = 0
+        request.session['english_answers'] = {}
 
-    # Retrieve the current question index
-    question_index = request.session.get('question_index', 0)
-    questions = request.session.get('questions', [])
+    question_index = request.session.get('english_question_index', 0)
+    questions = request.session.get('english_questions', [])
 
-    # Check if there are questions available
     if not questions or question_index >= len(questions):
-        # Redirect to the test result page if there are no more questions
         return redirect('submit_english_test')
 
     question_id = questions[question_index]
@@ -121,14 +116,12 @@ def english_test(request):
     answers = Answer.objects.filter(question=question)
 
     if request.method == 'POST':
-        # Save the current answer
         selected_answer = request.POST.get('answer')
         if selected_answer:
-            request.session['answers'][question_id] = selected_answer
-            request.session['question_index'] += 1
+            request.session['english_answers'][question_id] = selected_answer
+            request.session['english_question_index'] += 1
 
-            # Check if we've reached the end of the questions
-            if request.session['question_index'] >= len(questions):
+            if request.session['english_question_index'] >= len(questions):
                 return redirect('submit_english_test')
 
             return redirect('english_test')
