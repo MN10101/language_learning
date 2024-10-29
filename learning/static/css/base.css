@@ -274,15 +274,6 @@ html, body, button, input, select, textarea {
 }
 
 /* Logo Styles */
-.logo {
-    font-family: Arial, sans-serif;
-    font-size: 24px;
-    font-weight: bold;
-    text-transform: uppercase;
-
-    cursor: pointer;
-    transition: transform 0.3s;
-}
 .logo:hover {
     transform: scale(1.5);
 }
