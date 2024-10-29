@@ -29,7 +29,7 @@
 
     <!-- Back to Home Button -->
     <div class="back-home">
-        <button onclick="goBackHome()">Back to Home</button>
+        <button onclick="goBackHome()">Back to Games</button>
     </div>
 
     <!-- Click sound -->
@@ -174,7 +174,7 @@
         clickSound.play();  // Play the click sound
         console.log("Redirecting to home..."); // Debug log
         setTimeout(function() {
-            window.location.href = "{% url 'welcome' %}";  // Ensure this URL is correct
+            window.location.href = "{% url 'games_page' %}";  // Ensure this URL is correct
         }, 500);  // Delay for 500ms to allow the sound to play
     }
     </script>

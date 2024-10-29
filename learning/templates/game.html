@@ -24,7 +24,7 @@
     
     <!-- Back to Home Button -->
     <div class="back-home">
-        <button onclick="goBackHome()">Back to Home</button>
+        <button onclick="goBackHome()">Back to Games</button>
     </div>
 
     <!-- Audio files -->
@@ -154,7 +154,7 @@
         function goBackHome() {
             playClickSound();  // Play the click sound
             setTimeout(function() {
-                window.location.href = "{% url 'welcome' %}";  // Redirect to 'welcome' after delay
+                window.location.href = "{% url 'games_page' %}";  // Redirect to 'welcome' after delay
             }, 500);  // Delay for 500ms to allow the sound to play
         }
     </script>

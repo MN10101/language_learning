@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+<div class="games-container">
+    <h1>🎮 Games 🎮</h1><br>
+    <div class="game">
+        <a href="{% url 'game' %}">
+            <img src="{% static 'images/download.jpg' %}" alt="Quiz Game">
+            <h2>Quiz Game</h2>
+        </a>
+        <p>Challenge your knowledge with exciting quizzes.</p>
+    </div>
+
+    <div class="game">
+        <a href="{% url 'game2' %}">
+            <img src="{% static 'images/picture_quiz.webp' %}" alt="Picture Quiz">
+            <h2>Picture Quiz</h2>
+        </a>
+        <p>Test your visual memory with our picture quiz.</p>
+    </div>
+
+    <div class="game">
+        <a href="{% url 'game3' %}">
+            <img src="{% static 'images/flashcard_game.webp' %}" alt="Flashcard Game">
+            <h2>Flashcard Game</h2>
+        </a>
+        <p>Boost your memory using our flashcards.</p>
+    </div>
+</div>
+{% endblock %}

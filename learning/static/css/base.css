@@ -75,6 +75,45 @@ html, body {
     transform: scale(1.2);
 }
 
+/* Games Page Container */
+.games-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin-top: 60px; /* adjust for fixed navbar */
+}
+
+.games-container h1 {
+    color: #4b0082;
+    margin-bottom: 20px;
+}
+
+/* Individual Game Block */
+.game {
+    text-align: center;
+    margin-bottom: 30px;
+    max-width: 300px;
+    border-bottom: 1px solid #ccc; /* Add this line for separation */
+    padding-bottom: 20px; /* Optional: adds space between game content and the line */
+}
+
+.game img {
+    width: 100%;
+    border-radius: 10px;
+    transition: transform 0.3s;
+}
+
+.game img:hover {
+    transform: scale(1.05);
+}
+
+.game h2 {
+    color: #4b0082;
+    margin: 10px 0;
+}
+
+
 /* Media Query for small devices */
 @media (max-width: 768px) {
     .hamburger-menu {
@@ -83,16 +122,6 @@ html, body {
         max-height: 300px; /* Set a maximum height */
         overflow-y: auto
         
-    }
-
-    /* Add specific styles for the games-dropdown-menu to ensure it is displayed properly */
-    .games-dropdown .games-dropdown-menu {
-        display: block; /* Ensure it is displayed */
-        position: relative; /* Set position relative for better placement */
-        background-color: #4b0082; /* Background color */
-        padding: 10px; /* Padding for spacing */
-        border-radius: 5px; /* Rounded corners */
-        z-index: 1; /* Ensure it appears above other content */
     }
 
     /* Stack links vertically when active */

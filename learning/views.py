@@ -803,7 +803,8 @@ def send_password_reset_email(user, uid, token):
     email.send(fail_silently=False)
 
 
-
+def games_page(request):
+    return render(request, 'games_page.html')
 
 
 
