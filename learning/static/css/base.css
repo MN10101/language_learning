@@ -40,7 +40,6 @@ html, body {
     justify-content: space-between;
     align-items: center;
     position: fixed;
-    padding: 10px 20px;
     top: 0;
     left: 0;
     right: 0;
@@ -290,13 +289,30 @@ html, body, button, input, select, textarea {
     display: inline-block;
     transition: color 0.5s;
 }
+.logo .j {
+    color: purple;
+}
+.logo .e {
+    color: yellow;
+}
+.logo-letter:first-child {
+    color: purple; 
+}
+.logo-letter:last-child {
+    color: yellow; 
+}
+.logo:hover .logo-letter:first-child {
+    color: purple;
+}
+.logo:hover .logo-letter:last-child {
+    color: yellow; 
+}
 .logo-image {
     width: 40px; /* Adjust width as needed */
     height: auto; /* Maintain aspect ratio */
     vertical-align: middle; /* Align with text */
     margin-right: 5px; /* Space between logo and letters */
     border-radius: 50%;
-    max-height: 50px;
 }
 
 
