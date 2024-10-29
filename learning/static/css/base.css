@@ -45,6 +45,7 @@ html, body {
     right: 0;
     z-index: 1000;
     animation: gradientBackground 10s infinite alternate;
+    
 }
 
 .hamburger-menu {
@@ -83,11 +84,6 @@ html, body {
         padding: 10px; /* Adjust padding */
         background-color: #4b0082; /* Background color */
         border-radius: 5px; /* Rounded corners */
-        position: absolute; /* Positioning for dropdown */
-        top: 50px; /* Adjust according to navbar height */
-        left: 0; /* Align to left */
-        right: 0; /* Align to right */
-        z-index: 999; /* Above other elements */
     }
 
     .games-dropdown.active .games-dropdown-menu {
@@ -100,11 +96,6 @@ html, body {
         padding: 10px; /* Padding for links */
         color: white; /* Link color */
         text-decoration: none; /* Remove underline */
-        border-right: 1px solid white; /* Separator */
-    }
-
-    .games-dropdown .games-dropdown-menu a:last-child {
-        border-right: none; /* Remove right border for last item */
     }
 
     .games-dropdown .games-dropdown-menu a:hover {
@@ -120,7 +111,6 @@ html, body {
 html, body, button, input, select, textarea {
     touch-action: manipulation;
 }
-
 
 
 
