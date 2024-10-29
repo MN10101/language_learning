@@ -46,6 +46,7 @@ MIDDLEWARE = [
     'learning.middleware.DisableCacheMiddleware',
 ]
 
+
 ROOT_URLCONF = 'language_learning.urls'
 
 TEMPLATES = [

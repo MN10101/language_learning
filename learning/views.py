@@ -37,6 +37,7 @@ from django.core.mail import EmailMessage
 from django.contrib import messages
 from django.shortcuts import render, redirect
 import logging
+from django.views.decorators.cache import never_cache
 
 logger = logging.getLogger(__name__)
 
@@ -264,14 +265,14 @@ def save_profile(request):
     
     return render(request, 'learning/profile.html', {'form': form})
 
-
+@never_cache
 @login_required
 def welcome(request):
     profile = request.user.profile
     return render(request, 'learning/welcome.html', {'profile': profile})
 
 
-
+@never_cache
 def home(request):
     return render(request, 'learning/home.html')
 
