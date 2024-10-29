@@ -78,6 +78,21 @@
 </div>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggleButton = document.querySelector('.games-dropdown-toggle');
+        const dropdownMenu = document.querySelector('.games-dropdown-menu');
+    
+        toggleButton.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent default anchor behavior
+            dropdownMenu.classList.toggle('active'); // Toggle the active class
+            const gamesDropdown = toggleButton.closest('.games-dropdown');
+            gamesDropdown.classList.toggle('active'); // Toggle class on the parent to show/hide the menu
+        });
+    });
+</script>
+    
+
+<script>
     function clearCookies() {
         // Loop through all the cookies and clear them
         document.cookie.split(";").forEach((c) => {

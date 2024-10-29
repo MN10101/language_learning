@@ -77,123 +77,29 @@ html, body {
 
 /* Media Query for small devices */
 @media (max-width: 768px) {
-    .hamburger-menu {
-        display: block; 
-        max-height: 300px; 
-        overflow-y: auto; 
+    .games-dropdown .games-dropdown-menu {
+        display: none; /* Initially hide the menu */
+        flex-direction: row; /* Arrange items in a row */
+        justify-content: space-between; /* Space them evenly */
+        padding: 10px; /* Adjust padding */
+        background-color: #4b0082; /* Background color */
+        border-radius: 5px; /* Rounded corners */
     }
 
-    .games-dropdown .games-dropdown-menu {
-        display: flex; /* Use flexbox to arrange items in a row */
-        flex-direction: row; /* Arrange items in a row */
-        justify-content: space-between; /* Space items evenly */
-        padding: 10px; /* Adjust padding if necessary */
-        background-color: #4b0082; /* Ensure background color is applied */
-        border-radius: 5px; /* Maintain rounded corners */
-        z-index: 1; /* Ensure it appears above other content */
+    .games-dropdown.active .games-dropdown-menu {
+        display: flex; /* Show menu when active */
     }
 
     .games-dropdown .games-dropdown-menu a {
-        flex: 1; /* Allow each link to take equal space */
-        text-align: center; /* Center align the text */
-        padding: 10px; /* Adjust padding for each game link */
-        color: white; /* Ensure text color is visible */
-        border: none; /* Optional: Remove borders for a cleaner look */
+        flex: 1; /* Equal space for each link */
+        text-align: center; /* Center text */
+        padding: 10px; /* Padding for links */
+        color: white; /* Link color */
+        text-decoration: none; /* Remove underline */
     }
 
     .games-dropdown .games-dropdown-menu a:hover {
         background-color: #5e2d91; /* Change background on hover */
-    }
-
-    /* Adjust the navbar-left style for mobile */
-    .navbar-left {
-        flex-direction: column; 
-        width: 100%; 
-        background-color: #4b0082;
-        position: absolute;
-        top: 50px;
-        left: 0;
-        right: 0;
-        z-index: 999;
-        max-height: 0; 
-        overflow: hidden; 
-        transition: max-height 0.5s ease-in-out;
-    }
-
-    .navbar.active .navbar-left {
-        max-height: 100vh; 
-    }
-
-    .navbar-left a {
-        font-size: 18px;
-        padding: 15px;
-        text-align: left; 
-        width: 100%;
-        border-bottom: 1px solid #ddd;
-        opacity: 0; 
-        transform: translateY(-20px);
-        animation: none; 
-    }
-
-    /* Animation for each link: fade-in and slide down */
-    @keyframes curtainEffect {
-        0% {
-            opacity: 0;
-            transform: translateY(-20px);
-        }
-        100% {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    /* When the navbar is not active, hide the links (curtain closing) */
-    .navbar:not(.active) .navbar-left a {
-        opacity: 0;
-        transform: translateY(-20px);
-        transition: opacity 0.3s, transform 0.3s;
-    }
-
-    /* Curtain effect: each link appears one by one */
-    .navbar.active .navbar-left a {
-        animation: curtainEffect 0.5s forwards ease-in-out;
-    }
-
-    /* Delay each link’s appearance based on its order */
-    .navbar.active .navbar-left a:nth-child(1) {
-        animation-delay: 0.1s; /* Home */
-    }
-
-    .navbar.active .navbar-left a:nth-child(2) {
-        animation-delay: 0.2s; /* About Us */
-    }
-
-    .navbar.active .navbar-left a:nth-child(3) {
-        animation-delay: 0.3s; /* Upload File */
-    }
-
-    .navbar.active .navbar-left a:nth-child(4) {
-        animation-delay: 0.4s; /* My Files */
-    }
-
-    .navbar.active .navbar-left a:nth-child(5) {
-        animation-delay: 0.5s; /* My Classes */
-    }
-
-    .navbar.active .navbar-left a:nth-child(6) {
-        animation-delay: 0.6s; /* My Course */
-    }
-
-    .navbar.active .navbar-left a:nth-child(7) {
-        animation-delay: 0.7s; /* Prices */
-    }
-
-    .navbar.active .navbar-left a:nth-child(8) {
-        animation-delay: 0.8s; /* Teachers */
-    }
-
-    .navbar.active .navbar-left a:nth-child(9) {
-        animation-delay: 0.9s; /* Contact Us */
     }
 }
 
