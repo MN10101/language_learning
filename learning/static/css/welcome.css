@@ -134,3 +134,12 @@
     z-index: 1000;
     display: none; 
 }
+
+#skipButton {
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}

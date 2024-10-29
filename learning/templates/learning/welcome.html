@@ -61,26 +61,27 @@
 </div>
 
 <!-- Add the hidden video element -->
-<video id="welcomeVideo" class="fullscreen-video" src="{% static 'vid/je.mp4' %}" style="display: none;"></video>
-
-<!-- Skip Button -->
-<button id="skipButton" class="btn" style="display: none;">Skip Video</button>
+<div style="position: relative; display: none;" id="videoContainer">
+    <video id="welcomeVideo" class="fullscreen-video" src="{% static 'vid/je.mp4' %}" style="width: 100%; height: auto;"></video>
+    <button id="skipButton" class="btn" style="position: absolute; top: 20px; right: 20px; display: none;">Skip Video</button>
+</div>
 
 <!-- JavaScript to handle video playback and animations -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        const videoContainer = document.getElementById('videoContainer');
         const video = document.getElementById('welcomeVideo');
         const skipButton = document.getElementById('skipButton');
         const hasWatchedVideo = localStorage.getItem('hasWatchedVideo');
 
         function playVideo() {
-            video.style.display = 'block';  // Show the video
+            videoContainer.style.display = 'block';  // Show the video container
             video.play();  // Play the video with sound
             skipButton.style.display = 'block'; // Show the skip button
 
             // Once the video ends, hide it and mark it as watched
             video.onended = function () {
-                video.style.display = 'none';
+                videoContainer.style.display = 'none'; // Hide the video container
                 skipButton.style.display = 'none'; // Hide the skip button
                 localStorage.setItem('hasWatchedVideo', 'true');  // Store in localStorage to play only once
             };
@@ -91,7 +92,8 @@
 
         // Skip video function
         skipButton.addEventListener('click', function() {
-            video.style.display = 'none'; // Hide the video
+            video.pause(); // Pause the video
+            videoContainer.style.display = 'none'; // Hide the video container
             skipButton.style.display = 'none'; // Hide the skip button
             localStorage.setItem('hasWatchedVideo', 'true'); // Mark as watched
         });
