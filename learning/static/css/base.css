@@ -78,9 +78,9 @@ html, body {
 /* Media Query for small devices */
 @media (max-width: 768px) {
     .hamburger-menu {
-        display: block; /* Ensure it is displayed as a block */
-        max-height: 300px; /* Set a maximum height */
-        overflow-y: auto; /* Enable scrolling if needed */
+        display: block; 
+        max-height: 300px; 
+        overflow-y: auto; 
     }
 
     .games-dropdown .games-dropdown-menu {
@@ -101,12 +101,11 @@ html, body {
         border: none; /* Optional: Remove borders for a cleaner look */
     }
 
-    /* Optional: Adjust link styles for hover */
     .games-dropdown .games-dropdown-menu a:hover {
         background-color: #5e2d91; /* Change background on hover */
     }
 
-    /* Stack links vertically when active */
+    /* Adjust the navbar-left style for mobile */
     .navbar-left {
         flex-direction: column; 
         width: 100%; 
@@ -121,7 +120,6 @@ html, body {
         transition: max-height 0.5s ease-in-out;
     }
 
-    /* When active, show the navbar */
     .navbar.active .navbar-left {
         max-height: 100vh; 
     }
