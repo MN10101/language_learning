@@ -41,7 +41,6 @@
         <a href="{% url 'teachers' %}">Teachers</a>
         <a href="{% url 'contact_us' %}">Contact Us</a>
 
-        {% if user|is_teacher %}
         <div class="games-dropdown">
             <a href="#" class="games-dropdown-toggle">Games</a>
             <div class="games-dropdown-menu">
@@ -50,6 +49,7 @@
                 <a href="{% url 'game3' %}">Flashcard Game</a>
             </div>
         </div>
+        
 
 
         <a href="{% url 'students' %}">Students</a>
@@ -79,16 +79,18 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const toggleButton = document.querySelector('.games-dropdown-toggle');
-        const dropdownMenu = document.querySelector('.games-dropdown-menu');
-    
-        toggleButton.addEventListener('click', function(e) {
-            e.preventDefault(); // Prevent default anchor behavior
-            dropdownMenu.classList.toggle('active'); // Toggle the active class
-            const gamesDropdown = toggleButton.closest('.games-dropdown');
-            gamesDropdown.classList.toggle('active'); // Toggle class on the parent to show/hide the menu
-        });
+    const toggleButton = document.querySelector('.games-dropdown-toggle');
+    const dropdownMenu = document.querySelector('.games-dropdown-menu');
+
+    toggleButton.addEventListener('click', function(e) {
+        e.preventDefault(); // Prevent default anchor behavior
+        dropdownMenu.classList.toggle('active'); // Toggle the active class
+        // Toggle the dropdown for the games
+        const gamesDropdown = dropdownMenu.parentElement;
+        gamesDropdown.classList.toggle('active');
     });
+});
+
 </script>
     
 
