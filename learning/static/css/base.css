@@ -40,6 +40,7 @@ html, body {
     justify-content: space-between;
     align-items: center;
     position: fixed;
+    padding: 10px 20px;
     top: 0;
     left: 0;
     right: 0;
@@ -295,6 +296,7 @@ html, body, button, input, select, textarea {
     vertical-align: middle; /* Align with text */
     margin-right: 5px; /* Space between logo and letters */
     border-radius: 50%;
+    max-height: 50px;
 }
 
 
