@@ -19,9 +19,13 @@
 
     <!-- Introduction section -->
     <div class="info-section animated fade-in-center">
-        <p>We are thrilled to welcome you to our advanced education platform...</p>
+        <p>We are thrilled to welcome you to our advanced education platform, where you can accelerate your learning journey and achieve new heights. Our system is meticulously crafted to offer a comprehensive learning experience, personalized to your needs, whether you're enhancing your English language skills or preparing for important exams.</p>
+        <p>We believe that learning should be engaging, efficient, and effective. That’s why our platform offers tailored assessments that cater to a wide range of proficiency levels. You’ll receive personalized feedback, helping you focus on areas that need improvement while celebrating your strengths.</p>
+        <p>Explore our interactive learning tools, participate in discussions with fellow learners, and track your progress as you work towards your goals. We are here to support you every step of the way!</p>
         <button onclick="window.location.href='{% url 'english_test' %}'" class="btn">Take the Test</button>
-        <button onclick="window.location.href='{% url 'it_test' %}' class="btn">IT Skills Test</button>
+        <button onclick="window.location.href='{% url 'it_test' %}'" class="btn">IT Skills Test</button>
+
+        <!-- Animated down arrow -->
         <div class="arrow-container">
             <div class="arrow"></div>
         </div>
@@ -34,54 +38,54 @@
                 <img src="{% static 'images/1.jpg' %}" alt="Learning Image 1" class="info-image">
             </div>
             <div class="text-container animated slide-in-right">
-                <p>Interactive and adaptive lessons...</p>
+                <p>Interactive and adaptive lessons designed to align with your learning preferences. Engage with immersive content that adapts to your learning style, ensuring that each lesson is impactful and enjoyable.</p>
             </div>
         </div>
-        <!-- More image-text pairs here -->
+        <div class="image-text-pair">
+            <div class="image-container animated slide-in-left">
+                <img src="{% static 'images/2.jpg' %}" alt="Learning Image 2" class="info-image">
+            </div>
+            <div class="text-container animated slide-in-right">
+                <p>Track your progress with detailed insights and personalized feedback. Our system continuously evaluates your learning curve, offering suggestions for improvement while recognizing your achievements.</p>
+            </div>
+        </div>
+        <div class="image-text-pair">
+            <div class="image-container animated slide-in-left">
+                <img src="{% static 'images/3.jpg' %}" alt="Learning Image 3" class="info-image">
+            </div>
+            <div class="text-container animated slide-in-right">
+                <p>Become part of a thriving community of learners. Share your experiences, collaborate with peers, and grow together in a supportive environment designed for collective success.</p>
+            </div>
+        </div>
     </div>
 </div>
 
-<!-- Video container with the hidden video element -->
-<div id="videoContainer" style="position: relative; display: none;">
-    <video id="welcomeVideo" class="fullscreen-video" src="{% static 'vid/je.mp4' %}" playsinline muted></video>
-    <button id="skipButton" class="btn" style="position: absolute; top: 20px; right: 20px; display: none;">Skip Video</button>
-</div>
+<!-- Add the hidden video element -->
+<video id="welcomeVideo" class="fullscreen-video" src="{% static 'vid/je.mp4' %}"></video>
 
 <!-- JavaScript to handle video playback and animations -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const videoContainer = document.getElementById('videoContainer');
         const video = document.getElementById('welcomeVideo');
-        const skipButton = document.getElementById('skipButton');
         const hasWatchedVideo = localStorage.getItem('hasWatchedVideo');
 
         function playVideo() {
-            videoContainer.style.display = 'block';  // Show the video container
+            video.style.display = 'block';  // Show the video
             video.play();  // Play the video with sound
-            skipButton.style.display = 'block'; // Show the skip button
 
             // Once the video ends, hide it and mark it as watched
             video.onended = function () {
-                videoContainer.style.display = 'none'; // Hide the video container
-                skipButton.style.display = 'none'; // Hide the skip button
+                video.style.display = 'none';
                 localStorage.setItem('hasWatchedVideo', 'true');  // Store in localStorage to play only once
             };
-        }
 
-        // Skip video function
-        skipButton.addEventListener('click', function() {
-            video.pause(); // Pause the video
-            videoContainer.style.display = 'none'; // Hide the video container
-            skipButton.style.display = 'none'; // Hide the skip button
-            localStorage.setItem('hasWatchedVideo', 'true'); // Mark as watched
-        });
+            // Remove the event listener after the first interaction
+            document.removeEventListener('click', playVideo);
+        }
 
         // Check if the video has been watched before
         if (!hasWatchedVideo) {
-            document.addEventListener('click', function() {
-                playVideo(); // Start playing the video on first click
-                document.removeEventListener('click', arguments.callee); // Remove the listener after first click
-            });
+            document.addEventListener('click', playVideo); // Wait for user interaction
         }
 
         const animatedElements = document.querySelectorAll('.animated');
