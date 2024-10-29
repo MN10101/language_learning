@@ -78,16 +78,12 @@ html, body {
 /* Media Query for small devices */
 @media (max-width: 768px) {
     .games-dropdown .games-dropdown-menu {
-        display: none; /* Initially hide the menu */
+        display: flex; /* Use flexbox */
         flex-direction: row; /* Arrange items in a row */
         justify-content: space-between; /* Space them evenly */
         padding: 10px; /* Adjust padding */
         background-color: #4b0082; /* Background color */
         border-radius: 5px; /* Rounded corners */
-    }
-
-    .games-dropdown.active .games-dropdown-menu {
-        display: flex; /* Show menu when active */
     }
 
     .games-dropdown .games-dropdown-menu a {
@@ -101,7 +97,11 @@ html, body {
     .games-dropdown .games-dropdown-menu a:hover {
         background-color: #5e2d91; /* Change background on hover */
     }
-}
+
+    /* Ensure the dropdown is visible when toggled */
+    .games-dropdown.active .games-dropdown-menu {
+        display: flex; /* Make sure it stays flex when active */
+    }
 
 
     /* Adjust the navbar-left style for mobile */
@@ -194,7 +194,7 @@ html, body {
     .navbar.active .navbar-left a:nth-child(9) {
         animation-delay: 0.9s; /* Contact Us */
     }
-
+}
 
 /* Additional styles */
 * {
