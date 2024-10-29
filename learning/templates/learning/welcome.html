@@ -63,25 +63,38 @@
 <!-- Add the hidden video element -->
 <video id="welcomeVideo" class="fullscreen-video" src="{% static 'vid/je.mp4' %}"></video>
 
+<!-- Skip Button -->
+<button id="skipButton" class="btn" style="display: none;">Skip Video</button>
+
 <!-- JavaScript to handle video playback and animations -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const video = document.getElementById('welcomeVideo');
+        const skipButton = document.getElementById('skipButton');
         const hasWatchedVideo = localStorage.getItem('hasWatchedVideo');
 
         function playVideo() {
             video.style.display = 'block';  // Show the video
             video.play();  // Play the video with sound
+            skipButton.style.display = 'block'; // Show the skip button
 
             // Once the video ends, hide it and mark it as watched
             video.onended = function () {
                 video.style.display = 'none';
+                skipButton.style.display = 'none'; // Hide the skip button
                 localStorage.setItem('hasWatchedVideo', 'true');  // Store in localStorage to play only once
             };
 
             // Remove the event listener after the first interaction
             document.removeEventListener('click', playVideo);
         }
+
+        // Skip video function
+        skipButton.addEventListener('click', function() {
+            video.style.display = 'none'; // Hide the video
+            skipButton.style.display = 'none'; // Hide the skip button
+            localStorage.setItem('hasWatchedVideo', 'true'); // Mark as watched
+        });
 
         // Check if the video has been watched before
         if (!hasWatchedVideo) {
