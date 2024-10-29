@@ -25,6 +25,7 @@
 - Optional:
 - pip install openai
 - Uninstalling all global Python packages: pip freeze > temp.txt && for /F "delims=" %i in (temp.txt) do pip uninstall -y %i
+- python manage.py clear_questions
 
 =======
 
@@ -55,6 +56,7 @@
 - Optional:
 - pip install openai
 - Uninstalling all global Python packages: pip freeze | xargs pip uninstall -y
+- python manage.py clear_questions
 
 =======
 
