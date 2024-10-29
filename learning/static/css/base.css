@@ -85,14 +85,19 @@ html, body {
         
     }
 
-    /* Add specific styles for the games-dropdown-menu to ensure it is displayed properly */
-    .games-dropdown .games-dropdown-menu {
-        display: block; /* Ensure it is displayed */
-        position: relative; /* Set position relative for better placement */
-        background-color: #4b0082; /* Background color */
-        padding: 10px; /* Padding for spacing */
-        border-radius: 5px; /* Rounded corners */
-        z-index: 1; /* Ensure it appears above other content */
+     /* Add styles for games-dropdown-menu to display items inline */
+     .games-dropdown .games-dropdown-menu {
+        display: flex; /* Use flexbox to arrange items in a row */
+        flex-direction: row; /* Arrange items in a row */
+        justify-content: space-around; /* Space items evenly */
+        padding: 10px; /* Adjust padding if necessary */
+    }
+
+    .games-dropdown .games-dropdown-menu a {
+        flex: 1; /* Allow each link to take equal space */
+        text-align: center; /* Center align the text */
+        padding: 10px; /* Adjust padding for each game link */
+        color: white; /* Ensure text color is visible */
     }
 
     /* Stack links vertically when active */
