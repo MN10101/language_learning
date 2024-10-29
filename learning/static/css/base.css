@@ -544,8 +544,8 @@ img.profile-picture {
     display: block;
 }
 
- /* Chatbot Icon and Interface */
- #chatbot-container {
+/* Chatbot Icon and Interface */
+#chatbot-container {
     position: fixed;
     bottom: 80px;
     right: 20px;
@@ -565,11 +565,12 @@ img.profile-picture {
 }
 
 #chatbot-icon img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
+    width: 100%;  /* Adjust width to 100% to fill the container */
+    height: 100%; /* Adjust height to 100% to fill the container */
+    border-radius: 50%; /* Ensure the image remains circular */
+    object-fit: cover; /* Ensure the image covers the area without stretching */
 }
+
 
 /* Chatbot Bubble Style */
 #chatbot {
