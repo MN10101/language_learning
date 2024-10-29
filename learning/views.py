@@ -443,7 +443,8 @@ def book_course(request, level):
         'Web': 55000,
     }
 
-    price = course_prices.get(level, 0) / 100 
+    # Divide by 100 to get the price in euros
+    price = course_prices.get(level, 0) / 100
 
     if request.method == 'POST':
         session = stripe.checkout.Session.create(
@@ -454,6 +455,7 @@ def book_course(request, level):
                     'product_data': {
                         'name': f'{level} Course',
                     },
+                    # Use the original price in cents here
                     'unit_amount': course_prices[level],
                 },
                 'quantity': 1,
@@ -468,9 +470,10 @@ def book_course(request, level):
 
 
 
+
 def prices(request):
-    # Define prices for different levels
-    course_prices = {
+    # Define prices in cents for each level
+    course_prices_cents = {
         'A1': 20000,
         'A2': 25000,
         'B1': 30000,
@@ -484,11 +487,15 @@ def prices(request):
         'Web': 55000,
     }
     
+    # Convert each price to euros by dividing by 100
+    course_prices = {level: price / 100 for level, price in course_prices_cents.items()}
+    
     context = {
         'course_prices': course_prices
     }
     
     return render(request, 'learning/prices.html', context)
+
 
 def payment_success(request):
     return render(request, 'learning/payment_success.html')
