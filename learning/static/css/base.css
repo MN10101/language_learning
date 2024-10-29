@@ -279,7 +279,6 @@ html, body, button, input, select, textarea {
     font-size: 24px;
     font-weight: bold;
     text-transform: uppercase;
-
     cursor: pointer;
     transition: transform 0.3s;
 }
@@ -290,7 +289,7 @@ html, body, button, input, select, textarea {
     display: inline-block;
     transition: color 0.5s;
 }
-.logo .j {
+/* .logo .j {
     color: purple;
 }
 .logo .e {
@@ -298,20 +297,24 @@ html, body, button, input, select, textarea {
 }
 .logo-letter:first-child {
     color: purple; 
-    /* Default color for J */
 }
-
 .logo-letter:last-child {
     color: yellow; 
 }
-
 .logo:hover .logo-letter:first-child {
     color: purple;
 }
-
 .logo:hover .logo-letter:last-child {
     color: yellow; 
+} */
+.logo-image {
+    width: 40px; /* Adjust width as needed */
+    height: auto; /* Maintain aspect ratio */
+    vertical-align: middle; /* Align with text */
+    margin-right: 5px; /* Space between logo and letters */
+    border-radius: 50%;
 }
+
 
 /* Container Styles */
 .container {
