@@ -290,7 +290,7 @@ html, body, button, input, select, textarea {
     display: inline-block;
     transition: color 0.5s;
 }
-.logo .j {
+/* .logo .j {
     color: purple;
 }
 .logo .e {
@@ -298,7 +298,6 @@ html, body, button, input, select, textarea {
 }
 .logo-letter:first-child {
     color: purple; 
-    /* Default color for J */
 }
 
 .logo-letter:last-child {
@@ -311,7 +310,7 @@ html, body, button, input, select, textarea {
 
 .logo:hover .logo-letter:last-child {
     color: yellow; 
-}
+} */
 
 /* Container Styles */
 .container {
