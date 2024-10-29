@@ -41,6 +41,7 @@
         <a href="{% url 'teachers' %}">Teachers</a>
         <a href="{% url 'contact_us' %}">Contact Us</a>
 
+        {% if user|is_teacher %}
         <div class="games-dropdown">
             <a href="#" class="games-dropdown-toggle">Games</a>
             <div class="games-dropdown-menu">
@@ -49,7 +50,6 @@
                 <a href="{% url 'game3' %}">Flashcard Game</a>
             </div>
         </div>
-        
 
 
         <a href="{% url 'students' %}">Students</a>
