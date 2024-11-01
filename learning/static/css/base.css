@@ -105,8 +105,6 @@ html, body {
     border-radius: 10px;
     transition: transform 0.3s;
 }
-
-
 .game img:hover {
     transform: scale(1.05);
 }
@@ -223,9 +221,9 @@ html, body {
         animation-delay: 0.9s; /* Contact Us */
     }
     
-    /* .navbar.active .navbar-left a:last-child {
+    .navbar.active .navbar-left a:last-child {
         border-bottom: none;
-    } */
+    }
 }
 
 
