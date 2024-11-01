@@ -123,10 +123,8 @@ html, body {
 @media (max-width: 768px) {
     .hamburger-menu {
         display: block;
-        display: block; /* Ensure it is displayed as a block */
         max-height: 300px; /* Set a maximum height */
-        overflow-y: auto
-        
+        overflow-y: auto; /* Enable vertical scrolling */
     }
 
     /* Stack links vertically when active */
@@ -135,7 +133,7 @@ html, body {
         width: 100%; 
         background-color: #4b0082;
         position: absolute;
-        top: 50px;
+        top: 50px; /* Adjust based on your layout */
         left: 0;
         right: 0;
         z-index: 999;
@@ -220,21 +218,21 @@ html, body {
     .navbar.active .navbar-left a:nth-child(9) {
         animation-delay: 0.9s; /* Contact Us */
     }
-    
-    .navbar.active .navbar-left a:last-child {
-        border-bottom: none;
+
+    /* Adjusted styling to ensure links are visible */
+    .navbar.active .navbar-left {
+        max-height: calc(100vh - 50px); /* Ensure links fit in the viewport */
     }
 }
 
-
-
 * {
--webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: transparent;
 }
 
 html, body, button, input, select, textarea {
     touch-action: manipulation;
 }
+
 
 
 
