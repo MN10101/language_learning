@@ -144,7 +144,7 @@ html, body {
 
     /* When active, show the navbar */
     .navbar.active .navbar-left {
-        max-height: 100vh; 
+        max-height: calc(100vh - 50px); /* Ensure links fit in the viewport */
     }
 
     .navbar-left a {
@@ -219,9 +219,9 @@ html, body {
         animation-delay: 0.9s; /* Contact Us */
     }
 
-    /* Adjusted styling to ensure links are visible */
+    /* Ensure last section is visible */
     .navbar.active .navbar-left {
-        max-height: calc(100vh - 50px); /* Ensure links fit in the viewport */
+        max-height: calc(100vh - 70px); /* Adjust based on your layout */
     }
 }
 
