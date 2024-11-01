@@ -33,3 +33,20 @@
     line-height: 1.6;
     color: #333;
 }
+
+/* Responsive Styles for Small Devices */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px; /* Reduced padding for small devices */
+        margin: 10px; /* Reduced margin for small devices */
+    }
+
+    .profile-picture {
+        width: 100px; /* Smaller profile picture for small devices */
+        height: 100px; /* Keep the aspect ratio */
+    }
+
+    .about-details p {
+        font-size: 14px; /* Smaller font size for readability */
+    }
+}
