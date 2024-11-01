@@ -1,7 +1,7 @@
-/* Layout styles for the flashcard container */
+/* Flashcard layout styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: transparent; 
+    background-color: transparent;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,16 +10,18 @@ body {
     flex-direction: column;
 }
 
+/* Main container */
 .container {
     text-align: center;
-    position: relative; 
-    z-index: 1; 
+    position: relative;
+    z-index: 1;
 }
 
+/* Flashcard styling */
 .card {
-    width: 500px; 
-    height: 400px;  
-    margin: 20px auto; 
+    width: 500px;
+    height: 400px;
+    margin: 20px auto;
     border: 2px solid #ccc;
     border-radius: 8px;
     display: flex;
@@ -29,38 +31,36 @@ body {
     background-color: white;
 }
 
-/* Make the question text larger and bold */
 .card p {
-    font-size: 22px;   
-    font-weight: bold; 
+    font-size: 22px;
+    font-weight: bold;
     text-align: center;
     margin-bottom: 20px;
 }
 
-/* Larger image size for better visibility */
 .card img {
-    width: 250px;  
+    width: 250px;
     height: 250px;
-    object-fit: contain;  
+    object-fit: contain;
 }
 
 .hidden {
     display: none;
 }
 
-/* Button container under the game with two buttons aligned */
+/* Button container for flashcard controls */
 .button-container {
     display: flex;
     justify-content: space-between;
-    width: 520px; 
+    width: 520px;
     margin-top: 20px;
 }
 
 .button-container a, .button-container button {
-    width: 48%; 
+    width: 48%;
 }
 
-/* Back to Home button styling */
+/* Back button styling */
 .back-button {
     background-color: #4b0082;
     color: white;
@@ -75,17 +75,18 @@ body {
     background-color: #5e2d91;
 }
 
-/* Full-screen canvas setup */
+/* Full-screen canvas */
 canvas {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100vw;  
-    height: 100vh; 
-    z-index: 0;   
-    pointer-events: none; 
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
 }
 
+/* Primary button styling */
 .button {
     background-color: #4b0082;
     color: white;
@@ -99,4 +100,36 @@ canvas {
 
 .button:hover {
     background-color: #5e2d91;
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 768px) {
+    .card {
+        width: 90vw; /* Adjusted width for smaller screens */
+        height: auto; /* Auto height for flexibility */
+        padding: 20px; /* Extra padding */
+    }
+
+    .card p {
+        font-size: 18px; /* Smaller text for compact view */
+    }
+
+    .card img {
+        width: 80%; /* Scaled image for smaller screens */
+        height: auto;
+    }
+
+    .button-container {
+        width: 90vw; /* Full width for smaller screens */
+        margin-top: 15px;
+    }
+
+    .button-container a, .button-container button {
+        width: 48%; /* Half-width buttons for smaller screens */
+    }
+
+    .back-button, .button {
+        padding: 10px 20px; /* Adjust padding for mobile */
+        font-size: 16px; /* Reduced font size for compact fit */
+    }
 }

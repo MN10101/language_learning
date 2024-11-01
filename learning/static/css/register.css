@@ -13,20 +13,21 @@ body {
     overflow: hidden;
 }
 
-/* Overlay to apply blur effect */
 body::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;background-image: url("/static/images/12.jpg");
+    height: 100%;
+    background-image: url("/static/images/12.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    filter: blur(8px); 
+    filter: blur(8px);
     z-index: -1;
 }
+
 .container {
     background-image: url("/static/images/12.jpg");
     background-size: cover;
@@ -36,27 +37,32 @@ body::before {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
     width: 100%;
     max-width: 400px;
-    z-index: 1; 
+    z-index: 1;
 }
+
 h1 {
     color: #4b0082;
     margin-bottom: 25px;
     text-align: center;
 }
+
 form {
     display: flex;
     flex-direction: column;
 }
+
 form .form-field {
     display: flex;
     flex-direction: column;
     margin-bottom: 15px;
 }
+
 form label {
     margin-bottom: 5px;
     color: #333;
     font-weight: bold;
 }
+
 form input {
     padding: 10px;
     border: 1px solid #ccc;
@@ -65,6 +71,7 @@ form input {
     width: 100%;
     box-sizing: border-box;
 }
+
 button {
     background-color: #4b0082;
     color: white;
@@ -75,18 +82,43 @@ button {
     font-size: 16px;
     width: 100%;
 }
+
 button:hover {
     background-color: #5e2d91;
 }
+
 p {
     margin-top: 20px;
     text-align: center;
 }
+
 a {
     color: #4b0082;
     text-decoration: none;
     font-weight: bold;
 }
+
 a:hover {
     text-decoration: underline;
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 768px) {
+    .container {
+        width: 90vw; /* Adjust width for mobile screens */
+        padding: 20px; /* Smaller padding */
+    }
+
+    h1 {
+        font-size: 1.5em; /* Adjust font size for smaller screens */
+    }
+
+    form input, button {
+        font-size: 14px; /* Reduce font size for inputs and button */
+        padding: 10px; /* Adjust padding */
+    }
+
+    p {
+        font-size: 14px; /* Adjust font size for paragraphs */
+    }
 }

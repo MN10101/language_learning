@@ -13,7 +13,6 @@ body {
     overflow: hidden;
 }
 
-/* Overlay to apply blur effect */
 body::before {
     content: '';
     position: absolute;
@@ -26,10 +25,11 @@ body::before {
     background-position: center;
     background-repeat: no-repeat;
     filter: blur(8px);
-    z-index: -1; 
+    z-index: -1;
 }
+
 .container {
-    background-image: url("/static/images/12.jpg"); 
+    background-image: url("/static/images/12.jpg");
     background-size: cover;
     background-position: center;
     padding: 30px;
@@ -37,27 +37,32 @@ body::before {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
     width: 100%;
     max-width: 400px;
-    z-index: 1; 
+    z-index: 1;
 }
+
 h1 {
     color: #4b0082;
     margin-bottom: 25px;
     text-align: center;
 }
+
 form {
     display: flex;
     flex-direction: column;
 }
+
 form .form-field {
     display: flex;
     flex-direction: column;
     margin-bottom: 15px;
 }
+
 form label {
     margin-bottom: 5px;
     color: #333;
     font-weight: bold;
 }
+
 form input {
     padding: 10px;
     border: 1px solid #ccc;
@@ -66,6 +71,7 @@ form input {
     width: 100%;
     box-sizing: border-box;
 }
+
 button {
     background-color: #4b0082;
     color: white;
@@ -76,24 +82,50 @@ button {
     font-size: 16px;
     width: 100%;
 }
+
 button:hover {
     background-color: #5e2d91;
 }
+
 p {
     margin-top: 20px;
     text-align: center;
 }
+
 a {
     color: #4b0082;
     text-decoration: none;
     font-weight: bold;
 }
+
 a:hover {
     text-decoration: underline;
 }
+
 .note {
     margin-top: 10px;
     color: #555;
     text-align: center;
     font-size: 14px;
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 768px) {
+    .container {
+        width: 90vw; /* Adjust width for mobile screens */
+        padding: 20px; /* Smaller padding */
+    }
+
+    h1 {
+        font-size: 1.5em; /* Reduced font size for titles */
+    }
+
+    form input, button {
+        font-size: 14px; /* Smaller font for inputs and button */
+        padding: 8px; /* Smaller padding for inputs and button */
+    }
+
+    .note {
+        font-size: 12px; /* Adjust font size for smaller notes */
+    }
 }
