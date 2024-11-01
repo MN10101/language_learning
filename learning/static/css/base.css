@@ -1,8 +1,25 @@
+/* Base Styles */
+* {
+    box-sizing: border-box; /* Include padding and borders in element's total width */
+}
+
 html, body {
     height: 100%;
     margin: 0;
     display: flex;
     flex-direction: column;
+    
+}
+
+.container {
+    background-color: #fff;
+    padding: 20px; /* Adjusted padding for a tighter fit */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Full width */
+    max-width: 800px; /* Keep max width */
+    margin: 10px auto; /* Center the container horizontally */
+    text-align: center;
 }
 
 .content-wrapper {
@@ -74,50 +91,6 @@ html, body {
     background-color: #5e2d91;
     transform: scale(1.2);
 }
-
-/* Games Page Container */
-.games-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    margin-top: 60px; 
-}
-
-.games-container h1 {
-    color: #4b0082;
-    margin-bottom: 20px;
-}
-
-/* Individual Game Block */
-.game {
-    text-align: center;
-    margin-bottom: 30px;
-    max-width: 300px;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 20px;
-}
-
-.game img {
-    width: 250px; /* Set a fixed width */
-    height: 250px; /* Set a fixed height to maintain square shape */
-    object-fit: cover; /* Ensures the image covers the area without distorting */
-    border-radius: 10px;
-    transition: transform 0.3s;
-}
-.game img:hover {
-    transform: scale(1.05);
-}
-
-.game h2 {
-    color: #4b0082;
-    margin: 10px 0;
-    padding: 10px; /* Add padding to create space inside the square */
-    border: 2px solid #4b0082; /* Add a border to create the square effect */
-    border-radius: 5px; /* Optional: round the corners slightly */
-    display: inline-block; /* Makes the border wrap tightly around the text */
-}
-
 
 /* Media Query for small devices */
 @media (max-width: 768px) {
@@ -233,6 +206,48 @@ html, body, button, input, select, textarea {
     touch-action: manipulation;
 }
 
+/* Games Page Container */
+.games-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin-top: 60px; 
+}
+
+.games-container h1 {
+    color: #4b0082;
+    margin-bottom: 20px;
+}
+
+/* Individual Game Block */
+.game {
+    text-align: center;
+    margin-bottom: 30px;
+    max-width: 300px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+}
+
+.game img {
+    width: 250px; /* Set a fixed width */
+    height: 250px; /* Set a fixed height to maintain square shape */
+    object-fit: cover; /* Ensures the image covers the area without distorting */
+    border-radius: 10px;
+    transition: transform 0.3s;
+}
+.game img:hover {
+    transform: scale(1.05);
+}
+
+.game h2 {
+    color: #4b0082;
+    margin: 10px 0;
+    padding: 10px; /* Add padding to create space inside the square */
+    border: 2px solid #4b0082; /* Add a border to create the square effect */
+    border-radius: 5px; /* Optional: round the corners slightly */
+    display: inline-block; /* Makes the border wrap tightly around the text */
+}
 
 
 
@@ -709,19 +724,26 @@ button {
     font-size: 14px;
 }
 
+/* Footer Styles */
 .footer-content {
+    position: fixed; /* Fixed positioning */
+    bottom: 0; /* Stick to the bottom of the viewport */
+    left: 0; /* Align to the left */
+    right: 0; /* Align to the right */
+    display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center; /* Center text content */
+    background-color: #fff; /* Optional: Background color for visibility */
+    padding: 10px; /* Add some padding */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Optional: Shadow for effect */
+    z-index: 1000; /* Ensure the footer appears above other content */
 }
 
 .footer-left p,
 .footer-right a {
-    font-size: 12px;
-}
-
-#scrollTopBtn {
-    bottom: 80px; 
-    right: 10px; 
+    font-size: 10px; /* Adjusted for smaller screens */
+    margin: 5px 0; /* Adds spacing between lines */
 }
 
 /* Chatbot Styles */
@@ -729,22 +751,24 @@ button {
     width: 90%; 
     max-width: 300px; 
 }
-}
 
+/* Adjustments for very small screens */
 @media (max-width: 480px) {
-.container {
-    padding: 15px;
-}
+    .footer-content {
+        padding: 10px; /* Add padding around footer content */
+        flex-direction: column; /* Maintain vertical alignment */
+        align-items: center; /* Center footer content */
+    }
 
-button {
-    font-size: 12px;
+    .footer-left p,
+    .footer-right a {
+        font-size: 10px; /* Keep smaller font size */
+    }
+    
+    #scrollTopBtn {
+        bottom: 10px; /* Adjust button position for better visibility */
+        right: 10px; 
+    }
 }
-
-.footer-left p,
-.footer-right a {
-    font-size: 10px;
 }
 }
-}
-
-
