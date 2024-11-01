@@ -99,10 +99,13 @@ html, body {
 }
 
 .game img {
-    width: 100%;
+    width: 250px; /* Set a fixed width */
+    height: 250px; /* Set a fixed height to maintain square shape */
+    object-fit: cover; /* Ensures the image covers the area without distorting */
     border-radius: 10px;
     transition: transform 0.3s;
 }
+
 
 .game img:hover {
     transform: scale(1.05);
@@ -111,7 +114,12 @@ html, body {
 .game h2 {
     color: #4b0082;
     margin: 10px 0;
+    padding: 10px; /* Add padding to create space inside the square */
+    border: 2px solid #4b0082; /* Add a border to create the square effect */
+    border-radius: 5px; /* Optional: round the corners slightly */
+    display: inline-block; /* Makes the border wrap tightly around the text */
 }
+
 
 /* Media Query for small devices */
 @media (max-width: 768px) {
@@ -742,3 +750,5 @@ button {
 }
 }
 }
+
+

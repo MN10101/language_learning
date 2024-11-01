@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Soft Skills{% endblock %}
+
+{% block head %}
+    
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/soft_skills.css' %}">
+<div class="skills-container">
+    <h1>👩‍💻 Soft Skills 👩‍💻</h1>
+    
+    <div class="skill">
+        <h2>Communication</h2>
+        <img src="{% static 'images/communication.png' %}" alt="Communication Skill">
+        <p>Effective communication skills are essential for teamwork and client interactions.</p>
+    </div>
+    
+    <div class="skill">
+        <h2>Teamwork</h2>
+        <img src="{% static 'images/teamwork.webp' %}" alt="Teamwork Skill">
+        <p>Collaborating with others to achieve common goals and resolve challenges efficiently.</p>
+    </div>
+    
+    <div class="skill">
+        <h2>Problem-Solving</h2>
+        <img src="{% static 'images/problem_solving.webp' %}" alt="Problem-Solving Skill">
+        <p>Analyzing situations critically to find optimal solutions in various contexts.</p>
+    </div>
+    
+    <div class="skill">
+        <h2>Adaptability</h2>
+        <img src="{% static 'images/adaptability.png' %}" alt="Adaptability Skill">
+        <p>Being flexible and able to adjust to new situations and changes in the workplace.</p>
+    </div>
+    
+    <div class="skill">
+        <h2>Time Management</h2>
+        <img src="{% static 'images/time_management.webp' %}" alt="Time Management Skill">
+        <p>Efficiently prioritizing tasks to meet deadlines without compromising quality.</p>
+    </div>
+
+    <!-- Button to Book Soft Skills Training -->
+    <div class="button-container">
+        <a href="{% url 'book_course' 'Soft' %}" class="btn">Book Soft Skills Training</a>
+    </div>
+</div>
+{% endblock %}

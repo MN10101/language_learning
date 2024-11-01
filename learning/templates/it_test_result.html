@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block title %}IT Skills Test Result{% endblock %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'css/test_result.css' %}">
 <div class="container centered-form-container">
     <h1>Your IT Skills Test Result</h1>
-    <p>Your score: {{ score }} out of {{ total_number }}</p>  <!-- Use total_number here -->
+    <p>Your score: {{ score }} out of {{ total_number }}</p>
     <p>Your level: <strong>{{ level }}</strong></p>
 
     {% if level == 'Beginner' %}
@@ -16,6 +19,8 @@
         <p>Excellent work! You have a strong grasp of IT concepts!</p>
     {% endif %}
 
-    <a href="{% url 'prices' %}" class="button">Development Courses</a>
+    <div class="button-container">
+        <a href="{% url 'prices' %}" class="btn">Development Courses</a>
+    </div>
 </div>
 {% endblock %}

@@ -442,6 +442,7 @@ def book_course(request, level):
         'Java': 60000,
         'Python': 65000,
         'Web': 55000,
+        'Soft': 30000,
     }
 
     # Divide by 100 to get the price in euros
@@ -486,6 +487,7 @@ def prices(request):
         'Java': 60000,
         'Python': 65000,
         'Web': 55000,
+        'Soft': 30000,
     }
     
     # Convert each price to euros by dividing by 100
@@ -807,7 +809,8 @@ def send_password_reset_email(user, uid, token):
 def games_page(request):
     return render(request, 'games_page.html')
 
-
+def soft_skills(request):
+    return render(request, 'soft_skills.html')
 
 
 
