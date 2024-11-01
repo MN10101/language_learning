@@ -40,8 +40,8 @@
         <a href="{% url 'my_course' %}">My Course</a>
         <a href="{% url 'prices' %}">Prices</a>
         <a href="{% url 'teachers' %}">Teachers</a>
-        
-        
+        <a href="{% url 'soft_skills' %}">Soft Skills</a>
+        <a href="{% url 'contact_us' %}">Contact Us</a>
 
         {% if user|is_teacher %}
         <div class="games-dropdown">
@@ -52,15 +52,12 @@
                 <a href="{% url 'game3' %}">Flashcard Game</a>
             </div> -->
         </div>
-        <a href="{% url 'students' %}">Students</a>
         <a href="{% url 'games_page' %}">Games</a>
 
-        
+        <a href="{% url 'students' %}">Students</a>
     {% endif %}
 
 
-    <a href="{% url 'soft_skills' %}">Soft Skills</a>
-    <a href="{% url 'contact_us' %}">Contact Us</a>
     </div>
 
     <!-- Profile Dropdown -->
