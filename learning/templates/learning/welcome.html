@@ -75,19 +75,22 @@
         const hasWatchedVideo = localStorage.getItem('hasWatchedVideo');
 
         function playVideo() {
-            video.style.display = 'block';  // Show the video
-            closeButton.style.display = 'block'; // Show the close button
-            video.play();  // Play the video with sound
+            // Check if the video has been watched
+            if (!hasWatchedVideo) {
+                video.style.display = 'block';  // Show the video
+                closeButton.style.display = 'block'; // Show the close button
+                video.play();  // Play the video with sound
 
-            // Once the video ends, hide it and mark it as watched
-            video.onended = function () {
-                video.style.display = 'none';
-                closeButton.style.display = 'none'; // Hide the close button
-                localStorage.setItem('hasWatchedVideo', 'true');  // Store in localStorage to play only once
-            };
+                // Once the video ends, hide it and mark it as watched
+                video.onended = function () {
+                    video.style.display = 'none';
+                    closeButton.style.display = 'none'; // Hide the close button
+                    localStorage.setItem('hasWatchedVideo', 'true');  // Store in localStorage to play only once
+                };
 
-            // Remove the event listener after the first interaction
-            document.removeEventListener('click', playVideo);
+                // Remove the event listener after the first interaction
+                document.removeEventListener('click', playVideo);
+            }
         }
 
         // Check if the video has been watched before
@@ -100,6 +103,7 @@
             video.style.display = 'none';  // Hide the video
             closeButton.style.display = 'none'; // Hide the close button
             video.pause();  // Pause the video
+            video.currentTime = 0; // Reset the video to the start
         });
 
         const animatedElements = document.querySelectorAll('.animated');
@@ -119,5 +123,6 @@
         checkScroll(); // Run on page load
     });
 </script>
+
 
 {% endblock %}
