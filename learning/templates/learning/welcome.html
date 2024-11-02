@@ -96,6 +96,14 @@
             }
         }
 
+        document.getElementById('englishTestButton').addEventListener('click', function() {
+        window.location.href = "{% url 'english_test' %}";
+        });
+
+        document.getElementById('itSkillsTestButton').addEventListener('click', function() {
+            window.location.href = "{% url 'it_test' %}";
+        });
+
         // Check if the video has been watched or closed before
         if (!hasWatchedVideo && !hasClosedVideo) {
             document.addEventListener('click', playVideo); // Wait for user interaction
@@ -124,16 +132,6 @@
 
         window.addEventListener('scroll', checkScroll);
         checkScroll(); // Run on page load
-    });
-</script>
-
-<script>
-    document.getElementById('englishTestButton').addEventListener('click', function() {
-        window.location.href = "{% url 'english_test' %}";
-    });
-
-    document.getElementById('itSkillsTestButton').addEventListener('click', function() {
-        window.location.href = "{% url 'it_test' %}";
     });
 </script>
 
