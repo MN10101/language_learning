@@ -8,7 +8,6 @@ html, body {
     margin: 0;
     display: flex;
     flex-direction: column;
-    
 }
 
 .container {
@@ -62,7 +61,6 @@ html, body {
     right: 0;
     z-index: 1000;
     animation: gradientBackground 10s infinite alternate;
-    
 }
 
 .hamburger-menu {
@@ -96,8 +94,6 @@ html, body {
 @media (max-width: 768px) {
     .hamburger-menu {
         display: block;
-        max-height: 300px; /* Set a maximum height */
-        overflow-y: auto; /* Enable vertical scrolling */
     }
 
     /* Stack links vertically when active */
@@ -110,14 +106,14 @@ html, body {
         left: 0;
         right: 0;
         z-index: 999;
-        max-height: 0; 
-        overflow: hidden; 
+        max-height: 100vh; /* Remove height restriction */
+        overflow-y: auto; /* Allow scrolling if necessary */
         transition: max-height 0.5s ease-in-out;
     }
 
     /* When active, show the navbar */
     .navbar.active .navbar-left {
-        max-height: calc(100vh - 50px); /* Ensure links fit in the viewport */
+        max-height: 100vh; /* Ensure links fit in the viewport */
     }
 
     .navbar-left a {
@@ -191,11 +187,6 @@ html, body {
     .navbar.active .navbar-left a:nth-child(9) {
         animation-delay: 0.9s; /* Contact Us */
     }
-
-    /* Ensure last section is visible */
-    .navbar.active .navbar-left {
-        max-height: calc(100vh - 70px); /* Adjust based on your layout */
-    }
 }
 
 * {
@@ -205,6 +196,7 @@ html, body {
 html, body, button, input, select, textarea {
     touch-action: manipulation;
 }
+
 
 /* Games Page Container */
 .games-container {
