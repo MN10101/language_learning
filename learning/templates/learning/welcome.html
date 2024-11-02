@@ -6,6 +6,38 @@
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/welcome.css' %}">
+<style>
+    .video-container {
+        position: fixed; /* Fix position to the viewport */
+        top: 0; /* Align to the top */
+        left: 0; /* Align to the left */
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        display: none; /* Initially hidden */
+        background: rgba(0, 0, 0, 0.7); /* Optional: dark background */
+        z-index: 1000; /* Ensure it's on top of other content */
+    }
+
+    .fullscreen-video {
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        object-fit: cover; /* Maintain aspect ratio */
+    }
+
+    #closeVideo {
+        position: absolute;
+        top: 20px; /* Distance from top */
+        left: 50%; /* Center horizontally */
+        transform: translateX(-50%); /* Center adjustment */
+        z-index: 1001; /* Ensure it is above the video */
+        background: red; /* Background color */
+        color: white; /* Text color */
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        padding: 10px 15px; /* Add some padding for aesthetics */
+    }
+</style>
 <div class="welcome-container">
     <!-- Profile section -->
     <div class="profile-section animated fade-in-center">
@@ -61,21 +93,27 @@
 </div>
 
 <!-- Add the hidden video element -->
-<video id="welcomeVideo" class="fullscreen-video" src="{% static 'vid/je.mp4' %}"></video>
+<video id="welcomeVideo" class="fullscreen-video" src="{% static 'vid/je.mp4' %}" style="display:none;"></video>
+
+<!-- Close button -->
+<button id="closeVideo" style="display:none;">X</button>
 
 <!-- JavaScript to handle video playback and animations -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const video = document.getElementById('welcomeVideo');
+        const closeButton = document.getElementById('closeVideo');
         const hasWatchedVideo = localStorage.getItem('hasWatchedVideo');
 
         function playVideo() {
             video.style.display = 'block';  // Show the video
+            closeButton.style.display = 'block'; // Show the close button
             video.play();  // Play the video with sound
 
             // Once the video ends, hide it and mark it as watched
             video.onended = function () {
                 video.style.display = 'none';
+                closeButton.style.display = 'none'; // Hide the close button
                 localStorage.setItem('hasWatchedVideo', 'true');  // Store in localStorage to play only once
             };
 
@@ -87,6 +125,13 @@
         if (!hasWatchedVideo) {
             document.addEventListener('click', playVideo); // Wait for user interaction
         }
+
+        // Close video function
+        closeButton.addEventListener('click', function() {
+            video.style.display = 'none';  // Hide the video
+            closeButton.style.display = 'none'; // Hide the close button
+            video.pause();  // Pause the video
+        });
 
         const animatedElements = document.querySelectorAll('.animated');
 
