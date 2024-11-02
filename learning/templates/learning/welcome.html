@@ -32,15 +32,7 @@
         </div>
     </div>
 
-    <script>
-        document.getElementById('englishTestButton').addEventListener('click', function() {
-            window.location.href = "{% url 'english_test' %}";
-        });
-
-        document.getElementById('itSkillsTestButton').addEventListener('click', function() {
-            window.location.href = "{% url 'it_test' %}";
-        });
-    </script>
+    
 
 
     <!-- Image section with custom images and animation -->
@@ -132,6 +124,16 @@
 
         window.addEventListener('scroll', checkScroll);
         checkScroll(); // Run on page load
+    });
+</script>
+
+<script>
+    document.getElementById('englishTestButton').addEventListener('click', function() {
+        window.location.href = "{% url 'english_test' %}";
+    });
+
+    document.getElementById('itSkillsTestButton').addEventListener('click', function() {
+        window.location.href = "{% url 'it_test' %}";
     });
 </script>
 
