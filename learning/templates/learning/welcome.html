@@ -73,10 +73,10 @@
         const video = document.getElementById('welcomeVideo');
         const closeButton = document.getElementById('closeVideo');
         const hasWatchedVideo = localStorage.getItem('hasWatchedVideo');
+        const hasClosedVideo = localStorage.getItem('hasClosedVideo'); // New flag
 
         function playVideo() {
-            // Check if the video has been watched
-            if (!hasWatchedVideo) {
+            if (!hasClosedVideo) { // Check if the video has been closed before
                 video.style.display = 'block';  // Show the video
                 closeButton.style.display = 'block'; // Show the close button
                 video.play();  // Play the video with sound
@@ -93,8 +93,8 @@
             }
         }
 
-        // Check if the video has been watched before
-        if (!hasWatchedVideo) {
+        // Check if the video has been watched or closed before
+        if (!hasWatchedVideo && !hasClosedVideo) {
             document.addEventListener('click', playVideo); // Wait for user interaction
         }
 
@@ -103,7 +103,7 @@
             video.style.display = 'none';  // Hide the video
             closeButton.style.display = 'none'; // Hide the close button
             video.pause();  // Pause the video
-            video.currentTime = 0; // Reset the video to the start
+            localStorage.setItem('hasClosedVideo', 'true'); // Set flag that video has been closed
         });
 
         const animatedElements = document.querySelectorAll('.animated');
