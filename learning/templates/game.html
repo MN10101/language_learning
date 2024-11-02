@@ -118,7 +118,9 @@
         // Play the click sound when clicking on any question square
         function playClickSound() {
             const clickSound = document.getElementById('clickSound');
-            clickSound.play();
+            clickSound.play().catch(function(error) {
+                console.error("Error playing sound:", error); // Log error if sound fails to play
+            });
         }
 
         // Stop the opening sound when a question is clicked
@@ -130,8 +132,18 @@
         // Ensure the opening sound plays when the app starts
         document.addEventListener('DOMContentLoaded', function () {
             const openSound = document.getElementById('openSound');
-            openSound.play();
+            openSound.play().catch(function(error) {
+                console.error("Error playing sound:", error); // Log error if sound fails to play
+            });
         });
+
+        // Function to go back home with a sound
+        function goBackHome() {
+            playClickSound();  // Play the click sound
+            setTimeout(function() {
+                window.location.href = "{% url 'games_page' %}";  // Redirect to 'welcome' after delay
+            }, 500);  // Delay for 500ms to allow the sound to play
+        }
 
         // JavaScript for animating the colors of the squares dynamically
         const squares = document.querySelectorAll('.square');
@@ -150,13 +162,6 @@
 
         document.addEventListener('DOMContentLoaded', animateColors);
 
-        // Function to go back home with a sound
-        function goBackHome() {
-            playClickSound();  // Play the click sound
-            setTimeout(function() {
-                window.location.href = "{% url 'games_page' %}";  // Redirect to 'welcome' after delay
-            }, 500);  // Delay for 500ms to allow the sound to play
-        }
     </script>
 
 </body>
