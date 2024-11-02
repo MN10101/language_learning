@@ -6,38 +6,7 @@
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/welcome.css' %}">
-<style>
-    .video-container {
-        position: fixed; /* Fix position to the viewport */
-        top: 0; /* Align to the top */
-        left: 0; /* Align to the left */
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        display: none; /* Initially hidden */
-        background: rgba(0, 0, 0, 0.7); /* Optional: dark background */
-        z-index: 1000; /* Ensure it's on top of other content */
-    }
 
-    .fullscreen-video {
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        object-fit: cover; /* Maintain aspect ratio */
-    }
-
-    #closeVideo {
-        position: absolute;
-        top: 20px; /* Distance from top */
-        left: 50%; /* Center horizontally */
-        transform: translateX(-50%); /* Center adjustment */
-        z-index: 1001; /* Ensure it is above the video */
-        background: red; /* Background color */
-        color: white; /* Text color */
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        padding: 10px 15px; /* Add some padding for aesthetics */
-    }
-</style>
 <div class="welcome-container">
     <!-- Profile section -->
     <div class="profile-section animated fade-in-center">

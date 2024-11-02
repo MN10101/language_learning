@@ -135,11 +135,16 @@
     display: none; 
 }
 
-#skipButton {
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
-    color: white;
+#closeVideo {
+    position: absolute;
+    top: 20px; /* Distance from top */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Center adjustment */
+    z-index: 1001; /* Ensure it is above the video */
+    background: red; /* Background color */
+    color: white; /* Text color */
     border: none;
-    padding: 10px 15px;
-    cursor: pointer;
     border-radius: 5px;
+    cursor: pointer;
+    padding: 10px 15px; /* Add some padding for aesthetics */
 }
