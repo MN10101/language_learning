@@ -95,6 +95,9 @@ html, body {
     .hamburger-menu {
         display: block;
     }
+    .navbar.active .navbar-left {
+        max-height: 100vh; /* Allow full height when opened */
+    }
 
     /* Stack links vertically when active */
     .navbar-left {
@@ -106,17 +109,16 @@ html, body {
         left: 0;
         right: 0;
         z-index: 999;
-        max-height: none; /* Allow full height when active */
-        overflow: visible; /* Allow links to be visible */
+        max-height: 0; /* Start closed */
+        overflow: hidden; /* Hide overflow */
         transition: max-height 0.5s ease-in-out;
     }
 
-    /* When active, ensure the navbar expands fully */
+    /* When active, show the navbar */
     .navbar.active .navbar-left {
-        max-height: 90vh; /* Adjust this value to fit all sections */
+        max-height: calc(100vh - 50px); /* Expand to fit the viewport */
     }
 
-    /* Other styles remain the same */
     .navbar-left a {
         font-size: 18px;
         padding: 15px;
@@ -128,7 +130,26 @@ html, body {
         animation: none; 
     }
 
-    /* Curtain effect for links */
+    /* Animation for each link: fade-in and slide down */
+    @keyframes curtainEffect {
+        0% {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* When the navbar is not active, hide the links (curtain closing) */
+    .navbar:not(.active) .navbar-left a {
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: opacity 0.3s, transform 0.3s;
+    }
+
+    /* Curtain effect: each link appears one by one */
     .navbar.active .navbar-left a {
         animation: curtainEffect 0.5s forwards ease-in-out;
     }
@@ -137,32 +158,39 @@ html, body {
     .navbar.active .navbar-left a:nth-child(1) {
         animation-delay: 0.1s; /* Home */
     }
+
     .navbar.active .navbar-left a:nth-child(2) {
         animation-delay: 0.2s; /* About Us */
     }
+
     .navbar.active .navbar-left a:nth-child(3) {
         animation-delay: 0.3s; /* Upload File */
     }
+
     .navbar.active .navbar-left a:nth-child(4) {
         animation-delay: 0.4s; /* My Files */
     }
+
     .navbar.active .navbar-left a:nth-child(5) {
         animation-delay: 0.5s; /* My Classes */
     }
+
     .navbar.active .navbar-left a:nth-child(6) {
         animation-delay: 0.6s; /* My Course */
     }
+
     .navbar.active .navbar-left a:nth-child(7) {
         animation-delay: 0.7s; /* Prices */
     }
+
     .navbar.active .navbar-left a:nth-child(8) {
         animation-delay: 0.8s; /* Teachers */
     }
+
     .navbar.active .navbar-left a:nth-child(9) {
         animation-delay: 0.9s; /* Contact Us */
     }
 }
-
 
 * {
     -webkit-tap-highlight-color: transparent;
