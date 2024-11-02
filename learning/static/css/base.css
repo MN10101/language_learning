@@ -106,14 +106,14 @@ html, body {
         left: 0;
         right: 0;
         z-index: 999;
-        max-height: 100vh; /* Remove height restriction */
-        overflow-y: auto; /* Allow scrolling if necessary */
+        max-height: 0; /* Start closed */
+        overflow: hidden; /* Hide overflow */
         transition: max-height 0.5s ease-in-out;
     }
 
     /* When active, show the navbar */
     .navbar.active .navbar-left {
-        max-height: 100vh; /* Ensure links fit in the viewport */
+        max-height: calc(100vh - 50px); /* Expand to fit the viewport */
     }
 
     .navbar-left a {
