@@ -44,15 +44,18 @@
         <div class="form-group">
             <label for="connect-social">Connect Social Accounts:</label>
             <div>
-                <button type="button" onclick="connectSocial('X')" class="social-btn">
+                <!-- <button type="button" onclick="connectSocial('X')" class="social-btn">
                     <i class="fas fa-globe"></i> Connect X
-                </button>
+                </button> -->
                 <button type="button" onclick="connectSocial('Google')" class="social-btn">
                     <i class="fab fa-google"></i> Connect Google
                 </button>
-                <button type="button" onclick="connectSocial('Apple')" class="social-btn">
-                    <i class="fab fa-apple"></i> Connect Apple
+                <button type="button" onclick="connectSocial('Office365')" class="social-btn">
+                    <i class="fab fa-microsoft"></i> Connect Office 365/Outlook
                 </button>
+                <!-- <button type="button" onclick="connectSocial('Apple')" class="social-btn">
+                    <i class="fab fa-apple"></i> Connect Apple
+                </button> -->
             </div>
         </div>
         <button type="submit">Save Changes</button>
@@ -197,7 +200,8 @@
     const redirectURI = encodeURIComponent('https://domain.com'); 
     const googleClientID = '831072126004-651a06d6bmjd4kemgf7lc17d55fs9gk5.apps.googleusercontent.com'; 
     const xClientID = 'cm5LMVRoSkc5bG02cWdkZlJFTWM6MTpjaQ'; 
-    const appleClientID = 'your-apple-client-id'; 
+    const appleClientID = 'your-apple-client-id';
+    const Office365 = 'c5da48b5-b65c-45c6-9708-db008d9ab160';
 
     if (platform === 'Google') {
         window.location.href = `https://accounts.google.com/o/oauth2/auth?client_id=${googleClientID}&redirect_uri=${redirectURI}&response_type=token&scope=profile email`;
@@ -205,7 +209,9 @@
         window.location.href = `https://x.com/oauth/authorize?client_id=${xClientID}&redirect_uri=${redirectURI}&response_type=token`;
     } else if (platform === 'Apple') {
         window.location.href = `https://appleid.apple.com/auth/authorize?client_id=${appleClientID}&redirect_uri=${redirectURI}&response_type=code`;
-    }
+    } else if (platform === 'Office365') {
+            window.location.href = `https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=${Office365}&redirect_uri=${redirectURI}&response_type=token&scope=offline_access%20https://outlook.office.com/calendars.readwrite`;
+        }
 
 }
 
