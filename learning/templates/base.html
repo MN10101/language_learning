@@ -213,9 +213,9 @@
 
     // Check if the user is logged in
     function isUserLoggedIn() {
-        // Replace this with your actual login check logic
-        return {{ user.is_authenticated|yesno:"true,false" }};  
+        return isLoggedIn;  
     }
+
 
     // Open the chatbot if the user is logged in and it hasn't been opened before
     window.onload = function () {
@@ -279,6 +279,7 @@
             });
     }
 </script>
+
 
 
     <!-- Footer -->
