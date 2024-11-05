@@ -8,7 +8,7 @@ from .views import CustomPasswordResetView
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),  # Admin panel URL (Move this to the top)
+    path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('register/', views.register, name='register'),
     path('login/', views.user_login, name='login'),
