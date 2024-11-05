@@ -50,26 +50,21 @@
     text-align: center; /* Center the button */
 }
 
-.video-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* Space between buttons */
-    align-items: center; /* Center buttons */
-    margin-top: 10px;
-}
-
 .btn {
-    width: 100%; /* Full width for the button */
-    max-width: 100%; /* Ensure it stretches to the full width of the container */
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
     text-align: center;
-    background-color: #4b0082;
-    color: white;
-    padding: 12px; /* Padding inside the button */
+    color: #5e2d91;
+    color: #4b0082;
+    font-size: 16px;
     border-radius: 5px;
     text-decoration: none;
-    font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
 .btn:hover {
-    background-color: #5e2d91;
+    background-color: #5e2d91; /* Darker shade on hover */
 }
+
