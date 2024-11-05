@@ -1,0 +1,135 @@
+/* Flashcard layout styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    flex-direction: column;
+}
+
+/* Main container */
+.container {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+/* Flashcard styling */
+.card {
+    width: 500px;
+    height: 400px;
+    margin: 20px auto;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: white;
+}
+
+.card p {
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.card img {
+    width: 250px;
+    height: 250px;
+    object-fit: contain;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Button container for flashcard controls */
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 520px;
+    margin-top: 20px;
+}
+
+.button-container a, .button-container button {
+    width: 48%;
+}
+
+/* Back button styling */
+.back-button {
+    background-color: #4b0082;
+    color: white;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.back-button:hover {
+    background-color: #5e2d91;
+}
+
+/* Full-screen canvas */
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Primary button styling */
+.button {
+    background-color: #4b0082;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #5e2d91;
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 768px) {
+    .card {
+        width: 90vw; /* Adjusted width for smaller screens */
+        height: auto; /* Auto height for flexibility */
+        padding: 20px; /* Extra padding */
+    }
+
+    .card p {
+        font-size: 18px; /* Smaller text for compact view */
+    }
+
+    .card img {
+        width: 80%; /* Scaled image for smaller screens */
+        height: auto;
+    }
+
+    .button-container {
+        width: 90vw; /* Full width for smaller screens */
+        margin-top: 15px;
+    }
+
+    .button-container a, .button-container button {
+        width: 48%; /* Half-width buttons for smaller screens */
+    }
+
+    .back-button, .button {
+        padding: 10px 20px; /* Adjust padding for mobile */
+        font-size: 16px; /* Reduced font size for compact fit */
+    }
+}

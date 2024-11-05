@@ -1,0 +1,19 @@
+.button-container {
+    margin-top: 20px;
+    text-align: center; /* Center the button */
+}
+
+.btn {
+    display: inline-block;
+    background-color: #4b0082; /* Match the theme color */
+    color: white;
+    padding: 12px 20px; /* Adjusted padding for a bigger button */
+    border-radius: 5px;
+    text-decoration: none; /* Remove underline from link */
+    font-size: 16px;
+    transition: background-color 0.3s; /* Smooth background color transition */
+}
+
+.btn:hover {
+    background-color: #5e2d91; /* Darker shade on hover */
+}

@@ -1,0 +1,70 @@
+.skills-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.skills-container h1 {
+    color: #4b0082;
+    margin-bottom: 20px;
+}
+
+.skill {
+    text-align: center;
+    margin-bottom: 30px;
+    max-width: 600px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+}
+
+.skill img {
+    width: 100%;
+    border-radius: 10px;
+    transition: transform 0.3s;
+}
+
+.skill img:hover {
+    transform: scale(1.05);
+}
+
+.skill h2 {
+    color: #4b0082;
+    margin: 10px 0;
+    padding: 10px; /* Add padding to create space inside the square */
+    border: 2px solid #4b0082; /* Add a border to create the square effect */
+    border-radius: 5px; /* Optional: round the corners slightly */
+    display: inline-block; /* Makes the border wrap tightly around the text */
+}
+
+.skill p {
+    color: #333;
+    font-size: 1.1em;
+    font-weight: bold; /* This line makes the text bold */
+}
+
+.button-container {
+    margin-top: 30px;
+    text-align: center; /* Center the button */
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    text-align: center;
+    color: #5e2d91;
+    color: #4b0082;
+    font-size: 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #5e2d91; /* Darker shade on hover */
+}
+

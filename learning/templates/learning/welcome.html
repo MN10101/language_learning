@@ -32,9 +32,6 @@
         </div>
     </div>
 
-    
-
-
     <!-- Image section with custom images and animation -->
     <div class="image-section">
         <div class="image-text-pair">
@@ -65,10 +62,20 @@
 </div>
 
 <!-- Add the hidden video element -->
-<video id="welcomeVideo" class="fullscreen-video" src="{% static 'vid/je.mp4' %}" style="display:none;"></video>
+<video id="welcomeVideo" class="fullscreen-video" src="{% static 'vid/je.mp4' %}" style="display:none;" controls></video>
 
 <!-- Close button -->
 <button id="closeVideo" style="display:none;">X</button>
+
+<!-- ChatBot label above the chatbot -->
+<!-- <div style="font-weight: bold; text-align: center; margin-top: 20px;">
+    ChatBot
+</div> -->
+
+<!-- Place your chatbot component here -->
+<!-- <div id="chatbot">
+    <div class="chat-header">ChatBot</div>
+</div> -->
 
 <!-- JavaScript to handle video playback and animations -->
 <script>
@@ -76,49 +83,48 @@
         const video = document.getElementById('welcomeVideo');
         const closeButton = document.getElementById('closeVideo');
         const hasWatchedVideo = localStorage.getItem('hasWatchedVideo');
-        const hasClosedVideo = localStorage.getItem('hasClosedVideo'); // New flag
+        const hasClosedVideo = localStorage.getItem('hasClosedVideo');
 
+        // Function to play video automatically
         function playVideo() {
-            if (!hasClosedVideo) { // Check if the video has been closed before
-                video.style.display = 'block';  // Show the video
-                closeButton.style.display = 'block'; // Show the close button
-                video.play();  // Play the video with sound
+            if (!hasClosedVideo) {
+                video.style.display = 'block';
+                closeButton.style.display = 'block';
+                video.play();
 
-                // Once the video ends, hide it and mark it as watched
                 video.onended = function () {
                     video.style.display = 'none';
-                    closeButton.style.display = 'none'; // Hide the close button
-                    localStorage.setItem('hasWatchedVideo', 'true');  // Store in localStorage to play only once
+                    closeButton.style.display = 'none';
+                    localStorage.setItem('hasWatchedVideo', 'true');
                 };
 
-                // Remove the event listener after the first interaction
                 document.removeEventListener('click', playVideo);
             }
         }
 
+        // Automatically play the video on page load if it hasn't been watched or closed
+        if (!hasWatchedVideo && !hasClosedVideo) {
+            playVideo();
+        }
+
+        closeButton.addEventListener('click', function() {
+            video.style.display = 'none';
+            closeButton.style.display = 'none';
+            video.pause();
+            localStorage.setItem('hasClosedVideo', 'true');
+        });
+
+        // Test button functionality
         document.getElementById('englishTestButton').addEventListener('click', function() {
-        window.location.href = "{% url 'english_test' %}";
+            window.location.href = "{% url 'english_test' %}";
         });
 
         document.getElementById('itSkillsTestButton').addEventListener('click', function() {
             window.location.href = "{% url 'it_test' %}";
         });
 
-        // Check if the video has been watched or closed before
-        if (!hasWatchedVideo && !hasClosedVideo) {
-            document.addEventListener('click', playVideo); // Wait for user interaction
-        }
-
-        // Close video function
-        closeButton.addEventListener('click', function() {
-            video.style.display = 'none';  // Hide the video
-            closeButton.style.display = 'none'; // Hide the close button
-            video.pause();  // Pause the video
-            localStorage.setItem('hasClosedVideo', 'true'); // Set flag that video has been closed
-        });
-
+        // Scroll animations for elements
         const animatedElements = document.querySelectorAll('.animated');
-
         function checkScroll() {
             animatedElements.forEach(element => {
                 const position = element.getBoundingClientRect().top;
@@ -132,8 +138,9 @@
 
         window.addEventListener('scroll', checkScroll);
         checkScroll(); // Run on page load
+
+    
     });
 </script>
-
 
 {% endblock %}
