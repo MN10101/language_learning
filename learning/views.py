@@ -271,7 +271,13 @@ def submit_it_test(request):
     total_questions = Question.objects.filter(subject='IT').count()
     passing_score = total_questions // 2
 
-    level = 'Beginner' if score < passing_score else 'Intermediate' if score < (passing_score + 3) else 'Advanced'
+    # Define levels based on score ranges
+    if score < passing_score:
+        level = 'Beginner'
+    elif passing_score <= score < passing_score + 3:
+        level = 'Intermediate'
+    else:
+        level = 'Advanced'
 
     # Clear IT test session data
     request.session.pop('it_questions', None)
@@ -284,6 +290,7 @@ def submit_it_test(request):
         'passing_score': passing_score,
         'total_number': total_questions
     })
+
 
 
 
