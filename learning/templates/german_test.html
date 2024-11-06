@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Deutsch Niveau-Test{% endblock %}
+
+{% block content %}
+<div class="container centered-form-container">
+    <h1>Deutsch Niveau-Test</h1>
+    <p>Frage {{ current_number }} von {{ total_number }}</p>
+    <form id="testForm" method="post">
+        {% csrf_token %}
+        <div class="question">
+            <p>{{ question.text }}</p>
+            <div class="dropdown-container">
+                <select id="answerSelect" name="answer" class="answer-select" required>
+                    <option value="" disabled selected>Wählen Sie Ihre Antwort</option>
+                    {% for answer in answers %}
+                        <option value="{{ answer.id }}">{{ answer.text }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <button type="submit" id="nextButton" class="next-button">Weiter</button>
+    </form>    
+</div>
+{% endblock %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const answerSelect = document.getElementById('answerSelect');
+    const nextButton = document.getElementById('nextButton');
+
+    document.getElementById('testForm').addEventListener('submit', function (event) {
+        if (!answerSelect.value) {
+            event.preventDefault(); // Prevent form submission if no answer is selected
+            alert("Bitte wählen Sie eine Antwort, bevor Sie fortfahren.");
+        }
+    });
+});
+</script>

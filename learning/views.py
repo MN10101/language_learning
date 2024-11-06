@@ -56,6 +56,78 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 # logger = logging.getLogger(__name__)
 
 
+@login_required
+def german_test(request):
+    test_questions = Question.objects.filter(category='test', subject='German')
+
+    if 'german_question_index' not in request.session or 'german_questions' not in request.session:
+        questions = list(test_questions)
+        random.shuffle(questions)
+        request.session['german_questions'] = [q.id for q in questions]
+        request.session['german_question_index'] = 0
+        request.session['german_answers'] = {}
+
+    question_index = request.session.get('german_question_index', 0)
+    questions = request.session.get('german_questions', [])
+
+    if not questions or question_index >= len(questions):
+        return redirect('submit_german_test')
+
+    question_id = questions[question_index]
+    question = get_object_or_404(Question, id=question_id)
+    answers = Answer.objects.filter(question=question)
+
+    if request.method == 'POST':
+        selected_answer = request.POST.get('answer')
+        if selected_answer:
+            request.session['german_answers'][question_id] = selected_answer
+            request.session['german_question_index'] += 1
+
+            if request.session['german_question_index'] >= len(questions):
+                return redirect('submit_german_test')
+
+            return redirect('german_test')
+
+    context = {
+        'question': question,
+        'answers': answers,
+        'current_number': question_index + 1,
+        'total_number': len(questions),
+    }
+    return render(request, 'german_test.html', context)
+
+@login_required
+def submit_german_test(request):
+    answers = request.session.get('german_answers', {})
+    score = 0
+
+    for question_id, selected_answer_id in answers.items():
+        correct_answer = Answer.objects.filter(question_id=question_id, is_correct=True).first()
+        if correct_answer and correct_answer.id == int(selected_answer_id):
+            score += 1
+
+    if score <= 5:
+        level = 'A1'
+    elif score <= 10:
+        level = 'A2'
+    elif score <= 14:
+        level = 'B1'
+    elif score <= 17:
+        level = 'B2'
+    elif score == 18 or score == 19:
+        level = 'C1'
+    else:
+        level = 'C2'
+
+    # Clear German test session data
+    request.session.pop('german_questions', None)
+    request.session.pop('german_question_index', None)
+    request.session.pop('german_answers', None)
+
+    return render(request, 'german_test_result.html', {'score': score, 'level': level})
+
+
+
 
 @login_required
 def submit_english_test(request):

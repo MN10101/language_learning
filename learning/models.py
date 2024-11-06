@@ -10,6 +10,7 @@ class Question(models.Model):
     SUBJECT_CHOICES = [
         ('English', 'English'),
         ('IT', 'IT'),
+        ('German', 'German'),
     ]
 
     text = models.CharField(max_length=255)

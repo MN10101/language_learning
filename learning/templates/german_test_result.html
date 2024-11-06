@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Testergebnis{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/test_result.css' %}">
+<div class="container centered-form-container">
+    <h1>Testergebnis</h1>
+    <p>Ihr Ergebnis: {{ score }} von 12</p>
+    <p>Ihr Sprachniveau: {{ level }}</p>
+
+    <!-- Kurs Buchen Button -->
+    <div class="book-now">
+        <p>Möchten Sie einen Kurs auf Ihrem Niveau buchen?</p>
+        <a href="{% url 'book_course' level=level %}" class="btn btn-primary">Jetzt buchen</a>
+    </div>
+</div>
+{% endblock %}
