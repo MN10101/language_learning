@@ -106,18 +106,16 @@ def submit_german_test(request):
         if correct_answer and correct_answer.id == int(selected_answer_id):
             score += 1
 
-    if score <= 5:
+    if score <= 4:
         level = 'A1'
-    elif score <= 10:
+    elif score <= 8:
         level = 'A2'
-    elif score <= 14:
+    elif score <= 10:
         level = 'B1'
-    elif score <= 17:
+    elif score == 11:
         level = 'B2'
-    elif score == 18 or score == 19:
-        level = 'C1'
     else:
-        level = 'C2'
+        level = 'C1'
 
     # Clear German test session data
     request.session.pop('german_questions', None)
@@ -125,6 +123,7 @@ def submit_german_test(request):
     request.session.pop('german_answers', None)
 
     return render(request, 'german_test_result.html', {'score': score, 'level': level})
+
 
 
 
@@ -145,15 +144,16 @@ def submit_english_test(request):
 
     print(f"Score calculated: {score}")
 
+    # Adjusted level criteria
     if score <= 5:
         level = 'A1'
     elif score <= 10:
         level = 'A2'
     elif score <= 14:
         level = 'B1'
-    elif score <= 17:
+    elif score <= 16:
         level = 'B2'
-    elif score == 18 or score == 19:
+    elif score <= 18:
         level = 'C1'
     else:
         level = 'C2'
@@ -164,6 +164,7 @@ def submit_english_test(request):
     request.session.pop('english_answers', None)
 
     return render(request, 'test_result.html', {'score': score, 'level': level})
+
 
 
 
