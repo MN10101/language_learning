@@ -13,6 +13,7 @@
 - CREATE DATABASE language_learning_db;
 - python manage.py createsuperuser
 - mkdir D:\language_learning\static
+- python manage.py german_questions_data
 - python manage.py populate_questions
 - python manage.py game_questions
 - python manage.py it_questions
@@ -41,6 +42,7 @@
 - mkdir -p /Users/jonathanerasmusdavies/Desktop/edu_02/language_learning_01/static
 - In the settings file: STATICFILES_DIRS = [
   "/Users/jonathanerasmusdavies/Desktop/edu_02/language_learning_01/static",]
+  python manage.py german_questions_data
 - python manage.py populate_questions
 - python manage.py game_questions
 - python manage.py makemigrations
