@@ -148,3 +148,12 @@
     cursor: pointer;
     padding: 10px 15px; /* Add some padding for aesthetics */
 }
+
+@media (max-width: 768px) {
+    .info-section button {
+        display: block; /* Makes buttons stack vertically */
+        width: 100%;    /* Ensures buttons take full width */
+        margin-bottom: 10px; /* Adds space between buttons */
+    }
+}
+
