@@ -87,13 +87,13 @@
 
         // Create an array to store particles
         let particlesArray = [];
-        const particleCount = 100;  // Number of particles
+        const particleCount = 100;  
 
         // Initialize particles
         function initParticles() {
             particlesArray = [];
             for (let i = 0; i < particleCount; i++) {
-                const radius = Math.random() * 5 + 2;  // Random radius between 2 and 7
+                const radius = Math.random() * 5 + 2;  
                 const x = Math.random() * (canvas.width - radius * 2) + radius;
                 const y = Math.random() * (canvas.height - radius * 2) + radius;
                 const speedX = (Math.random() - 0.5) * 2;
@@ -106,7 +106,7 @@
 
         // Animate particles
         function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);  // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);  
 
             particlesArray.forEach(particle => {
                 particle.update();
@@ -147,11 +147,11 @@
     function showNextQuestion() {
         currentQuestion++;
         if (currentQuestion < pictures.length) {
-            document.querySelector(".flip-card-inner").classList.remove("flipped"); // Reset flip
+            document.querySelector(".flip-card-inner").classList.remove("flipped"); 
             setTimeout(() => {
                 quizImage.src = pictures[currentQuestion].src;
                 imageName.textContent = pictures[currentQuestion].name;
-                flipCardBack.style.backgroundColor = pictures[currentQuestion].color; // Change background color
+                flipCardBack.style.backgroundColor = pictures[currentQuestion].color; 
             }, 300); // Small delay between transitions
         } else {
             alert("You've completed the quiz!");
@@ -161,9 +161,9 @@
 
     // Handle the image click event
     document.querySelector('.flip-card').addEventListener('click', function () {
-        clickSound.play(); // Play the click sound
-        document.querySelector(".flip-card-inner").classList.add("flipped"); // Trigger the flip
-        setTimeout(showNextQuestion, 2000); // Automatically go to the next question after 2 seconds
+        clickSound.play(); 
+        document.querySelector(".flip-card-inner").classList.add("flipped"); 
+        setTimeout(showNextQuestion, 2000); 
     });
 
     // Set initial background color
@@ -174,7 +174,7 @@
         clickSound.play();  // Play the click sound
         console.log("Redirecting to home..."); // Debug log
         setTimeout(function() {
-            window.location.href = "{% url 'games_page' %}";  // Ensure this URL is correct
+            window.location.href = "{% url 'games_page' %}";  
         }, 500);  // Delay for 500ms to allow the sound to play
     }
     </script>

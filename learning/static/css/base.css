@@ -1,6 +1,6 @@
 /* Base Styles */
 * {
-    box-sizing: border-box; /* Include padding and borders in element's total width */
+    box-sizing: border-box; 
 }
 
 html, body {
@@ -12,12 +12,12 @@ html, body {
 
 .container {
     background-color: #fff;
-    padding: 20px; /* Adjusted padding for a tighter fit */
+    padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 100%; /* Full width */
-    max-width: 800px; /* Keep max width */
-    margin: 10px auto; /* Center the container horizontally */
+    width: 100%; 
+    max-width: 800px; 
+    margin: 10px auto; 
     text-align: center;
 }
 
@@ -31,19 +31,19 @@ html, body {
 /* Animated Gradient Background for Navbar and Footer */
 @keyframes gradientBackground {
     0% {
-        background-color: #4b0082; /* Purple */
+        background-color: #4b0082; 
     }
     25% {
-        background-color: #5e2d91; /* Slightly lighter purple */
+        background-color: #5e2d91; 
     }
     50% {
-        background-color: #6a0dad; /* Amethyst purple */
+        background-color: #6a0dad; 
     }
     75% {
-        background-color: #7b3fbd; /* Lavender purple */
+        background-color: #7b3fbd;
     }
     100% {
-        background-color: #4b0082; /* Return to initial purple */
+        background-color: #4b0082; 
     }
 }
 
@@ -96,7 +96,7 @@ html, body {
         display: block;
     }
     .navbar.active .navbar-left {
-        max-height: 100vh; /* Allow full height when opened */
+        max-height: 100vh; 
     }
 
     /* Stack links vertically when active */
@@ -105,18 +105,18 @@ html, body {
         width: 100%; 
         background-color: #4b0082;
         position: absolute;
-        top: 50px; /* Adjust based on your layout */
+        top: 50px; 
         left: 0;
         right: 0;
         z-index: 999;
-        max-height: 0; /* Start closed */
-        overflow: hidden; /* Hide overflow */
+        max-height: 0; 
+        overflow: hidden; 
         transition: max-height 0.5s ease-in-out;
     }
 
     /* When active, show the navbar */
     .navbar.active .navbar-left {
-        max-height: calc(100vh - 50px); /* Expand to fit the viewport */
+        max-height: calc(100vh - 50px); 
     }
 
     .navbar-left a {
@@ -156,39 +156,39 @@ html, body {
 
     /* Delay each link’s appearance based on its order */
     .navbar.active .navbar-left a:nth-child(1) {
-        animation-delay: 0.1s; /* Home */
+        animation-delay: 0.1s; 
     }
 
     .navbar.active .navbar-left a:nth-child(2) {
-        animation-delay: 0.2s; /* About Us */
+        animation-delay: 0.2s; 
     }
 
     .navbar.active .navbar-left a:nth-child(3) {
-        animation-delay: 0.3s; /* Upload File */
+        animation-delay: 0.3s; 
     }
 
     .navbar.active .navbar-left a:nth-child(4) {
-        animation-delay: 0.4s; /* My Files */
+        animation-delay: 0.4s; 
     }
 
     .navbar.active .navbar-left a:nth-child(5) {
-        animation-delay: 0.5s; /* My Classes */
+        animation-delay: 0.5s; 
     }
 
     .navbar.active .navbar-left a:nth-child(6) {
-        animation-delay: 0.6s; /* My Course */
+        animation-delay: 0.6s; 
     }
 
     .navbar.active .navbar-left a:nth-child(7) {
-        animation-delay: 0.7s; /* Prices */
+        animation-delay: 0.7s; 
     }
 
     .navbar.active .navbar-left a:nth-child(8) {
-        animation-delay: 0.8s; /* Teachers */
+        animation-delay: 0.8s; 
     }
 
     .navbar.active .navbar-left a:nth-child(9) {
-        animation-delay: 0.9s; /* Contact Us */
+        animation-delay: 0.9s; 
     }
 }
 
@@ -225,9 +225,9 @@ html, body, button, input, select, textarea {
 }
 
 .game img {
-    width: 250px; /* Set a fixed width */
-    height: 250px; /* Set a fixed height to maintain square shape */
-    object-fit: cover; /* Ensures the image covers the area without distorting */
+    width: 250px; 
+    height: 250px; 
+    object-fit: cover; 
     border-radius: 10px;
     transition: transform 0.3s;
 }
@@ -238,10 +238,10 @@ html, body, button, input, select, textarea {
 .game h2 {
     color: #4b0082;
     margin: 10px 0;
-    padding: 10px; /* Add padding to create space inside the square */
-    border: 2px solid #4b0082; /* Add a border to create the square effect */
-    border-radius: 5px; /* Optional: round the corners slightly */
-    display: inline-block; /* Makes the border wrap tightly around the text */
+    padding: 10px; 
+    border: 2px solid #4b0082; 
+    border-radius: 5px;
+    display: inline-block;
 }
 
 
@@ -579,10 +579,10 @@ img.profile-picture {
 }
 
 #chatbot-icon img {
-    width: 100%;  /* Adjust width to 100% to fill the container */
-    height: 100%; /* Adjust height to 100% to fill the container */
-    border-radius: 50%; /* Ensure the image remains circular */
-    object-fit: cover; /* Ensure the image covers the area without stretching */
+    width: 100%;  
+    height: 100%;
+    border-radius: 50%; 
+    object-fit: cover; 
 }
 
 
@@ -721,24 +721,24 @@ button {
 
 /* Footer Styles */
 .footer-content {
-    position: fixed; /* Fixed positioning */
-    bottom: 0; /* Stick to the bottom of the viewport */
-    left: 0; /* Align to the left */
-    right: 0; /* Align to the right */
+    position: fixed; 
+    bottom: 0; 
+    left: 0; 
+    right: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center; /* Center text content */
-    background-color: #fff; /* Optional: Background color for visibility */
-    padding: 10px; /* Add some padding */
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Optional: Shadow for effect */
-    z-index: 1000; /* Ensure the footer appears above other content */
+    text-align: center; 
+    background-color: #fff; 
+    padding: 10px; 
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); 
+    z-index: 1000;
 }
 
 .footer-left p,
 .footer-right a {
-    font-size: 10px; /* Adjusted for smaller screens */
-    margin: 5px 0; /* Adds spacing between lines */
+    font-size: 10px; 
+    margin: 5px 0; 
 }
 
 /* Chatbot Styles */
@@ -750,18 +750,18 @@ button {
 /* Adjustments for very small screens */
 @media (max-width: 480px) {
     .footer-content {
-        padding: 10px; /* Add padding around footer content */
-        flex-direction: column; /* Maintain vertical alignment */
-        align-items: center; /* Center footer content */
+        padding: 10px; 
+        flex-direction: column; 
+        align-items: center; 
     }
 
     .footer-left p,
     .footer-right a {
-        font-size: 10px; /* Keep smaller font size */
+        font-size: 10px; 
     }
     
     #scrollTopBtn {
-        bottom: 10px; /* Adjust button position for better visibility */
+        bottom: 10px; 
         right: 10px; 
     }
 }

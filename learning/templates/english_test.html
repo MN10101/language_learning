@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.getElementById('testForm').addEventListener('submit', function (event) {
         if (!answerSelect.value) {
-            event.preventDefault(); // Prevent form submission if no answer is selected
+            event.preventDefault();
             alert("Please select an answer before proceeding.");
         }
     });

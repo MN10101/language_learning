@@ -112,20 +112,20 @@ a:hover {
 /* Responsive styles for smaller screens */
 @media (max-width: 768px) {
     .container {
-        width: 90vw; /* Adjust width for mobile screens */
-        padding: 20px; /* Smaller padding */
+        width: 90vw;
+        padding: 20px; 
     }
 
     h1 {
-        font-size: 1.5em; /* Reduced font size for titles */
+        font-size: 1.5em; 
     }
 
     form input, button {
-        font-size: 14px; /* Smaller font for inputs and button */
-        padding: 8px; /* Smaller padding for inputs and button */
+        font-size: 14px; 
+        padding: 8px; 
     }
 
     .note {
-        font-size: 12px; /* Adjust font size for smaller notes */
+        font-size: 12px; 
     }
 }

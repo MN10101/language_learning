@@ -134,18 +134,18 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Security settings for the session cookie
 SESSION_COOKIE_SAMESITE = 'Lax'
-SESSION_COOKIE_SECURE = not DEBUG  # Ensure secure cookies if using HTTPS
-SESSION_COOKIE_HTTPONLY = True  # Prevent JavaScript from accessing it
+SESSION_COOKIE_SECURE = not DEBUG  
+SESSION_COOKIE_HTTPONLY = True  
 
 
 # CSRF Cookie Settings
-CSRF_COOKIE_HTTPONLY = True  # Prevent JavaScript access to CSRF cookie
-CSRF_COOKIE_SAMESITE = 'Lax'  # SameSite policy for CSRF cookie
-CSRF_COOKIE_SECURE = not DEBUG  # Use secure cookies in production
+CSRF_COOKIE_HTTPONLY = True  
+CSRF_COOKIE_SAMESITE = 'Lax'  
+CSRF_COOKIE_SECURE = not DEBUG  
 
 # Security Settings (Enable in production)
-SECURE_SSL_REDIRECT = not DEBUG  # Redirect HTTP to HTTPS
-SECURE_HSTS_SECONDS = 3600  # HTTP Strict Transport Security
+SECURE_SSL_REDIRECT = not DEBUG  
+SECURE_HSTS_SECONDS = 3600  
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 

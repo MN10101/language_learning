@@ -203,8 +203,8 @@
         if (chatbot.style.display === "none" || !chatbot.style.display) {
             chatbot.style.display = "block";
             chatbot.style.animation = "fadeIn 0.3s ease-in-out";
-            messageSound.play();  // Play sound when chatbot opens
-            addMessage("Chatbot", "Hello! How can I help you today?");  // Display greeting message
+            messageSound.play();  
+            addMessage("Chatbot", "Hello! How can I help you today?");  
         } else {
             chatbot.style.animation = "fadeOut 0.3s ease-in-out";
             setTimeout(() => chatbot.style.display = "none", 300);
@@ -220,8 +220,8 @@
     // Open the chatbot if the user is logged in and it hasn't been opened before
     window.onload = function () {
         if (isUserLoggedIn() && !localStorage.getItem('chatbotOpened')) {
-            toggleChat();  // Automatically open chatbot on load if logged in
-            localStorage.setItem('chatbotOpened', 'true');  // Set flag that chatbot has been opened
+            toggleChat(); 
+            localStorage.setItem('chatbotOpened', 'true');  
         }
     };
 
@@ -250,7 +250,7 @@
         const messageDiv = document.createElement("div");
         messageDiv.textContent = `${sender}: ${message}`;
         chatMessages.appendChild(messageDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
+        chatMessages.scrollTop = chatMessages.scrollHeight; 
     }
 
     // Fetch the chatbot's response
@@ -261,7 +261,7 @@
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': '{{ csrf_token }}',  // Include CSRF token for Django
+                'X-CSRFToken': '{{ csrf_token }}',  
             },
             body: JSON.stringify({ 'question': question }),
         })

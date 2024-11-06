@@ -410,8 +410,8 @@ def user_logout(request):
     response = redirect('login')
 
     # Explicitly delete any cookies that may cause issues
-    response.delete_cookie('sessionid')  # Django session cookie
-    response.delete_cookie('csrftoken')  # CSRF token cookie
+    response.delete_cookie('sessionid') 
+    response.delete_cookie('csrftoken')  
 
     return response
 
@@ -855,7 +855,7 @@ def send_password_reset_email(user, uid, token):
     context = {
         'uid': uid,
         'token': token,
-        'domain': 'https://s8m-adaptable-hubble.circumeo-apps.net',  # Your domain
+        'domain': 'https://s8m-adaptable-hubble.circumeo-apps.net',  
     }
 
     # Subject and email content
@@ -866,7 +866,7 @@ def send_password_reset_email(user, uid, token):
     # Create email object with both text and HTML parts
     email = EmailMultiAlternatives(
         subject=subject,
-        body=text_content,  # Plain text fallback
+        body=text_content,  
         from_email='j.education.system@gmail.com',
         to=[user.email]
     )

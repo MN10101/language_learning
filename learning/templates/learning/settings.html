@@ -167,7 +167,7 @@
             timezoneSelect.appendChild(option);
         });
 
-        timezoneSelect.value = currentTimezone; // Automatically select current timezone
+        timezoneSelect.value = currentTimezone; 
     }
 
     // Populate language options
@@ -218,8 +218,8 @@
 
     // Function to connect to calendar platforms
     function connectCalendar(platform) {
-        const redirectURI = encodeURIComponent('https://domain.com'); // Replace with your actual redirect URI
-        const googleClientID = '831072126004-651a06d6bmjd4kemgf7lc17d55fs9gk5.apps.googleusercontent.com'; // Replace with your actual client ID
+        const redirectURI = encodeURIComponent('https://domain.com'); 
+        const googleClientID = '831072126004-651a06d6bmjd4kemgf7lc17d55fs9gk5.apps.googleusercontent.com'; 
         const Office365 = 'c5da48b5-b65c-45c6-9708-db008d9ab160';
 
         if (platform === 'Google') {

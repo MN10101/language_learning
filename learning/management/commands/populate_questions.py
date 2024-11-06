@@ -200,7 +200,7 @@ class Command(BaseCommand):
                 text=q_data['text'],
                 level=q_data['level'],
                 category='test',
-                subject=subject  # Assign subject
+                subject=subject  
             )
             for a_data in q_data['answers']:
                 Answer.objects.create(question=question, text=a_data['text'], is_correct=a_data['is_correct'])

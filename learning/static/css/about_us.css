@@ -1,12 +1,12 @@
 /* Base Styles */
 .container {
     background-color: #fff;
-    padding: 20px; /* Adjusted padding for a tighter fit */
+    padding: 20px; 
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 800px;
-    margin: 10px 0 10px 5px; /* Set left margin to 5px and auto for right */
+    margin: 10px 0 10px 5px; 
     text-align: center;
 }
 
@@ -20,7 +20,7 @@
     border-radius: 50%;
     width: 130px;
     height: 130px;
-    margin-bottom: 15px; /* Reduced spacing for better fit */
+    margin-bottom: 15px; 
 }
 
 /* About Details */
@@ -39,13 +39,13 @@
 @media (max-width: 768px) {
     .container {
         padding: 10px;
-        margin: 10px auto; /* Center the container horizontally */
-        max-width: 800px; /* Keep the max-width */
+        margin: 10px auto; 
+        max-width: 800px; 
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         text-align: center;
-        display: flex; /* Use flexbox to center content */
-        flex-direction: column; /* Stack children vertically */
-        align-items: center; /* Center children horizontally */
+        display: flex; 
+        flex-direction: column; 
+        align-items: center; 
     }
 
     .profile-picture {

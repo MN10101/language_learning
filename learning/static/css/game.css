@@ -33,9 +33,9 @@ canvas {
     border-radius: 10px;
     box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
     z-index: 1;
-    width: 90vw; /* Increased width for smaller screens */
+    width: 90vw; 
     max-width: 600px;
-    height: calc(75vh - 60px); /* Adjusted for vertical space */
+    height: calc(75vh - 60px); 
     max-height: 600px;
 }
 
@@ -47,7 +47,7 @@ canvas {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 24px; /* Reduced for better fit */
+    font-size: 24px;
     color: white;
     font-weight: bold;
     border-radius: 10px;
@@ -108,17 +108,17 @@ canvas {
 /* Responsive styles for smaller screens */
 @media (max-width: 768px) {
     .grid {
-        width: 90vw; /* Ensure full width on small screens */
-        grid-gap: 5px; /* Reduce gap between squares */
+        width: 90vw; 
+        grid-gap: 5px; 
         padding: 8px;
     }
 
     .square {
-        font-size: 20px; /* Smaller font for compact fit */
+        font-size: 20px; 
     }
 
     .back-home button {
-        padding: 8px 16px; /* Adjust button size for smaller screens */
+        padding: 8px 16px; 
         font-size: 14px;
     }
 }

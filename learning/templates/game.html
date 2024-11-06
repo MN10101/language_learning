@@ -89,7 +89,7 @@
         function initParticles() {
             particlesArray = [];
             for (let i = 0; i < particleCount; i++) {
-                const radius = Math.random() * 5 + 2;  // Random radius between 2 and 7
+                const radius = Math.random() * 5 + 2;  
                 const x = Math.random() * (canvas.width - radius * 2) + radius;
                 const y = Math.random() * (canvas.height - radius * 2) + radius;
                 const speedX = (Math.random() - 0.5) * 2;
@@ -102,7 +102,7 @@
 
         // Animate particles
         function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);  // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);  
 
             particlesArray.forEach(particle => {
                 particle.update();
@@ -119,7 +119,7 @@
         function playClickSound() {
             const clickSound = document.getElementById('clickSound');
             clickSound.play().catch(function(error) {
-                console.error("Error playing sound:", error); // Log error if sound fails to play
+                console.error("Error playing sound:", error); 
             });
         }
 
@@ -133,7 +133,7 @@
         document.addEventListener('DOMContentLoaded', function () {
             const openSound = document.getElementById('openSound');
             openSound.play().catch(function(error) {
-                console.error("Error playing sound:", error); // Log error if sound fails to play
+                console.error("Error playing sound:", error); 
             });
         });
 
@@ -141,8 +141,8 @@
         function goBackHome() {
             playClickSound();  // Play the click sound
             setTimeout(function() {
-                window.location.href = "{% url 'games_page' %}";  // Redirect to 'welcome' after delay
-            }, 500);  // Delay for 500ms to allow the sound to play
+                window.location.href = "{% url 'games_page' %}";  
+            }, 500);  
         }
 
         // JavaScript for animating the colors of the squares dynamically
@@ -156,7 +156,7 @@
                     square.addEventListener('mouseover', () => {
                         square.style.backgroundColor = colors[(index + 1) % colors.length];
                     });
-                }, index * 300); // Delaying each square's color change for a nice effect
+                }, index * 300); 
             });
         }
 
