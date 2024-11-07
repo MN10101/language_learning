@@ -219,11 +219,18 @@
 
     // Open the chatbot if the user is logged in and it hasn't been opened before
     window.onload = function () {
+    // Ensure the isUserLoggedIn function is checking the correct status
         if (isUserLoggedIn() && !localStorage.getItem('chatbotOpened')) {
             toggleChat(); 
             localStorage.setItem('chatbotOpened', 'true');  
         }
     };
+
+    function isUserLoggedIn() {
+        // Ensure this function returns true when the user is actually logged in
+        return document.cookie.includes("sessionid");  // or any specific check you use for logged-in status
+    }
+
 
     // Send message when the "Enter" key is pressed
     function checkEnter(event) {
