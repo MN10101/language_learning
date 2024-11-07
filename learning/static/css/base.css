@@ -767,3 +767,22 @@ button {
 }
 }
 }
+/* Custom Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px; 
+}
+
+::-webkit-scrollbar-track {
+    background: #b4b4b4; 
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #5e2d91, #7b3fbd); 
+    border-radius: 10px;
+    transition: background 0.3s ease; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #7b3fbd, #5e2d91);
+}
