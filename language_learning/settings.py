@@ -165,4 +165,4 @@ STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', 'sk_test_51Ptska04h4gWOpo7XAR
 # Site ID (for Django's Sites Framework)
 SITE_ID = 1
 
-DEFAULT_FROM_EMAIL = 'no-reply@j.education.com'
+DEFAULT_FROM_EMAIL = 'j.education.system@gmail.com'
