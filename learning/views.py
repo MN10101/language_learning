@@ -356,17 +356,21 @@ def welcome(request):
 def home(request):
     return render(request, 'learning/home.html')
 
+from django.core.mail import send_mail
+from django.conf import settings
+from django.contrib.auth.models import Group
+
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
 
-            # Check if the registration is for a teacher (you could add a condition here)
+            # Check if the registration is for a teacher
             if request.POST.get('is_teacher'):
                 teachers_group, created = Group.objects.get_or_create(name='Teachers')
                 user.groups.add(teachers_group)
-
+                
                 # Optionally, create the Teacher profile
                 Teacher.objects.create(user=user)
             else:
@@ -374,10 +378,16 @@ def register(request):
                 students_group, created = Group.objects.get_or_create(name='Students')
                 user.groups.add(students_group)
 
+            # Send registration confirmation email
+            subject = 'Welcome to JE advanced education platform Application'
+            message = f'Hello {user.username},\n\nThank you for registering with our platform.\n\nBest regards,\nThe JE advanced education platform Application Team'
+            send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email], fail_silently=False)
+
             return redirect('login')
     else:
         form = UserCreationForm()
     return render(request, 'learning/register.html', {'form': form})
+
 
 
 @login_required
