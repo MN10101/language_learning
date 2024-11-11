@@ -38,6 +38,9 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 import logging
 from django.views.decorators.cache import never_cache
+from django.core.mail import send_mail
+from django.conf import settings
+from django.contrib.auth.models import Group
 
 logger = logging.getLogger(__name__)
 
@@ -356,9 +359,6 @@ def welcome(request):
 def home(request):
     return render(request, 'learning/home.html')
 
-from django.core.mail import send_mail
-from django.conf import settings
-from django.contrib.auth.models import Group
 
 def register(request):
     if request.method == 'POST':
