@@ -386,7 +386,7 @@ def register(request):
     else:
         form = CustomUserCreationForm()
 
-    return render(request, 'registration/register.html', {'form': form})
+    return render(request, 'learning/register.html', {'form': form})
 
 
 
