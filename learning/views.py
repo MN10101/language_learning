@@ -41,6 +41,8 @@ from django.views.decorators.cache import never_cache
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.models import Group
+from .forms import CustomUserCreationForm
+
 
 logger = logging.getLogger(__name__)
 
@@ -361,32 +363,29 @@ def home(request):
 
 
 def register(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+    if request.method == "POST":
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save()
-
-            # Check if the registration is for a teacher
-            if request.POST.get('is_teacher'):
-                teachers_group, created = Group.objects.get_or_create(name='Teachers')
-                user.groups.add(teachers_group)
-                
-                # Optionally, create the Teacher profile
-                Teacher.objects.create(user=user)
-            else:
-                # Automatically add the new user to the 'Students' group
-                students_group, created = Group.objects.get_or_create(name='Students')
-                user.groups.add(students_group)
-
-            # Send registration confirmation email
-            subject = 'Welcome to JE advanced education platform Application'
-            message = f'Hello {user.username},\n\nThank you for registering with our platform.\n\nBest regards,\nThe JE advanced education platform Application Team'
-            send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email], fail_silently=False)
-
+            user = form.save()  # Save the new user
+            
+            # Send the registration confirmation email
+            subject = 'Welcome to LGBTQIA+ Job Application'
+            message = f'Hello {user.username},\n\nThank you for registering with our platform.\n\nBest regards,\nThe LGBTQIA+ Job Application Team'
+            
+            send_mail(
+                subject,
+                message,
+                settings.DEFAULT_FROM_EMAIL,  # The email address from which the email will be sent
+                [user.email],  # Recipient's email address
+                fail_silently=False,
+            )
+            
+            # Redirect to login after successful registration
             return redirect('login')
     else:
-        form = UserCreationForm()
-    return render(request, 'learning/register.html', {'form': form})
+        form = CustomUserCreationForm()
+
+    return render(request, 'registration/register.html', {'form': form})
 
 
 
