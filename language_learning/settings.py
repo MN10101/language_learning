@@ -107,7 +107,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Directories to search for static files during development
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = []
+
 
 # The directory where static files will be collected for production
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
