@@ -105,31 +105,31 @@ canvas {
 /* Responsive styles for smaller screens */
 @media (max-width: 768px) {
     .card {
-        width: 90vw; /* Adjusted width for smaller screens */
-        height: auto; /* Auto height for flexibility */
-        padding: 20px; /* Extra padding */
+        width: 90vw;
+        height: auto; 
+        padding: 20px; 
     }
 
     .card p {
-        font-size: 18px; /* Smaller text for compact view */
+        font-size: 18px; 
     }
 
     .card img {
-        width: 80%; /* Scaled image for smaller screens */
+        width: 80%; 
         height: auto;
     }
 
     .button-container {
-        width: 90vw; /* Full width for smaller screens */
+        width: 90vw; 
         margin-top: 15px;
     }
 
     .button-container a, .button-container button {
-        width: 48%; /* Half-width buttons for smaller screens */
+        width: 48%; 
     }
 
     .back-button, .button {
-        padding: 10px 20px; /* Adjust padding for mobile */
-        font-size: 16px; /* Reduced font size for compact fit */
+        padding: 10px 20px; 
+        font-size: 16px; 
     }
 }

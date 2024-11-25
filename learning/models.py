@@ -48,6 +48,15 @@ class Profile(models.Model):
     nationality = models.CharField(max_length=50, blank=True)
     bio = models.TextField(max_length=500, blank=True)
 
+    # Add a status field
+    STATUS_CHOICES = [
+        ('online', 'Online'),
+        ('offline', 'Offline'),
+        ('busy', 'Busy'),
+        ('sleep', 'Sleep'),
+    ]
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='offline')
+
     def __str__(self):
         return self.user.username
 

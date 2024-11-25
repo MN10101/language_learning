@@ -56,21 +56,21 @@
 /* Media Queries for Small Devices */
 @media (max-width: 768px) {
     .container-classes {
-        flex-direction: column; /* Stack the sections vertically */
-        padding: 20px; /* Reduce padding */
+        flex-direction: column; 
+        padding: 20px;
     }
 
     .classes-section,
     .calendar-section {
-        width: 100%; /* Make sections full width */
-        margin-bottom: 20px; /* Add spacing between them */
+        width: 100%; 
+        margin-bottom: 20px; 
     }
 
     .calendar-container {
-        height: auto; /* Allow container height to adjust */
+        height: auto; 
     }
 
     .btn {
-        width: 100%; /* Make buttons full width */
+        width: 100%; 
     }
 }

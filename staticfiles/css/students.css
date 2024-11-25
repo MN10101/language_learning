@@ -1,7 +1,7 @@
 .students-list {
     display: flex;
-    flex-direction: row; /* Change to row for side-by-side layout */
-    flex-wrap: wrap; /* Allow items to wrap to the next line on smaller screens */
+    flex-direction: row; 
+    flex-wrap: wrap; 
     gap: 20px;
     justify-content: space-around;
 }
@@ -11,7 +11,7 @@
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    flex: 1 1 200px; /* Allow cards to grow and shrink, with a base width */
+    flex: 1 1 200px; 
     text-align: center;
 }
 
@@ -48,10 +48,10 @@ h4 {
 /* Responsive adjustments for small devices */
 @media (max-width: 768px) {
     .students-list {
-        flex-direction: row; /* Keep students side by side on small devices */
+        flex-direction: row; 
     }
     
     .student-card {
-        flex: 1 1 150px; /* Adjust base width for smaller devices */
+        flex: 1 1 150px; 
     }
 }

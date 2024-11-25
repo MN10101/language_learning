@@ -12,7 +12,7 @@ let currentCardIndex = 0; // Track the current card index
 // Create flashcard
 function createCard() {
     const flashcardsContainer = document.getElementById("flashcards-container");
-    flashcardsContainer.innerHTML = ''; // Clear previous content
+    flashcardsContainer.innerHTML = ''; 
 
     const currentWord = words[currentCardIndex];
 
@@ -41,9 +41,9 @@ function showAnswer() {
     const cardFront = document.querySelector('.card-front');
     const clickSound = document.getElementById('click-sound');
 
-    cardBack.classList.remove('hidden'); // Reveal the card back
-    cardFront.classList.add('hidden'); // Hide the front side
-    clickSound.play(); // Play click sound
+    cardBack.classList.remove('hidden'); 
+    cardFront.classList.add('hidden');
+    clickSound.play(); 
 }
 
 // Move to the next card
@@ -52,10 +52,10 @@ function nextCard() {
     const clickSound = document.getElementById('click-sound');
 
     if (currentCardIndex >= words.length) {
-        currentCardIndex = 0; // Reset to the first card after finishing
+        currentCardIndex = 0;
     }
     createCard(); // Create the new card
-    clickSound.play(); // Play click sound
+    clickSound.play(); 
 }
 
 // Initialize game

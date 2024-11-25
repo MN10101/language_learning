@@ -33,38 +33,43 @@
 .skill h2 {
     color: #4b0082;
     margin: 10px 0;
-    padding: 10px; /* Add padding to create space inside the square */
-    border: 2px solid #4b0082; /* Add a border to create the square effect */
-    border-radius: 5px; /* Optional: round the corners slightly */
-    display: inline-block; /* Makes the border wrap tightly around the text */
+    padding: 10px; 
+    border: 2px solid #4b0082; 
+    border-radius: 5px; 
+    display: inline-block; 
 }
 
 .skill p {
     color: #333;
     font-size: 1.1em;
-    font-weight: bold; /* This line makes the text bold */
+    font-weight: bold; 
 }
 
 .button-container {
     margin-top: 30px;
-    text-align: center; /* Center the button */
+    text-align: center; 
+}
+
+.video-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+    align-items: center; 
+    margin-top: 10px;
 }
 
 .btn {
-    display: block;
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0;
+    width: 100%; 
+    max-width: 100%; 
     text-align: center;
-    color: #5e2d91;
-    color: #4b0082;
-    font-size: 16px;
+    background-color: #4b0082;
+    color: white;
+    padding: 12px; 
     border-radius: 5px;
     text-decoration: none;
-    transition: background-color 0.3s ease;
+    font-size: 16px;
 }
 
 .btn:hover {
-    background-color: #5e2d91; /* Darker shade on hover */
+    background-color: #5e2d91;
 }
-

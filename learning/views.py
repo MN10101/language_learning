@@ -403,12 +403,19 @@ def view_profile(request):
 
 
 
+
 def user_login(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
             login(request, user)
+            
+            # Set user status to "Online"
+            profile = user.profile
+            profile.status = 'online'
+            profile.save()
+
             return redirect('welcome')
     else:
         form = AuthenticationForm()
@@ -418,6 +425,12 @@ def user_login(request):
 
 
 def user_logout(request):
+    if request.user.is_authenticated:
+        # Set user status to "Offline"
+        profile = request.user.profile
+        profile.status = 'offline'
+        profile.save()
+
     # Log the user out
     logout(request)
 

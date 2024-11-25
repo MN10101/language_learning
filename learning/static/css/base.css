@@ -787,3 +787,17 @@ button {
 ::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(180deg, #7b3fbd, #5e2d91);
 }
+.status-section {
+    padding: 10px 15px;
+    border-top: 1px solid #ddd;
+}
+.status-section p {
+    margin: 0;
+    font-weight: bold;
+}
+#statusSelector {
+    margin-top: 5px;
+    width: 100%;
+    padding: 5px;
+}
+
