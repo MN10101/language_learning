@@ -258,6 +258,7 @@ html, body, button, input, select, textarea {
     width: 40px;
     height: 40px;
 }
+/* Styled dropdown menu */
 .dropdown-menu {
     display: none;
     position: absolute;
@@ -268,9 +269,17 @@ html, body, button, input, select, textarea {
     border-radius: 5px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    min-width: 150px;
+    min-width: 200px;
     padding: 0;
+    overflow: hidden; 
 }
+
+/* Dropdown menu active state */
+.dropdown-menu.active {
+    display: block;
+}
+
+/* Dropdown menu links */
 .dropdown-menu a {
     color: #333;
     padding: 10px 15px;
@@ -278,15 +287,47 @@ html, body, button, input, select, textarea {
     display: block;
     border-bottom: 1px solid #eee;
 }
+
 .dropdown-menu a:hover {
     background-color: #f0f0f0;
 }
+
 .dropdown-menu a:last-child {
     border-bottom: none;
 }
-.dropdown-menu.active {
-    display: block;
+
+/* Styled status section */
+.status-section {
+    padding: 10px 15px;
+    border-top: 1px solid #ddd;
+    background-color: #f9f9f9;
+    font-size: 14px;
 }
+
+.status-section p {
+    margin: 0 0 5px 0;
+    font-weight: bold;
+    color: #555;
+}
+
+#statusSelector {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    appearance: none; 
+    cursor: pointer;
+}
+
+#statusSelector:focus {
+    outline: none;
+    border-color: #007bff; 
+    box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
+}
+
 
 /* Logo Styles */
 .logo {
@@ -787,17 +828,5 @@ button {
 ::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(180deg, #7b3fbd, #5e2d91);
 }
-.status-section {
-    padding: 10px 15px;
-    border-top: 1px solid #ddd;
-}
-.status-section p {
-    margin: 0;
-    font-weight: bold;
-}
-#statusSelector {
-    margin-top: 5px;
-    width: 100%;
-    padding: 5px;
-}
+
 
