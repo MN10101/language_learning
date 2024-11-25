@@ -18,8 +18,10 @@
 - python manage.py game_questions
 - python manage.py it_questions
 - pip install whitenoise
-- python manage.py collectstatic
 - python manage.py collectstatic --clear
+- rm -rf /usr/local/django_app/staticfiles
+- mkdir -p /usr/local/django_app/static
+- python manage.py collectstatic
 - python manage.py makemigrations
 - python manage.py migrate
 - pip freeze > requirements.txt
@@ -53,8 +55,10 @@
   "/Users/jonathanerasmusdavies/Desktop/edu_02/language_learning_01/static",]
 - python manage.py populate_questions
 - python manage.py game_questions
-- python manage.py collectstatic
 - python manage.py collectstatic --clear
+- rm -rf /usr/local/django_app/staticfiles
+- mkdir -p /usr/local/django_app/static
+- python manage.py collectstatic
 - pip freeze > requirements.txt
 - python manage.py runserver
 - Optional:
