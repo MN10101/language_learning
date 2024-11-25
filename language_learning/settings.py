@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 from django.conf import settings
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Secret Key Configuration
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-y64*h3vg2l0l+e_nj%s2rluz(v0_9ox=v2ugoyv+!^ck=7mu4)')
@@ -109,8 +109,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    '/usr/local/django_app/static',
 ]
+
 
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
