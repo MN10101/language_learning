@@ -36,7 +36,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -44,8 +43,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'learning.middleware.DisableCacheMiddleware',
 ]
-
 
 
 ROOT_URLCONF = 'language_learning.urls'
@@ -108,8 +107,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Directories to search for static files during development
-STATICFILES_DIRS = []
-
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # The directory where static files will be collected for production
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -124,7 +122,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Use ManifestStaticFilesStorage for cache busting
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 # Login and Authentication
 LOGIN_URL = 'login'
