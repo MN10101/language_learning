@@ -31,8 +31,8 @@ body {
 }
 
 .card {
-    width: 500px;  /* Card width */
-    height: 400px;  /* Card height */
+    width: 500px;  
+    height: 400px;  
     margin: 20px;
     border: 2px solid #ccc;
     border-radius: 8px;
@@ -45,17 +45,17 @@ body {
 
 /* Make the question text larger and bold */
 .card p {
-    font-size: 22px;   /* Larger font size */
-    font-weight: bold;  /* Bold font */
+    font-size: 22px;  
+    font-weight: bold;  
     text-align: center;
     margin-bottom: 20px;
 }
 
 /* Larger image size for better visibility */
 .card img {
-    width: 250px;  /* Larger image width */
-    height: 250px; /* Larger image height */
-    object-fit: contain;  /* Maintain aspect ratio */
+    width: 250px;  
+    height: 250px; 
+    object-fit: contain;  
 }
 
 .hidden {
@@ -66,13 +66,13 @@ body {
 .button-container {
     display: flex;
     justify-content: space-between;
-    width: 500px;  /* Same width as the game card */
+    width: 500px; 
     margin-top: 20px;
 }
 
 .button-container a, .button-container button {
-    flex: 1;  /* Make both buttons take equal width */
-    margin: 0 5px;  /* Small gap between buttons */
+    flex: 1;  
+    margin: 0 5px; 
 }
 
 /* Back to Home button styling */

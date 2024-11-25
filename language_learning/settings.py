@@ -106,12 +106,13 @@ USE_TZ = True
 # Static Files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+# Directories to search for static files during development
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
-
+# The directory where static files will be collected for production
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
 
 # Media Files
 MEDIA_URL = '/media/'
