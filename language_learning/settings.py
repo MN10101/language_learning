@@ -106,12 +106,11 @@ USE_TZ = True
 # Static Files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'static'),
-# ]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),
-                    os.path.join(BASE_DIR, 'learning/static')]
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
