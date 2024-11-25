@@ -79,18 +79,16 @@ DATABASES = {
     }
 }
 
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.getenv('POSTGRES_DB', 'language_learning_db'),
-#         'USER': os.getenv('POSTGRES_USER', 'postgres'),
-#         'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'mamo'),
-#         'HOST': os.getenv('POSTGRES_HOST', 'localhost'),
-#         'PORT': os.getenv('POSTGRES_PORT', '5432'),
+#         'NAME': 'language_learning_db',
+#         'USER': 'postgres',
+#         'PASSWORD': 'mamo',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
 #     }
 # }
-
 
 # Password Validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -108,12 +106,9 @@ USE_TZ = True
 # Static Files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
-
-
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static'),
+# ]
 
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
