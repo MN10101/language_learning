@@ -108,7 +108,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
-    '/usr/local/django_app/static',  # Ensure this directory exists
+    '/usr/local/django_app/static',
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
