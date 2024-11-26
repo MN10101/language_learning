@@ -103,19 +103,18 @@ TIME_ZONE = 'Europe/Berlin'
 USE_I18N = True
 USE_TZ = True
 
-# Static Files (CSS, JavaScript, Images)
+# Static Files
 STATIC_URL = '/static/'
-
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'static'),
-# ]
-
-
+STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Media Files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Debug Mode Check
+DEBUG = True  # Ensure this is True for development
+
 
 # Default Primary Key Field Type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
