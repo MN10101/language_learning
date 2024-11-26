@@ -412,10 +412,10 @@ def user_login(request):
             login(request, user)
             
             # Set user status to "Online"
-            profile = user.profile
+            profile = get_object_or_404(Profile, user=user)
             profile.status = 'online'
             profile.save()
-
+            
             return redirect('welcome')
     else:
         form = AuthenticationForm()
@@ -427,7 +427,7 @@ def user_login(request):
 def user_logout(request):
     if request.user.is_authenticated:
         # Set user status to "Offline"
-        profile = request.user.profile
+        profile = get_object_or_404(Profile, user=request.user)
         profile.status = 'offline'
         profile.save()
 
