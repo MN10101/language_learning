@@ -33,6 +33,17 @@ document.addEventListener("DOMContentLoaded", function () {
         altFormat: "F j, Y H:i",
         time_24hr: true
     });
+
+    // Load status from the server when the page loads
+    fetch("/user_status/")
+        .then(response => response.json())
+        .then(data => {
+            if (data.status) {
+                localStorage.setItem("userStatus", data.status);
+                setStatus(data.status);
+            }
+        })
+        .catch(error => console.error("Error loading user status:", error));
 });
 
 // Function to update status
