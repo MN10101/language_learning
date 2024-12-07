@@ -45,6 +45,32 @@ h4 {
     color: #4b0082;
 }
 
+.status {
+    font-weight: bold;
+    padding: 0.2em 0.5em;
+    border-radius: 5px;
+}
+
+.status.online {
+    color: white;
+    background-color: green;
+}
+
+.status.busy {
+    color: white;
+    background-color: red;
+}
+
+.status.offline {
+    color: white;
+    background-color: gray;
+}
+
+.status.sleep {
+    color: white;
+    background-color: purple;
+}
+
 /* Responsive adjustments for small devices */
 @media (max-width: 768px) {
     .students-list {

@@ -30,6 +30,9 @@
                         <strong>{{ entry.profile.first_name }} {{ entry.profile.last_name }}</strong>
                         <p>Email: <a href="mailto:{{ entry.student.email }}">{{ entry.student.email }}</a></p>
 
+                        <!-- Status -->
+                        <p>Status: <span class="status {{ entry.profile.status }}">{{ entry.profile.get_status_display }}</span></p>
+
                         <!-- Booked Classes -->
                         <div class="student-classes">
                             <h4>Booked Classes</h4>
@@ -51,4 +54,5 @@
         <p>No students found.</p>
     {% endif %}
 </div>
+
 {% endblock %}

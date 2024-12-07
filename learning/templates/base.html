@@ -74,10 +74,10 @@
             <div class="status-section">
                 <p>Status:</p>
                 <select id="statusSelector" onchange="updateStatus()">
-                    <option value="online" data-color="green">🟢 Online</option>
-                    <option value="busy" data-color="red">🔴 Busy</option>
-                    <option value="sleep" data-color="purple">🟣 Sleep</option>
-                    <option value="offline" data-color="gray">⚪ Offline</option>
+                    <option value="online" data-color="green" {% if user.profile.status == 'online' %}selected{% endif %}>🟢 Online</option>
+                    <option value="busy" data-color="red" {% if user.profile.status == 'busy' %}selected{% endif %}>🔴 Busy</option>
+                    <option value="sleep" data-color="purple" {% if user.profile.status == 'sleep' %}selected{% endif %}>🟣 Sleep</option>
+                    <option value="offline" data-color="gray" {% if user.profile.status == 'offline' %}selected{% endif %}>⚪ Offline</option>
                 </select>
             </div>
             <form method="post" action="{% url 'logout' %}" onsubmit="clearCookies(); setStatus('offline');">
@@ -85,7 +85,7 @@
                 <button type="submit" style="background:none; border:none; color:#333; cursor:pointer; width:100%; padding:10px 15px; text-align:left;">Logout</button>
             </form>
         </div>
-    </div>    
+    </div>
 </div>
 <!-- Chatbot Icon and Interface -->
 <div id="chatbot-container">

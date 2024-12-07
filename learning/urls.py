@@ -45,12 +45,14 @@ urlpatterns = [
     path('terms-of-service/', views.terms_of_service, name='terms_of_service'),
     path('refund-policy/', views.refund_policy, name='refund_policy'),
     path('soft_skills/', views.soft_skills, name='soft_skills'),
+    path('update_status/', views.update_status, name='update_status'),
     
     # Password Reset URLs
     path('password_reset/', CustomPasswordResetView.as_view(), name='password_reset'),
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+    
 
     # Game-related URLs for teachers
     path('students/', views.students_view, name='students'),

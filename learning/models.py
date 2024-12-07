@@ -60,6 +60,10 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
+    def get_status_display(self):
+        return dict(self.STATUS_CHOICES).get(self.status, 'Unknown')
+
+
 class Language(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()

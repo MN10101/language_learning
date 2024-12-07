@@ -609,12 +609,13 @@ def payment_cancel(request):
 
 def teachers_view(request):
     # Fetch all teachers who have been added by admin
-    teachers = Teacher.objects.select_related('user').all()
+    teachers = Teacher.objects.select_related('user', 'user__profile').all()
     
     # Debugging output to check if teachers are being fetched
     print(teachers)
     
     return render(request, 'learning/teachers.html', {'teachers': teachers})
+
 
 
 
@@ -737,10 +738,8 @@ def get_questions():
 @login_required
 @user_passes_test(is_teacher)
 def students_view(request):
-    # Retrieve students who are not staff (i.e., not admin) and have booked classes
     students = User.objects.filter(groups__name='Students').exclude(is_staff=True).distinct()
 
-    # Get profile information and booked classes for each student
     student_profiles = []
     for student in students:
         profile = student.profile 
@@ -748,7 +747,8 @@ def students_view(request):
         student_profiles.append({
             'student': student,
             'profile': profile,
-            'booked_classes': booked_classes
+            'booked_classes': booked_classes,
+            'status': profile.status,
         })
 
     context = {
@@ -756,6 +756,7 @@ def students_view(request):
     }
 
     return render(request, 'learning/students.html', context)
+
 
 # @csrf_exempt
 # def chatbot_answer(request):
@@ -914,4 +915,26 @@ def soft_skills(request):
     return render(request, 'soft_skills.html')
 
 
+@login_required
+@csrf_exempt
+def update_status(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        status = data.get('status')
+        
+        # Validate the status
+        if status in dict(Profile.STATUS_CHOICES):
+            profile = request.user.profile
+            profile.status = status
+            profile.save()
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'error': 'Invalid status'})
+    return JsonResponse({'success': False, 'error': 'Invalid request method'})
 
+
+
+@login_required
+def user_status(request):
+    profile = request.user.profile
+    return JsonResponse({'status': profile.status})

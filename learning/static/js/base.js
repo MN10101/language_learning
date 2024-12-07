@@ -9,13 +9,27 @@ function clearCookies() {
 
 // Handle status updates
 document.addEventListener("DOMContentLoaded", function () {
-    if (isUserLoggedIn()) {
-        setStatus("online");
+    // Get status from localStorage or default to 'online'
+    const storedStatus = localStorage.getItem("userStatus") || "online";
+    setStatus(storedStatus);  // Update profile picture color
+
+    // Update the dropdown value
+    const statusSelector = document.getElementById("statusSelector");
+    if (statusSelector) {
+        statusSelector.value = storedStatus;
     }
 
-    const hamburgerMenu = document.querySelector('.hamburger-menu');
-    hamburgerMenu.addEventListener('click', toggleMenu);
-    hamburgerMenu.addEventListener('touchstart', toggleMenu);
+    // Ensure the status is also updated from the backend if needed
+    fetch("/user_status/")
+        .then(response => response.json())
+        .then(data => {
+            const backendStatus = data.status;
+            if (backendStatus && backendStatus !== storedStatus) {
+                setStatus(backendStatus);
+                localStorage.setItem("userStatus", backendStatus);
+                statusSelector.value = backendStatus;
+            }
+        });
 
     // Initialize Flatpickr
     flatpickr("#id_scheduled_start_time", {
@@ -34,12 +48,38 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+// Function to update status
 function updateStatus() {
     const selector = document.getElementById("statusSelector");
     const status = selector.value;
+
+    // Update the profile picture border color based on selected status
     setStatus(status);
+
+    // Save to localStorage
+    localStorage.setItem("userStatus", status);
+
+    // Send the status to the backend via AJAX
+    fetch("/update_status/", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken') // Include CSRF token
+        },
+        body: JSON.stringify({ 'status': status })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (!data.success) {
+            console.error('Failed to update status on the server');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 }
 
+// Function to set status visually and in localStorage
 function setStatus(status) {
     const profileIcon = document.querySelector(".profile-picture");
     const statusOptions = {
@@ -49,15 +89,26 @@ function setStatus(status) {
         offline: { icon: "⚪", color: "gray" },
     };
 
+    // Update the border color of the profile icon based on the selected status
     if (profileIcon && statusOptions[status]) {
         profileIcon.style.borderColor = statusOptions[status].color;
     }
-
-    localStorage.setItem("userStatus", status);
 }
 
-function isUserLoggedIn() {
-    return document.cookie.includes("sessionid"); 
+// Helper function to get CSRF token from cookies
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
 }
 
 // Hamburger menu toggle
@@ -86,7 +137,6 @@ window.onclick = function (event) {
 document.getElementById("dropdownMenu").addEventListener("click", function (event) {
     event.stopPropagation();
 });
-
 
 // Scroll-to-Top Button Script
 const scrollTopBtn = document.getElementById("scrollTopBtn");
@@ -174,3 +224,6 @@ function fetchResponse(question) {
             addMessage("Chatbot", "Sorry, something went wrong.");
         });
 }
+
+// Profile Dropdown
+document.querySelector(".profile-info").addEventListener('click', toggleDropdown);

@@ -13,26 +13,28 @@
     <div class="teachers-list">
         {% for teacher in teachers %}
         <div class="teacher-card">
-            <!-- Ensure the user and profile are accessed correctly -->
+            <!-- Profile Picture -->
             {% if teacher.user.profile.profile_picture %}
             <img src="{{ teacher.user.profile.profile_picture.url }}" alt="{{ teacher.user.get_full_name }}" class="teacher-pic">
             {% else %}
             <img src="{% static 'default_profile_picture.jpg' %}" alt="Default profile picture" class="teacher-pic">
             {% endif %}
-
-            <!-- Display teacher's full name -->
+    
+            <!-- Name -->
             <h2>{{ teacher.user.get_full_name }}</h2>
-
-            <!-- Display teacher's bio -->
+    
+            <!-- Status -->
+            <p>Status: <span class="status {{ teacher.user.profile.status }}">{{ teacher.user.profile.get_status_display }}</span></p>
+    
+            <!-- Bio -->
             <p>{{ teacher.user.profile.bio }}</p>
-
-            <!-- Display teacher's email -->
+    
+            <!-- Email -->
             <p>Email: <a href="mailto:{{ teacher.user.email }}">{{ teacher.user.email }}</a></p>
         </div>
         {% empty %}
         <p>No teachers available at the moment.</p>
         {% endfor %}
     </div>
-</div>
-
+    
 {% endblock %}
