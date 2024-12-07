@@ -9,27 +9,14 @@ function clearCookies() {
 
 // Handle status updates
 document.addEventListener("DOMContentLoaded", function () {
-    // Get status from localStorage or default to 'online'
-    const storedStatus = localStorage.getItem("userStatus") || "online";
-    setStatus(storedStatus);  // Update profile picture color
-
-    // Update the dropdown value
-    const statusSelector = document.getElementById("statusSelector");
-    if (statusSelector) {
-        statusSelector.value = storedStatus;
+    if (isUserLoggedIn()) {
+        const storedStatus = localStorage.getItem("userStatus") || "online";
+        setStatus(storedStatus);
     }
 
-    // Ensure the status is also updated from the backend if needed
-    fetch("/user_status/")
-        .then(response => response.json())
-        .then(data => {
-            const backendStatus = data.status;
-            if (backendStatus && backendStatus !== storedStatus) {
-                setStatus(backendStatus);
-                localStorage.setItem("userStatus", backendStatus);
-                statusSelector.value = backendStatus;
-            }
-        });
+    const hamburgerMenu = document.querySelector('.hamburger-menu');
+    hamburgerMenu.addEventListener('click', toggleMenu);
+    hamburgerMenu.addEventListener('touchstart', toggleMenu);
 
     // Initialize Flatpickr
     flatpickr("#id_scheduled_start_time", {
@@ -53,13 +40,12 @@ function updateStatus() {
     const selector = document.getElementById("statusSelector");
     const status = selector.value;
 
-    // Update the profile picture border color based on selected status
     setStatus(status);
 
-    // Save to localStorage
+    // Save status to localStorage
     localStorage.setItem("userStatus", status);
 
-    // Send the status to the backend via AJAX
+    // Send status to the backend via AJAX
     fetch("/update_status/", {
         method: "POST",
         headers: {
@@ -79,7 +65,7 @@ function updateStatus() {
     });
 }
 
-// Function to set status visually and in localStorage
+// Function to set status visually
 function setStatus(status) {
     const profileIcon = document.querySelector(".profile-picture");
     const statusOptions = {
@@ -89,7 +75,6 @@ function setStatus(status) {
         offline: { icon: "⚪", color: "gray" },
     };
 
-    // Update the border color of the profile icon based on the selected status
     if (profileIcon && statusOptions[status]) {
         profileIcon.style.borderColor = statusOptions[status].color;
     }
@@ -109,6 +94,11 @@ function getCookie(name) {
         }
     }
     return cookieValue;
+}
+
+// Check if the user is logged in
+function isUserLoggedIn() {
+    return document.cookie.includes("sessionid");
 }
 
 // Hamburger menu toggle
@@ -224,6 +214,3 @@ function fetchResponse(question) {
             addMessage("Chatbot", "Sorry, something went wrong.");
         });
 }
-
-// Profile Dropdown
-document.querySelector(".profile-info").addEventListener('click', toggleDropdown);
