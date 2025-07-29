@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Secret Key Configuration
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-y64*h3vg2l0l+e_nj%s2rluz(v0_9ox=v2ugoyv+!^ck=7mu4)')
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', '*****************)')
 
 # Debug Mode
 DEBUG = True
@@ -85,7 +85,7 @@ DATABASES = {
 #         'ENGINE': 'django.db.backends.postgresql',
 #         'NAME': 'language_learning_db',
 #         'USER': 'postgres',
-#         'PASSWORD': 'mamo',
+#         'PASSWORD': '****',
 #         'HOST': 'localhost',
 #         'PORT': '5432',
 #     }
@@ -114,7 +114,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Debug Mode Check
-DEBUG = True  # Ensure this is True for development
+DEBUG = True  
 
 
 # Default Primary Key Field Type
@@ -155,12 +155,12 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'j.education.system@gmail.com'
-EMAIL_HOST_PASSWORD = 'xpqr hcwc reew jhin'
+EMAIL_HOST_PASSWORD = '***********'
 DEFAULT_FROM_EMAIL = 'j.education.system@gmail.com'
 
 # Stripe Configuration
-STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', 'pk_test_51Ptska04h4gWOpo7Xnr8GsZnb15xqXxtkxQEcmPbGjJTm42EzPLMMF1A5ki3pvsYrMAXYKebbht6sZmYtIThIWaU00Xud903UD')
-STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', 'sk_test_51Ptska04h4gWOpo7XARvCthwxyNKibVirpMACbjSM8cgHXAcFFqrhr4nxAIlg16oz1n3x333BORwZ7FdziI2QQmK00OjZSscLu')
+STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '****')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '****')
 
 # Site ID (for Django's Sites Framework)
 SITE_ID = 1
